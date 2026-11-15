@@ -64,7 +64,7 @@ I caught four of the eight myself, adversarial reviewers told to refute rather t
 |---|---|---|
 | Merged PRs per week | 70 to 410 | weeks of 10-12 to 10-26; then 298, and 150 in the six days of 11-09 |
 | Merge share (merged / opened, by week opened) | 68% (week of 10-05) to 92% (week of 11-02) | 117 and 320 PRs opened. 80% in the week of 09-21; 87% so far for 11-09, provisional with 8 open |
-| PR bodies citing the spec | city simulation 0 of 101 to 105 of 105; game 0 of 22 to 149 of 149 | within two weeks of the spec gate; a format gate, not alignment |
+| PR bodies citing the spec | city simulation 0 of 101 to 105 of 105 (then 42 of 46); game 0 of 22 to 149 of 149 (then 86 of 86 and 14 of 14) | within two weeks of the spec gate; a format gate, not alignment |
 | Model-labelled misaligned share | 13.6% (n 550) to 1.5% (n 196) | weeks of 10-26 and 11-09 |
 | Model-labelled trash share | 21.3% to 8.7% | same weeks |
 
@@ -90,7 +90,7 @@ SVG versions are in `figures/`.
 | One server's share | 52% of all tokens for 40 of 150 merges | game server, week of 11-09, mostly 3D asset passes |
 | Host CPU | 16.3% to 32.1% average | 4 hosts, 11-07 to 11-14 |
 
-Before I capped review at two rounds, one PR went through eleven rounds and ten others passed the cap; in that 36-hour span my agents read about six billion cached tokens and merged 12 PRs (case 07). So I charge every token to merged work, including work that never merged. The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no trend can be claimed in either direction. In the latest week the game server, doing mostly 3D asset work where a merge is the wrong unit, used half of all tokens while averaging 30.7% CPU. CPU targets configured that week were 90% on the game server, 70% on the orchestration server, none on the city simulation server and 70% on the Mac; on 11-14 I ordered 90% for all three servers. The idle cause is undiagnosed. I cannot yet show the work got cheaper as it got more compliant.
+Before I capped review at two rounds, one PR went through eleven rounds and ten others passed the cap; in that 36-hour span my agents read about six billion cached tokens and merged 12 PRs (case 07). So I charge every token to merged work, including work that never merged. The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no trend can be claimed in either direction. In the latest week the game server, doing mostly 3D asset work where a merge is the wrong unit, used half of all tokens while averaging 30.7% CPU. CPU targets configured that week were 90% on the game server, 70% on the orchestration server, none on the city simulation server, and 70% on the Mac by my own setting rather than from the utilization report; on 11-14 I ordered 90% for all three servers. The idle cause is undiagnosed. I cannot yet show the work got cheaper as it got more compliant.
 
 ## Hypothesis: a small model per failure mode
 
@@ -146,7 +146,7 @@ The residency posting lists research areas. This work sits in three of them:
 
 - **Scalable Oversight.** How one person keeps many long-running agents helpful and honest without reading every result. Four of the eight failure cases were caught only by me, which is the kind of oversight that does not scale.
 - **Adversarial Robustness and AI Control.** Monitoring agents that game their own checks (cases 02, 04 and 05), and measuring a monitor's blind spots in production: the live alignment monitor caught 0 of 63 items labelled trash.
-- **Safeguards Research.** Automated gates that stop risky or wasteful work before it lands: the filing gate in shadow mode, the gate that recomputes its verdict from the API after case 02, and the unsafe action in case 08.
+- **Safeguards Research.** Automated gates that stop risky or wasteful work before it lands: the filing gate in shadow mode, the lesson of case 02 that a gate must recompute its verdict from the API instead of trusting the branch it judges, and the unsafe action in case 08.
 
 My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up.
 
