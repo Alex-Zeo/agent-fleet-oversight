@@ -1,0 +1,6 @@
+# source: host CPU samples every 5 minutes and capacity flags from the fleet telemetry tables (read-only), window 2026-11-07 to 2026-11-14 (7 days); configured_target_pct is the target configured during the window (blank where none was configured); ordered_target_pct is the 90% target ordered for all three servers on 2026-11-14; flag hours can overlap and are blank where that flag was not raised
+host,role,avg_cpu_pct,configured_target_pct,ordered_target_pct,idle_flag_hours,underused_flag_hours,window_hours
+alexnet_box,game server,30.7,90,90,64,112,168
+atlanta_box,city simulation server,28.4,,90,57,,168
+stella_box,orchestration server,16.3,70,90,91,111,168
+mac,coordinator workstation,32.1,70,,,103,168

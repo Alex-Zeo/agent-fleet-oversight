@@ -1,0 +1,10 @@
+# source: GitHub API, createdAt and state of every PR in the three private repos (gh pr list --state all), all repos pooled, by week opened (Monday UTC), window 2026-09-21 to 2026-11-14; earlier weeks have under 40 PRs opened; week 2026-11-09 has 6 days
+week_start,opened,merged,still_open,merge_share_pct
+2026-09-21,189,152,0,80.4
+2026-09-28,178,129,0,72.5
+2026-10-05,117,80,0,68.4
+2026-10-12,87,65,0,74.7
+2026-10-19,275,217,0,78.9
+2026-10-26,487,409,1,84.0
+2026-11-02,320,293,4,91.6
+2026-11-09,152,132,8,86.8

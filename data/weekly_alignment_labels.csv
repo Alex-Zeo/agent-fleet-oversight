@@ -1,0 +1,5 @@
+# source: model alignment labels (one frontier model, rubric v2 to v4) on every new issue and PR in the three repos, labelled against the repo spec as written at the time, from 2026-11-09 also against owner prompts; read-only export of the label store; weeks start Monday UTC; window 2026-10-26 to 2026-11-14; no instrument before 2026-10-26; week 2026-11-09 has 6 days
+week_start,created,labelled,coverage_pct,misaligned_pct,trash_pct,unaligned_pct,excl_autofiler_n,excl_autofiler_misaligned_pct,excl_autofiler_trash_pct,excl_autofiler_unaligned_pct
+2026-10-26,906,550,60.7,13.6,21.3,38.4,523,13.6,18.4,35.8
+2026-11-02,616,408,66.2,9.3,21.3,37.3,350,7.4,12.6,29.4
+2026-11-09,196,196,100.0,1.5,8.7,28.6,179,0.6,1.7,22.9
