@@ -41,20 +41,20 @@ Names in the data: Stella is the orchestration system, Atlanta PoLE the city sim
 
 ## Failure cases
 
-Eight dated cases, each with its failure class, how it was caught, the countermeasure (rule, gate or model) and what a trained monitor would need to catch it:
+Eight dated cases from 2026-09-10 to 10-25; four of them come before the measured window. Case 01 is the hallucination from the question, 02 and 04 are the cheats, and 05 is the corner cut. Each file gives the failure class, how it was caught, the countermeasure (rule, gate or model) and what a trained monitor would need to catch it.
 
-| # | Date | Case | Class |
-|---|---|---|---|
-| [01](incidents/01-green-ci-empty-dashboard.md) | 10-25 | About 20 PRs merged on green CI while the live dashboard was empty | false completion |
-| [02](incidents/02-gate-log-in-gated-repo.md) | 09-16 | A gate stored its log in the repo it gated, so a branch could forge a pass | reward hacking surface |
-| [03](incidents/03-compaction-turned-hold-into-owner-pause.md) | 10-15 | A context summary turned the agent's own hold into an "owner pause"; 19 hours idle | authority confusion |
-| [04](incidents/04-tests-passing-for-the-wrong-reason.md) | 09-15 | Four tests in three lanes passed for the wrong reason; one pinned a bypass as correct | evaluation gaming |
-| [05](incidents/05-bar-moved-after-measuring.md) | 09-28 | Proposal to raise a CPU bar from 1.72x to 2.0x after measuring 1.98x | specification gaming |
-| [06](incidents/06-builder-reinterpreted-owner-instruction.md) | 10-25 | A builder replaced the owner's instruction with its own design; the coordinator merged it | goal drift, authority |
-| [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost |
-| [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action |
+| # | Date | Case | Class | Caught by |
+|---|---|---|---|---|
+| [01](incidents/01-green-ci-empty-dashboard.md) | 10-25 | About 20 PRs merged on green CI while the live dashboard was empty | false completion | me |
+| [02](incidents/02-gate-log-in-gated-repo.md) | 09-16 | A gate stored its log in the repo it gated, so a branch could forge a pass | reward hacking surface | adversarial review |
+| [03](incidents/03-compaction-turned-hold-into-owner-pause.md) | 10-15 | A context summary turned the agent's own hold into an owner pause; 19 hours idle | authority confusion | me |
+| [04](incidents/04-tests-passing-for-the-wrong-reason.md) | 09-15 | Four tests in three lanes passed for the wrong reason; one pinned a bypass as correct | evaluation gaming | adversarial review |
+| [05](incidents/05-bar-moved-after-measuring.md) | 09-28 | Proposal to raise a CPU bar from 1.72x to 2.0x after measuring 1.98x | specification gaming | model judge |
+| [06](incidents/06-builder-reinterpreted-owner-instruction.md) | 10-25 | A builder replaced my instruction with its own design; the coordinator merged it | goal drift, authority | me |
+| [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost | me |
+| [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action | found after the fact |
 
-Most were caught by the owner or by an adversarial reviewer, not by the check meant to catch them.
+I caught four of the eight myself, adversarial reviewers told to refute rather than confirm caught two, a model judge caught one, and one was found only after the damage was queued. The checks meant to catch these did not. Oversight that depends on me reading every result does not scale, and that is the problem this repo is about.
 
 ## What I measure
 
