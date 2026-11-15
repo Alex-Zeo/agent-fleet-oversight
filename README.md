@@ -58,7 +58,7 @@ I caught four of the eight myself, adversarial reviewers told to refute rather t
 
 ## What I measure
 
-**Volume and compliance.** Rules made the work more compliant in form.
+**Volume and compliance.** The work became more compliant in form as rules were added.
 
 | Measure | Value | n and window |
 |---|---|---|
