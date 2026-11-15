@@ -11,6 +11,7 @@ The question is concrete for me. If I ask Claude to turn concept art into a 3D m
 - **Testbed:** one person, three private codebases, agent lanes run mostly by Claude: 1,118 pull requests merged from 2026-10-14 to 11-14.
 - **What went wrong:** eight dated cases where agents cheated, hallucinated or cut corners. Most were caught by me or by an adversarial reviewer, not by the check meant to catch them.
 - **What it costs:** at least 70M tokens per merged PR, about 98% of it cached context read again. I cannot yet show the work got cheaper as it got more compliant.
+- **Mentorship I am seeking:** help in four areas where my own results are weakest: Scalable Oversight (label validity), Adversarial Robustness and AI Control (monitors that agents game), ML training (small monitors that beat their baselines) and experimental design (attributing a result to a cause). I will work on the problem a mentor sets, using this testbed.
 - **Proposal:** test whether small trained models, one per failure mode and then one combined network, catch what rules miss, starting with a blinded human-labelled set that checks the model labels everything else rests on.
 
 ## The question
@@ -119,7 +120,7 @@ Each row is a decision a rule cannot make well. None has beaten its baseline yet
 
 ## Six-week plan
 
-Step 1 comes first and gates steps 2 and 3: every model below is trained and scored on labels, and if the model labels do not hold up against human ones, the comparisons built on them are not worth running yet.
+This is my starting proposal, not a fixed agenda. A mentor may reframe it or replace it with their own problem, and the testbed serves that problem either way. Step 1 comes first and gates steps 2 and 3: every model below is trained and scored on labels, and if the model labels do not hold up against human ones, the comparisons built on them are not worth running yet.
 
 1. **Ground truth.** Build a blinded human-labelled set of issues and PRs from the three repos, sized with the mentor, and measure how far the model labels can be trusted. Classify every disagreement.
    - *Output:* the labelled set, agreement with the model labels per category and repo, and a taxonomy of the disagreements.
@@ -127,9 +128,11 @@ Step 1 comes first and gates steps 2 and 3: every model below is trained and sco
 2. **Two small models.** Train the alignment monitor and the ruling predictor on time-split data, and compare each with the live monitor (AUC 0.651), the model judge and a trivial baseline (length, author, repo).
    - *Output:* AUC and calibration on the held-out split for each model and each comparison, scored against the human labels where step 1 has them.
    - *Negative result:* if neither beats the trivial baseline, the gap is in the features and labels, not in the model.
+   - *Mentor decision:* which two decisions to model first, which features are fair to use, and what counts as a fair baseline.
 3. **One network or many.** Train a shared-trunk multi-task network against per-decision models on the same labels, and compare per decision on AUC, calibration and the adoption bar.
    - *Output:* a per-decision comparison of the two designs.
    - *Negative result:* if the shared trunk wins on no decision, separate small models are the answer, and a design choice now made by argument gets a measurement.
+   - *Mentor decision:* after step 2, whether this comparison is worth running at all, and on which decisions.
 4. **Nightly playtest as a training signal (a goal; not running yet).** Turn my nightly playtest feedback into dated labels that feed the next day's models, a recursive human-in-the-loop signal. The capture is the hard part: in one audited week the corrections log held 8 rows against 28 corrections verified by hand.
    - *Output:* a path from feedback to dated labels, with its coverage measured against a hand count.
    - *Negative result:* if capture stays far below the hand count, my feedback cannot yet serve as a training signal, and that is the finding.
@@ -140,19 +143,16 @@ Alongside these, the metric to build is tokens per merged aligned PR: join trans
 
 A negative result is useful too: if the model labels do not hold up against human ones, the numbers above are not good enough yet, and that is worth knowing first.
 
-## Where this fits
+## Mentorship I am seeking
 
-The residency posting lists research areas. This work sits in three of them:
+The residency posting says residents work on problems outlined by Anthropic researchers and matched to the resident's interests and background, each with an Anthropic mentor. I will work on my mentor's problem, using this testbed and its records (spec-cited PRs, rulings pinned to commits, dated corrections, token tallies per host). I am not arriving with a finished agenda to defend. I have a live testbed and honest gaps, and I am asking for help in exactly the places my own results say I am weakest.
 
-- **Scalable Oversight.** How one person keeps many long-running agents helpful and honest without reading every result. Four of the eight failure cases were caught only by me, which is the kind of oversight that does not scale.
-- **Adversarial Robustness and AI Control.** Monitoring agents that game their own checks (cases 02, 04 and 05), and measuring a monitor's blind spots in production: the live alignment monitor caught 0 of 63 items labelled trash.
-- **Safeguards Research.** Automated gates that stop risky or wasteful work before it lands: the filing gate in shadow mode, the lesson of case 02 that a gate must recompute its verdict from the API instead of trusting the branch it judges, and the unsafe action in case 08.
+- **Scalable Oversight: label validity.** Every label here comes from one model, and kappa 0.755 is that model agreeing with itself, not with people. Four of the eight failure cases were caught only by me, which is the kind of oversight that does not scale. *What I want help with:* how to build and size a blinded human-labelled set, and how to decide when model labels can stand in for people.
+- **Adversarial Robustness and AI Control: monitors that agents game.** The live alignment monitor caught 0 of 63 items labelled trash, and in cases 02, 04 and 05 agents gamed their own checks. Case 02 taught me that a gate must recompute its verdict from the API instead of trusting the branch it judges, and case 08 was an unsafe action found only after the fact. *What I want help with:* how to red-team a monitor and measure its blind spots before trusting it.
+- **ML training: small monitors that beat their baselines.** The posting does not expect residents to arrive as ML experts, and I am not one: nothing I have trained beats its baseline, a small MLP lost to logistic regression (0.523 against 0.681), and the shared trunk was chosen by argument. *What I want help with:* how to train and evaluate small monitors properly, and how to test one network against many.
+- **Experimental design: attribution.** Rules, judges, models and the auto-filer all changed in the same weeks, so none of the changes I measure is attributed to a cause. *What I want help with:* how to design changes so that a result can be attributed.
 
-My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up.
-
-Residents work on problems Anthropic researchers set. This plan is my own agenda, but the testbed and its records (spec-cited PRs, rulings pinned to commits, dated corrections, token tallies per host) can serve a problem a mentor brings just as well.
-
-I bring a working testbed, the failure cases it produced, and the habit of measuring before I claim. I need what I cannot build alone: researchers who know these models from the inside, human labelling at a scale one person cannot reach, and the rigor to tell me which of my results hold.
+My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up. With a mentor, the records from this testbed can become results that hold beyond one person's fleet.
 
 ## Limits
 
