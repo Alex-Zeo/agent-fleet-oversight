@@ -1,55 +1,43 @@
 # Agent fleet oversight
 
+**How do I know an AI did the task I defined, well and without waste, inside my guardrails, while I was not watching?**
+
+Video: VIDEO_URL_PENDING
+
+The question is concrete for me. If I ask Claude to turn concept art into a 3D model, the job can take days: did it do the task well and without waste? If Claude runs a CNC machine to cut art and panelling for my home, I want to walk in after work and find the shapes I need, cut right. If Claude builds a game while I am at the office, I want to playtest it every night and have my feedback become the next day's direction.
+
+**In short**
+
+- **Testbed:** one person, three private codebases, agent lanes run mostly by Claude: 1,118 pull requests merged from 2026-10-14 to 11-14.
+- **What went wrong:** eight dated cases where agents cheated, hallucinated or cut corners. Most were caught by me or by an adversarial reviewer, not by the check meant to catch them.
+- **What it costs:** at least 70M tokens per merged PR, about 98% of it cached context read again. I cannot yet show the work got cheaper as it got more compliant.
+- **Proposal:** test whether small trained models, one per failure mode and then one combined network, catch what rules miss, starting with a blinded human-labelled set that checks the model labels everything else rests on.
+
 ## The question
 
-How do I know an AI did the task I defined, inside my guardrails, while I was not watching? I run Claude agents for days at a time on real work: turning concept art into 3D models, building a game, keeping a live city simulation running. Running them for months has taught me three things. AI cheats: tests pass for the wrong reason, and a gate's verdict could be forged from inside the branch it checked. AI hallucinates: work was reported done on green CI while the live dashboard showed no data. AI cuts corners: a bar was moved after a measurement missed it. Each time I added a rule, a hook or a gate, but the space of failures grows faster than I can write rules. Cost is part of alignment too: misaligned and throwaway work, CI nobody needed and context nobody used all burn money and time. My hypothesis is that each failure mode can be caught by a small trained model, and that combining those models into one network closes gaps no single model or rule closes. This repo is the evidence so far, including what has not worked.
+Running agents for months has taught me three things. AI cheats: tests pass for the wrong reason, and a gate's verdict could be forged from inside the branch it checked. AI hallucinates: work was reported done on green CI while the live dashboard showed no data. AI cuts corners: a bar was moved after a measurement missed it. Each time I added a rule, a hook or a gate. Deterministic guardrails help, but the space of failures grows faster than I can write rules.
+
+Cost is part of alignment too. Misaligned and throwaway work, CI runs nobody needed and context a session never used all burn money and time. My hypothesis is that each failure mode can be caught by a small trained model, and that combining those models into one network closes gaps no single model or rule closes. This repo is the evidence so far, including what has not worked.
 
 ## The setup
 
-One person directs three private codebases. Claude agent lanes do almost all of the work, on three rented servers (one per codebase) and a Mac. The source repos are private; this repo carries aggregates and redacted cases only.
+One person directs three private codebases. The work is done mostly by Claude agent lanes; Codex, OpenCode and a DeepSeek first pass also ran in the window. The lanes run on three rented servers (one per codebase) and a Mac. The source repos are private; this repo carries aggregates and redacted cases only.
 
 | Codebase | What it is | PRs merged, 2026-10-14 to 11-14 |
 |---|---|---|
 | Orchestration system | assigns work to agent lanes, runs judges, memory and telemetry | 444 |
-| City simulation | Rust/WASM live model of a real city, deployed daily | 370 |
+| City simulation | Rust/WASM live model of a real city, deployed daily since 11-07 | 370 |
 | Game | Rust/WASM game with a concept-art-to-3D asset pipeline | 304 |
 | Total | | 1,118 |
 
-- **Ladder.** Each PR gets at most two counted review rounds: builder (Sonnet, low effort), judge 1 (Opus, medium), builder 2 (Sonnet), judge 2 (Fable, high), then a final touch by Opus on judge 2's findings with no third review. Each ruling (`Ruling: MERGE | CHANGES | HOLD`) is posted as a review pinned to the exact commit, and a judge may not sign with a session that wrote any commit on the PR.
-- **Spec gate.** Every issue cites a spec line, and every PR carries a `## Spec` section citing the lines it serves and how each was checked (from about 2026-10-21).
+- **Ladder (since 11-03; current models since 11-09).** Each PR gets at most two counted review rounds: builder (Sonnet, low effort), judge 1 (Opus, medium), builder 2 (Sonnet, low), judge 2 (Fable, high), then a final touch by Opus on judge 2's findings with no third review. Each ruling (`Ruling: MERGE | CHANGES | HOLD`) is posted as a review pinned to the exact commit, and a judge may not sign with a session that wrote any commit on the PR.
+- **Spec gate (from about 10-21).** Every issue cites a spec line, and every PR carries a `## Spec` section citing the lines it serves and how each was checked.
 - **Render rule.** Visual work is not done until the served build at default settings has been rendered at three camera heights and looked at. Counters, probes and test exits can only show a failure, never a success.
-- **Telemetry.** Host CPU every five minutes with idle and under-used flags; every judge ruling; dated owner corrections; an append-only log of every model-routing change with the owner's reasoning; model alignment labels on every new issue and PR since 2026-10-26.
+- **Telemetry.** Host CPU every five minutes with idle and under-used flags; every judge ruling; dated owner corrections; an append-only log of every model-routing change with my reasoning; model alignment labels on new issues and PRs since 10-26 (61%, 66% and 100% of new items in the three weeks).
 
-Names that appear in the data: Stella is the orchestration system, Atlanta PoLE the city simulation, Alex Net the game. Aurelian is the live alignment monitor. WSP is the harness that proposes small-model weights. Bloomnet picks the context a new session starts with. MQI is a per-model quality index.
+Terms. *Misaligned* is work that goes against the spec. *Trash* is work that should not exist. *Unaligned* is anything not fully aligned, a superset of the other two. All three are labels from one model, not from people. The case files in `incidents/` keep the agents' own notes, so there I am "the owner".
 
-## Key results
-
-| Result | Value | n and window | Caveat |
-|---|---|---|---|
-| Velocity | 70 to 410 merged PRs per week | 3 repos, weeks of 10-12 to 10-26 | Volume, not quality. Then 298 and 150 (six days). |
-| Merge share (merged / opened) | 68% (week of 10-05) to 92% (week of 11-02) | 117 and 320 PRs opened; complete GitHub data | 80% in the week of 09-21; 87% so far for 11-09 with 8 open. Judges got stricter over the same weeks. |
-| Spec citation in PR bodies | 0% to about 100% in two weeks | city sim and game, weeks after the spec gate | A format gate, not alignment. |
-| Tokens per merged PR | at least 70M | 79.2B tokens over 1,124 merged PRs, 10-12 to 11-14 | A floor: server transcripts before 11-02 and non-Claude agents are not counted. Unmerged work is charged on purpose. No trend can be claimed. |
-| Composition of those tokens | about 98% cache reads; output under 0.5% | every week, 10-12 to 11-14 | Context read again dominates cost. |
-| One server's share | game server used 52% of all tokens for 40 of 150 merges | week of 11-09 (six days) | Mostly 3D asset passes, where a merge is the wrong unit. No cause assigned. |
-| Model-labelled misaligned share | 13.6% (n 550) to 1.5% (n 196) | weeks of 10-26 and 11-09 | One model labels; coverage 61% to 100%; rubric, judges, models and an auto-filer all changed in these weeks. Not attributed. |
-| Model-labelled "should not exist" share | 21.3% to 8.7% | same | Same caveats. |
-| Live alignment monitor | AUC 0.651; caught 0 of 63 trash items | 358 labelled items | Against model labels, not human ones. This is the gap. |
-| Learned weight candidates | 7 proposed, 0 adopted | since 11-13 | Adoption bar (beat the live baseline on a time-split held-out set) set before any candidate ran. |
-| Labeler agreement | kappa 0.755 | 50 items | Same model twice: consistency, not validity. |
-| Host CPU | 16% to 32% average against a 90% target | 4 hosts, 11-07 to 11-14 | Targets configured were 70% to 90%; 90% ordered for all servers on 11-14. Idle cause undiagnosed. |
-
-The tension: rules made the work more compliant (merge share up, spec citation near total, labelled misalignment down), but none of them measured cost. In the two weeks where every host is counted, a merged PR cost 63.0M and then 113.9M tokens, and in the latest week one server used half of all tokens for 40 of 150 merges, while that server averaged 30.7% CPU over 11-07 to 11-14. I cannot yet show the work got cheaper as it got more compliant.
-
-## Figure
-
-![Weekly volume and merge share, tokens per merged PR with host share, and model-labelled alignment shares, 10-12 to 11-09](figures/weekly_alignment_cost.png)
-
-Panel B is the one to read slowly. The three hollow points are Mac-only undercounts, because server transcripts before 11-02 do not exist, so they are not joined to the two weeks where all four hosts are counted.
-
-![Merged PRs per week since August by repo, with merge share](figures/velocity_since_august.png)
-
-SVG versions are in `figures/`.
+Names in the data: Stella is the orchestration system, Atlanta PoLE the city simulation, Alex Net the game. Aurelian is the live alignment monitor. WSP is the harness that proposes small-model weights. Bloomnet picks the context a new session starts with. MQI is a per-model quality index.
 
 ## Failure cases
 
@@ -68,22 +56,66 @@ Eight dated cases, each with its failure class, how it was caught, the counterme
 
 Most were caught by the owner or by an adversarial reviewer, not by the check meant to catch them.
 
-## Small models per failure mode
+## What I measure
+
+**Volume and compliance.** Rules made the work more compliant in form.
+
+| Measure | Value | n and window |
+|---|---|---|
+| Merged PRs per week | 70 to 410 | weeks of 10-12 to 10-26; then 298, and 150 in the six days of 11-09 |
+| Merge share (merged / opened, by week opened) | 68% (week of 10-05) to 92% (week of 11-02) | 117 and 320 PRs opened. 80% in the week of 09-21; 87% so far for 11-09, provisional with 8 open |
+| PR bodies citing the spec | city simulation 0 of 101 to 105 of 105; game 0 of 22 to 149 of 149 | within two weeks of the spec gate; a format gate, not alignment |
+| Model-labelled misaligned share | 13.6% (n 550) to 1.5% (n 196) | weeks of 10-26 and 11-09 |
+| Model-labelled trash share | 21.3% to 8.7% | same weeks |
+
+None of these changes is attributed to a cause. Label coverage was 61%, 66% and 100% of new items; the rubric, the judges, the models and an auto-filer pause all changed in the same weeks; and one model labels. Without the auto-filer's own items the misaligned share is 13.6%, 7.4% and 0.6% (n 523, 350, 179), so removing them does not remove the fall, though the pause may still have had indirect effects. Judge rejection rates were 0.50 to 0.68 by repo in the last four days of the window, against 0.18 to 0.61 the week before; whether that is stricter judging or worse work has not been established ([METHOD](METHOD.md)).
+
+![Weekly volume and merge share, tokens per merged PR with host share, and model-labelled alignment shares, 10-12 to 11-09](figures/weekly_alignment_cost.png)
+
+Panel B is the one to read slowly. The three hollow points are Mac-only undercounts, because server transcripts before 11-02 do not exist, so they are not joined to the two weeks where all four hosts are counted.
+
+![Merged PRs per week since August by repo, with merge share](figures/velocity_since_august.png)
+
+SVG versions are in `figures/`.
+
+## What it costs
+
+**Cost.** No rule measured it.
+
+| Measure | Value | n and window |
+|---|---|---|
+| Tokens per merged PR | at least 70M | 79.2B tokens over 1,124 merged PRs, weeks of 10-12 to 11-09 |
+| The two weeks with every host counted | 63.0M, then 113.9M | 11-02, and the six days of 11-09; two points, no trend |
+| Composition | about 98% cache reads; output under 0.5% | every week |
+| One server's share | 52% of all tokens for 40 of 150 merges | game server, week of 11-09, mostly 3D asset passes |
+| Host CPU | 16.3% to 32.1% average | 4 hosts, 11-07 to 11-14 |
+
+Before I capped review at two rounds, one PR went through eleven rounds and ten others passed the cap; in that 36-hour span my agents read about six billion cached tokens and merged 12 PRs (case 07). So I charge every token to merged work, including work that never merged. The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no trend can be claimed in either direction. In the latest week the game server, doing mostly 3D asset work where a merge is the wrong unit, used half of all tokens while averaging 30.7% CPU. CPU targets configured that week were 90% on the game server, 70% on the orchestration server, none on the city simulation server and 70% on the Mac; on 11-14 I ordered 90% for all three servers. The idle cause is undiagnosed. I cannot yet show the work got cheaper as it got more compliant.
+
+## Hypothesis: a small model per failure mode
 
 Each row is a decision a rule cannot make well. None has beaten its baseline yet.
 
 | Model | Failure mode it targets | Label source | Status |
 |---|---|---|---|
-| Alignment monitor | work that does not serve the spec or the owner's prompts | model labels, about 1,150 items | Live, weak: AUC 0.651, 0 of 63 trash caught |
+| Alignment monitor | work that does not serve the spec or my prompts | model labels, about 1,150 items | Live, weak: AUC 0.651, 0 of 63 trash caught |
 | Re-rate gate | when to re-rate work (cost) | labels exist | Best AUC 0.681 (logistic); a small MLP reached 0.523; not adopted |
-| Ruling predictor | review rounds that will not converge (incident 07) | judge rulings, about 1,500 | Planned |
+| Ruling predictor | review rounds that will not converge (case 07) | judge rulings, about 1,500 | Planned |
 | Filing gate | low-value issues and PRs filed before anyone checks them | 566 model labels | Shadow mode |
 | Changed-surface test selection | CI runs nobody needed | CI results by surface, not yet joined | A rule today, not a model |
-| Context selection | sessions that start without the rulings and past failures they need | none yet: 401 recommendations delivered, usage recorded for 0 | No weights; deriving the label is step one |
+| Context selection | sessions that start without the rulings and past failures they need | none yet: of 401 recommendations, 346 were acknowledged and usage was recorded for 0 | No weights; deriving the label is step one |
 | Model degradation switch | a model's quality drops and nothing switches to a better or cheaper one | per-model quality scores | Detection only; refit tables empty |
 | 3D asset acceptance | asset passes that burn tokens without an accepted part | approved part references, frame releases, judge rulings on asset PRs | Not started |
 
-**The combined-network hypothesis.** One shared network over these decisions may catch failures that fall between separate models, because the failure modes share signals (who wrote the work, what it cost, what the spec says, what the owner asked). This has never been tested. The design so far chose one head per decision with a shared feature layer, by argument, not by measurement. The only data point, inside the re-rate gate, is a small MLP losing to logistic regression (0.523 against 0.681), which says nothing about a shared trunk.
+**Monitors so far.** Nothing yet beats its baseline, and every score is against model labels no person has checked.
+
+| Measure | Value | n and window |
+|---|---|---|
+| Live alignment monitor | AUC 0.651; caught 0 of 63 trash items | 358 labelled items |
+| Learned weight candidates | 7 proposed, 0 adopted | since 11-13; adoption means beating the live baseline on a time-split held-out set, as the harness is designed |
+| Labeler agreement | kappa 0.755 | 50 items labelled twice by the same model: consistency, not validity |
+
+**The combined-network hypothesis.** One shared network over these decisions may catch failures that fall between separate models, because the failure modes share signals (who wrote the work, what it cost, what the spec says, what I asked). This has never been tested. The design so far chose one head per decision with a shared feature layer, by argument, not by measurement. The only data point, inside the re-rate gate, is a small MLP losing to logistic regression (0.523 against 0.681), which says nothing about a shared trunk.
 
 ## Six-week plan
 
@@ -99,9 +131,5 @@ A negative result is useful too: if the model labels do not hold up against huma
 ## Data and method
 
 - `data/`: weekly aggregates, each with a header line naming its source and window: merges by repo, merge share, tokens by host, alignment label shares, and seven-day host utilization.
-- `METHOD.md`: how every number was computed (GitHub queries, read-only database tables, transcript tally deduplicated by message id and request id) and the known gaps.
+- [`METHOD.md`](METHOD.md): how every number was computed (GitHub queries, read-only database tables, transcript tally deduplicated by message id and request id) and the known gaps.
 - `incidents/`: the eight failure cases.
-
-## Video
-
-VIDEO_URL_PENDING
