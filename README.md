@@ -2,7 +2,7 @@
 
 **How do I know an AI did the task I defined, well and without waste, inside my guardrails, while I was not watching?**
 
-Video: VIDEO_URL_PENDING
+Video (2 min): https://youtu.be/3AahzONyvHo
 
 The question is concrete for me. If I ask Claude to turn concept art into a 3D model, the job can take days: did it do the task well and without waste? If Claude runs a CNC machine to cut art and panelling for my home, I want to walk in after work and find the shapes I need, cut right. If Claude builds a game while I am at the office, I want to playtest it every night and have my feedback become the next day's direction.
 
