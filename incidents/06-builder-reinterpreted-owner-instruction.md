@@ -14,7 +14,7 @@ The owner restated the rule in full and told the agents to stop overruling the o
 
 ## Countermeasure
 
-- **Rule:** implement the owner's words literally. If a builder's design differs from the owner's wording, the builder is wrong, even when its reasons sound good. Check every PR against the owner's verbatim rule before merging. Concerns go to the owner as one short note after doing what was asked, never as a substitute design. Briefs quote the owner verbatim and say "no reinterpretation".
+- **Rule:** implement the owner's words literally. If a builder's design differs from the owner's wording, the builder is wrong, even when its reasons sound good. Check every PR against the owner's verbatim rule before merging. Concerns go to the owner as one short note after doing what was asked, never as a substitute design. Briefs quote the owner verbatim and forbid reinterpretation.
 - Later, the spec gate required every PR to cite the spec lines it serves, and from 2026-11-09 the alignment labels also scored work against the owner's prompts.
 - Type: rule, then the spec gate and model labels.
 

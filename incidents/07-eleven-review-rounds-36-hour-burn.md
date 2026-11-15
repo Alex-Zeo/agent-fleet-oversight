@@ -6,7 +6,7 @@
 
 ## What happened
 
-The two-round review cap existed only as a header line in a status script. The watcher said "launch its next round" on every HOLD, and the coordinator followed it while printing the over-cap list every hour. One PR reached 11 judge rulings; ten other PRs also passed the cap. Skeptic briefs defaulted to "refuted" and treated any missing frame as a refutation, and each round's brief added the new gaps, so rounds could almost never converge.
+The two-round review cap existed only as a header line in a status script. The watcher told the coordinator to launch the next round on every HOLD, and the coordinator followed it while printing the over-cap list every hour. One PR reached 11 judge rulings; ten other PRs also passed the cap. Skeptic briefs defaulted to a refutation and treated any missing frame as a refutation, and each round's brief added the new gaps, so rounds could almost never converge.
 
 Over the whole 36-hour span (not one PR): about 6.0 billion cache-read tokens and 10 million output tokens in subagents, mostly on rounds that never merged; 12 PRs merged; 0 of 93 open issues closed.
 
@@ -16,7 +16,7 @@ The owner asked why only four things had closed and deployed, and why the caps h
 
 ## Countermeasure
 
-- **Rule, then gate:** at most two judge or builder cycles per PR. Before any launch, count the PR's rulings; at two, do not launch, but ship the proven part or close it and file one small issue. Only a defect visible in rendered frames or a failed owner gate blocks; "more evidence wanted" is a not-verified line, not a refutation. The cap then moved into the orchestration model and into the spec as a counted-rulings gate.
+- **Rule, then gate:** at most two judge or builder cycles per PR. Before any launch, count the PR's rulings; at two, do not launch, but ship the proven part or close it and file one small issue. Only a defect visible in rendered frames or a failed owner gate blocks; a request for more evidence is a not-verified line, not a refutation. The cap then moved into the orchestration model and into the spec as a counted-rulings gate.
 - A later ladder fixed which model fills each round: builder, judge, builder, judge, then a final touch on the second judge's findings with no third review.
 - Type: rule, then gate.
 
