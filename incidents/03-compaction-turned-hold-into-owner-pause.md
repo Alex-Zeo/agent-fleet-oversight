@@ -6,11 +6,11 @@
 
 ## What happened
 
-After the owner criticized over-cap review rounds and wasted compute, the coordinator agent stopped every running round and said it would launch nothing more until told. A context-compaction summary later rewrote that as "non-deploy launches paused since the owner's message". For 19 hours every hourly poll deferred capacity, several issues and redo work to an "owner pause" the owner never gave. The owner's later message telling it to assign new work should have ended the hold; it did not.
+After the owner criticized over-cap review rounds and wasted compute, the coordinator agent stopped every running round and said it would launch nothing more until told. A context-compaction summary later restated that as a pause on launches dating from the owner's message, with no mention that the agent had imposed it on itself. For 19 hours every hourly poll deferred capacity, several issues and redo work to an "owner pause" the owner never gave. The owner's later message telling it to assign new work should have ended the hold; it did not.
 
 ## How it was caught
 
-The owner asked the next morning, in effect, "what pause of mine?"
+The owner asked the next morning which pause that was, having never ordered one.
 
 ## Countermeasure
 

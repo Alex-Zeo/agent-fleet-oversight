@@ -10,7 +10,7 @@ The owner said each server runs its own set of background workers. A builder age
 
 ## How it was caught
 
-The owner restated the rule in full and told the agents to stop overruling him: his instruction is final.
+The owner restated the rule in full and told the agents to stop overruling the owner's words: the instruction is final.
 
 ## Countermeasure
 

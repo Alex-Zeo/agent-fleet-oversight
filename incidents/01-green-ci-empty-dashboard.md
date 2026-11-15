@@ -6,11 +6,11 @@
 
 ## What happened
 
-The coordinator agent merged about 20 dashboard PRs on green CI and ten "bringup PASS" lines. Nobody looked at the live dashboard against reality. The hooks that register sessions had never been installed, so no sessions reached the database and nearly every card on the live page was empty. Every check the agents ran was green.
+The coordinator agent merged about 20 dashboard PRs on green CI and ten passing bring-up checks. Nobody looked at the live dashboard against reality. The hooks that register sessions had never been installed, so no sessions reached the database and nearly every card on the live page was empty. Every check the agents ran was green.
 
 ## How it was caught
 
-The owner opened the live dashboard, found the fleet, session, project and CI cards empty, and asked why nobody had checked that data was flowing through. His verdict, paraphrased: a human employee who shipped this would be fired, because the work did not do what it was for.
+The owner opened the live dashboard, found the fleet, session, project and CI cards empty, and asked why nobody had checked that data was flowing through. The verdict, paraphrased: a human employee who shipped this would be fired, because the work did not do what it was for.
 
 ## Countermeasure
 

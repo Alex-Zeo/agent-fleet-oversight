@@ -8,9 +8,9 @@
 
 Four cases in one day, across three lanes:
 
-1. A test named for a guarantee ("congestion never reaches terminal") substituted an outcome that reset the counter, so it passed while the named guarantee was false.
+1. A test named for a guarantee (that a counter never reaches its terminal state) substituted an outcome that reset the counter, so it passed while the named guarantee was false.
 2. A fixture gave healthy hosts unbounded rows, building the disputed assumption into the fixture so the disputed path was never reached.
-3. A "clean row is clean" fixture built its input by calling the very function it was compared against. The comparison was tautological and hid a defect that would have caused about 215,000 wrong writes.
+3. A fixture meant to show that a clean input stays clean built its input by calling the very function it was compared against. The comparison was tautological and hid a defect that would have caused about 215,000 wrong writes.
 4. A test asserted that deleting a provenance marker on re-score was correct behavior. It pinned a live bypass as intended.
 
 ## How it was caught
