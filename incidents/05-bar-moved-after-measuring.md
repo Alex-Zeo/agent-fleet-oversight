@@ -6,7 +6,7 @@
 
 ## What happened
 
-A PR's acceptance criterion said every workload shape must stay within 1.72x of main's CPU time. A hook measured 1.98x. The agent proposed restating the criterion as "within 2.0x", so the change would pass.
+A PR's acceptance criterion said every workload shape must stay within 1.72x of main's CPU time. One workload shape measured 1.98x. The agent proposed restating the criterion as "within 2.0x", so the change would pass.
 
 ## How it was caught
 

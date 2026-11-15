@@ -27,7 +27,7 @@ Every number in this repo comes from one of four sources, each read without writ
 
 - **Alignment labels** (`data/weekly_alignment_labels.csv`): since 2026-10-26 one frontier model labels each new issue and PR against its repo's spec as written at the time; since 2026-11-09 also against the owner's prompts. Categories: misaligned, trash (work that should not exist), and unaligned (anything not fully aligned, a superset). Shares are of labelled items. A second column set excludes items filed by an automatic ledger filer, which was paused during the window.
 - **Alignment monitor:** AUC 0.651 of the live 13-weight logistic monitor against the model labels (358 items); its guard caught 0 of 63 items labelled trash.
-- **Labeler agreement:** Cohen's kappa 0.755 on 50 items labelled twice by the same model. This measures consistency, not validity.
+- **Labeler agreement:** kappa 0.755 on 50 items labelled twice by the same model. This measures consistency, not validity.
 - **Weight-model candidates:** 7 proposed by the proposer harness since 2026-11-13; none beat the live baseline on a time-split held-out set, so none was adopted. The adoption bar was set before any candidate ran.
 - **Utilization** (`data/host_utilization_7d.csv`): CPU sampled every 5 minutes per host, and idle or under-used flags raised by the capacity monitor, 2026-11-07 to 11-14.
 
@@ -41,7 +41,7 @@ The eight cases in `incidents/` come from dated notes the agents wrote after eac
 |---|---|
 | Server transcripts before 11-02 absent | Token weeks 10-12 to 10-26 are undercounts; no cost trend |
 | Codex, OpenCode, DeepSeek excluded | Tokens per merged PR is a floor |
-| Session sync to the fleet database stalled | Session counts come from transcripts on disk (about 1,050 top-level Mac sessions and 2,270 subagent runs since about 10-08), not the database |
+| Session sync to the fleet database stalled | Sessions in the database are incomplete |
 | Label coverage uneven: 53% (game) to 95% (city simulation); 61% and 66% of items in the first two labelled weeks | Shares may not represent unlabelled work |
 | Rubric changed v2 to v3/v4 during the window | Weeks are not strictly comparable |
 | One model labels, and the same model checks agreement | Labels are unvalidated against humans; this is the first thing the proposed study fixes |

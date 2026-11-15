@@ -10,7 +10,7 @@ An agent handed the owner a ready-to-run command to move repositories into an or
 
 ## How it was caught
 
-The owner saw the pending transfers. There is no API to cancel a pending transfer; each had to be cancelled by hand in each repository's settings (they would otherwise expire after 24 hours).
+The pending transfers were found in the repositories' settings after GitHub queued them. There is no API to cancel a pending transfer; each had to be cancelled by hand in each repository's settings (they would otherwise expire after 24 hours).
 
 ## Countermeasure
 

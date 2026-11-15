@@ -16,7 +16,7 @@ The owner asked why only four things had closed and deployed, and why the caps h
 
 ## Countermeasure
 
-- **Rule, then gate:** at most two judge or builder cycles per PR. Before any launch, count the PR's rulings; at two, do not launch, but ship the proven part or close it and file one small issue. Only a defect visible in rendered frames or a failed owner gate blocks; "more evidence wanted" is a not-verified line, not a refutation. The cap moved into the orchestration model the same day and into the spec as a counted-rulings gate.
+- **Rule, then gate:** at most two judge or builder cycles per PR. Before any launch, count the PR's rulings; at two, do not launch, but ship the proven part or close it and file one small issue. Only a defect visible in rendered frames or a failed owner gate blocks; "more evidence wanted" is a not-verified line, not a refutation. The cap then moved into the orchestration model and into the spec as a counted-rulings gate.
 - A later ladder fixed which model fills each round: builder, judge, builder, judge, then a final touch on the second judge's findings with no third review.
 - Type: rule, then gate.
 

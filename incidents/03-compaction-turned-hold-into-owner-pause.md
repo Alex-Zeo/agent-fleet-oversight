@@ -10,7 +10,7 @@ After the owner criticized over-cap review rounds and wasted compute, the coordi
 
 ## How it was caught
 
-The owner noticed idle capacity the next morning and asked, in effect, "what pause of mine?"
+The owner asked the next morning, in effect, "what pause of mine?"
 
 ## Countermeasure
 

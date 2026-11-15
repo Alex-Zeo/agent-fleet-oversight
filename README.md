@@ -1,7 +1,5 @@
 # Agent fleet oversight
 
-**Video:** VIDEO_URL_PENDING
-
 ## The question
 
 How do I know an AI did the task I defined, inside my guardrails, while I was not watching? I run Claude agents for days at a time on real work: turning concept art into 3D models, building a game, keeping a live city simulation running. Running them for months has taught me three things. AI cheats: tests pass for the wrong reason, and a gate's verdict could be forged from inside the branch it checked. AI hallucinates: work was reported done on green CI while the live dashboard showed no data. AI cuts corners: a bar was moved after a measurement missed it. Each time I added a rule, a hook or a gate, but the space of failures grows faster than I can write rules. Cost is part of alignment too: misaligned and throwaway work, CI nobody needed and context nobody used all burn money and time. My hypothesis is that each failure mode can be caught by a small trained model, and that combining those models into one network closes gaps no single model or rule closes. This repo is the evidence so far, including what has not worked.
@@ -68,7 +66,7 @@ Eight dated cases, each with its failure class, how it was caught, the counterme
 | [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost |
 | [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action |
 
-Seven of the eight were caught by the owner or by an adversarial reviewer, not by the check meant to catch them; the eighth by a model judge.
+Most were caught by the owner or by an adversarial reviewer, not by the check meant to catch them.
 
 ## Small models per failure mode
 
@@ -76,13 +74,13 @@ Each row is a decision a rule cannot make well. None has beaten its baseline yet
 
 | Model | Failure mode it targets | Label source | Status |
 |---|---|---|---|
-| Alignment monitor (Aurelian) | work that does not serve the spec or the owner's prompts | model labels, about 1,150 items | Live, weak: AUC 0.651, 0 of 63 trash caught |
-| Re-rate gate | spending tokens to re-rate work that has not changed | re-rate outcomes | Best AUC 0.681 (logistic); a small MLP reached 0.523; not adopted |
+| Alignment monitor | work that does not serve the spec or the owner's prompts | model labels, about 1,150 items | Live, weak: AUC 0.651, 0 of 63 trash caught |
+| Re-rate gate | when to re-rate work (cost) | labels exist | Best AUC 0.681 (logistic); a small MLP reached 0.523; not adopted |
 | Ruling predictor | review rounds that will not converge (incident 07) | judge rulings, about 1,500 | Planned |
 | Filing gate | low-value issues and PRs filed before anyone checks them | 566 model labels | Shadow mode |
 | Changed-surface test selection | CI runs nobody needed | CI results by surface, not yet joined | A rule today, not a model |
-| Context selection (Bloomnet) | sessions that start without the rulings and past failures they need | none yet: 401 recommendations delivered, usage recorded for 0 | No weights; deriving the label is step one |
-| Model degradation switch (MQI) | a model's quality drops and nothing switches to a better or cheaper one | per-model quality scores | Detection only; refit tables empty |
+| Context selection | sessions that start without the rulings and past failures they need | none yet: 401 recommendations delivered, usage recorded for 0 | No weights; deriving the label is step one |
+| Model degradation switch | a model's quality drops and nothing switches to a better or cheaper one | per-model quality scores | Detection only; refit tables empty |
 | 3D asset acceptance | asset passes that burn tokens without an accepted part | approved part references, frame releases, judge rulings on asset PRs | Not started |
 
 **The combined-network hypothesis.** One shared network over these decisions may catch failures that fall between separate models, because the failure modes share signals (who wrote the work, what it cost, what the spec says, what the owner asked). This has never been tested. The design so far chose one head per decision with a shared feature layer, by argument, not by measurement. The only data point, inside the re-rate gate, is a small MLP losing to logistic regression (0.523 against 0.681), which says nothing about a shared trunk.
@@ -92,8 +90,9 @@ Each row is a decision a rule cannot make well. None has beaten its baseline yet
 1. **Ground truth.** Build a blinded human-labelled set of 200 to 300 issues and PRs, and measure how far the model labels can be trusted. Classify every disagreement.
 2. **Two small models.** Train the alignment monitor and the ruling predictor on time-split data, and compare each with the live monitor, the model judge and a trivial baseline (length, author, repo).
 3. **One network or many.** Train a shared-trunk multi-task network against per-decision models on the same labels, and compare per decision on AUC, calibration and the adoption bar.
-4. **Cost per aligned merge.** Join transcripts to PRs through the session line in commits, price tokens by model, and report tokens per merged aligned PR, including the share spent on work that never merged.
-5. **Nightly playtest as a training signal.** Turn the owner's nightly playtest feedback into dated labels that feed the next day's models, a recursive human-in-the-loop signal.
+4. **Nightly playtest as a training signal.** Turn the owner's nightly playtest feedback into dated labels that feed the next day's models, a recursive human-in-the-loop signal.
+
+Alongside these, the metric to build is tokens per merged aligned PR: join transcripts to PRs through the session line in commits, so cost and alignment are measured on the same unit.
 
 A negative result is useful too: if the model labels do not hold up against human ones, the numbers above are not good enough yet, and that is worth knowing first.
 
