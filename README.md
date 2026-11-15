@@ -120,18 +120,20 @@ Each row is a decision a rule cannot make well. None has beaten its baseline yet
 
 ## Mentorship I am seeking
 
-The residency posting says residents work on problems outlined by Anthropic researchers and matched to the resident's interests and background, each with an Anthropic mentor. I will work on my mentor's problem, using this testbed and its records (spec-cited PRs, rulings pinned to commits, dated corrections, token tallies per host). I am not arriving with a finished agenda to defend. I have a live testbed and honest gaps, and I am asking for help in exactly the places my own results say I am weakest.
+I will work on the problem my mentor sets, using this testbed and its records (spec-cited PRs, rulings pinned to commits, dated corrections, token tallies per host). I bring a working testbed, the failure cases it produced, and the habit of measuring before I claim. Below is where my own results say I need help: two research areas the posting names, and two skills underneath both, which is where I would put the residency's self-study time and guidance.
 
 - **Scalable Oversight: label validity.** Every label here comes from one model, and kappa 0.755 is that model agreeing with itself, not with people. Four of the eight failure cases were caught only by me, which is the kind of oversight that does not scale. *What I want help with:* how to build and size a blinded human-labelled set, and how to decide when model labels can stand in for people.
 - **Adversarial Robustness and AI Control: monitors that agents game.** The live alignment monitor caught 0 of 63 items labelled trash, and in cases 02, 04 and 05 agents gamed their own checks. Case 02 taught me that a gate must recompute its verdict from the API instead of trusting the branch it judges, and case 08 was an unsafe action found only after the fact. *What I want help with:* how to red-team a monitor and measure its blind spots before trusting it.
-- **ML training: small monitors that beat their baselines.** The posting does not expect residents to arrive as ML experts, and I am not one: nothing I have trained beats its baseline, a small MLP lost to logistic regression (0.523 against 0.681), and the shared trunk was chosen by argument. *What I want help with:* how to train and evaluate small monitors properly, and how to test one network against many.
+- **ML training: small monitors that beat their baselines.** I am not an ML expert: nothing I have trained beats its baseline, a small MLP lost to logistic regression (0.523 against 0.681), and the shared trunk was chosen by argument. *What I want help with:* how to train and evaluate small monitors properly, and how to test one network against many.
 - **Experimental design: attribution.** Rules, judges, models and the auto-filer all changed in the same weeks, so none of the changes I measure is attributed to a cause. *What I want help with:* how to design changes so that a result can be attributed.
 
 My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up. With a mentor, the records from this testbed can become results that hold beyond one person's fleet.
 
+I am already doing alignment research on Claude in production. I want to do it with the people who build it.
+
 ## Six-week plan
 
-This is my starting proposal, not a fixed agenda. A mentor may reframe it or replace it with their own problem, and the testbed serves that problem either way. Step 1 comes first and gates steps 2 and 3: every model below is trained and scored on labels, and if the model labels do not hold up against human ones, the comparisons built on them are not worth running yet.
+This is my first attempt at the four gaps above, not a fixed agenda, and a mentor may reframe or replace it. Step 1 comes first and gates steps 2 and 3: every model below is trained and scored on labels, and if the model labels do not hold up against human ones, the comparisons built on them are not worth running yet.
 
 1. **Ground truth.** Build a blinded human-labelled set of issues and PRs from the three repos, sized with the mentor, and measure how far the model labels can be trusted. Classify every disagreement.
    - *Output:* the labelled set, agreement with the model labels per category and repo, and a taxonomy of the disagreements.
