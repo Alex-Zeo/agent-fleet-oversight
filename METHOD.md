@@ -20,7 +20,7 @@ Every number in this repo comes from one of four sources, each read without writ
   - Server transcripts before 2026-11-02 are absent, except one week (10-26) on the orchestration server. Agent lanes did run on the servers before then, so the weeks of 10-12, 10-19 and 10-26 are undercounts of unknown size. The figure draws them hollow and does not join them to later weeks. No trend across 11-02 can be claimed in either direction.
   - Codex, OpenCode and the DeepSeek first pass are excluded.
   - Transcripts before about 10-08 lack usage blocks, so there is no September baseline.
-- **Not used:** an earlier Mac-only table that showed tokens per merge falling about threefold. That fall was an artifact of server lanes not being counted, and it is withdrawn.
+- **Not used:** an earlier Mac-only table that suggested tokens per merge were falling. That fall was an artifact of server lanes not being counted, and it is withdrawn.
 - **Per-repo cost:** not reported. Attribution by working directory left 29% to 79% of tokens unassigned. Host share is a rough proxy only from the 11-07 cutover, when each repo's lanes moved onto its own server.
 
 ## 3. Fleet database: alignment labels, rulings, utilization (read-only)
