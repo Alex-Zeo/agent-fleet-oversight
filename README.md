@@ -54,7 +54,7 @@ Eight dated cases from 2026-09-10 to 10-25; four of them come before the measure
 | [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost | me |
 | [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action | found after the fact |
 
-I caught four of the eight myself, adversarial reviewers told to refute rather than confirm caught two, a model judge caught one, and one was found only after the damage was queued. The checks meant to catch these did not. Oversight that depends on me reading every result does not scale, and that is the problem this repo is about.
+I caught four of the eight myself, adversarial reviewers told to refute rather than confirm caught two, a model judge caught one, and one was found only after the damage was queued. Most were not caught by the check meant to catch them. Oversight that depends on me reading every result does not scale, and that is the problem this repo is about.
 
 ## What I measure
 
@@ -119,17 +119,56 @@ Each row is a decision a rule cannot make well. None has beaten its baseline yet
 
 ## Six-week plan
 
-1. **Ground truth.** Build a blinded human-labelled set of 200 to 300 issues and PRs, and measure how far the model labels can be trusted. Classify every disagreement.
-2. **Two small models.** Train the alignment monitor and the ruling predictor on time-split data, and compare each with the live monitor, the model judge and a trivial baseline (length, author, repo).
+Step 1 comes first and gates steps 2 and 3: every model below is trained and scored on labels, and if the model labels do not hold up against human ones, the comparisons built on them are not worth running yet.
+
+1. **Ground truth.** Build a blinded human-labelled set of issues and PRs from the three repos, sized with the mentor, and measure how far the model labels can be trusted. Classify every disagreement.
+   - *Output:* the labelled set, agreement with the model labels per category and repo, and a taxonomy of the disagreements.
+   - *Negative result:* if agreement is low, the label shares in this repo are not evidence, and the next step is fixing the labeler, not training on it.
+2. **Two small models.** Train the alignment monitor and the ruling predictor on time-split data, and compare each with the live monitor (AUC 0.651), the model judge and a trivial baseline (length, author, repo).
+   - *Output:* AUC and calibration on the held-out split for each model and each comparison, scored against the human labels where step 1 has them.
+   - *Negative result:* if neither beats the trivial baseline, the gap is in the features and labels, not in the model.
 3. **One network or many.** Train a shared-trunk multi-task network against per-decision models on the same labels, and compare per decision on AUC, calibration and the adoption bar.
-4. **Nightly playtest as a training signal.** Turn the owner's nightly playtest feedback into dated labels that feed the next day's models, a recursive human-in-the-loop signal.
+   - *Output:* a per-decision comparison of the two designs.
+   - *Negative result:* if the shared trunk wins on no decision, separate small models are the answer, and a design choice now made by argument gets a measurement.
+4. **Nightly playtest as a training signal (a goal; not running yet).** Turn my nightly playtest feedback into dated labels that feed the next day's models, a recursive human-in-the-loop signal. The capture is the hard part: in one audited week the corrections log held 8 rows against 28 corrections verified by hand.
+   - *Output:* a path from feedback to dated labels, with its coverage measured against a hand count.
+   - *Negative result:* if capture stays far below the hand count, my feedback cannot yet serve as a training signal, and that is the finding.
 
 Alongside these, the metric to build is tokens per merged aligned PR: join transcripts to PRs through the session line in commits, so cost and alignment are measured on the same unit.
 
+**What exists at week six:** the human-labelled set and its agreement report, two trained monitors with held-out results against the live monitor and a trivial baseline, the one-or-many comparison, and the tokens per merged aligned PR metric, written up whether the results are positive or negative.
+
 A negative result is useful too: if the model labels do not hold up against human ones, the numbers above are not good enough yet, and that is worth knowing first.
+
+## Where this fits
+
+The residency posting lists research areas. This work sits in three of them:
+
+- **Scalable Oversight.** How one person keeps many long-running agents helpful and honest without reading every result. Four of the eight failure cases were caught only by me, which is the kind of oversight that does not scale.
+- **Adversarial Robustness and AI Control.** Monitoring agents that game their own checks (cases 02, 04 and 05), and measuring a monitor's blind spots in production: the live alignment monitor caught 0 of 63 items labelled trash.
+- **Safeguards Research.** Automated gates that stop risky or wasteful work before it lands: the filing gate in shadow mode, the gate that recomputes its verdict from the API after case 02, and the unsafe action in case 08.
+
+My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up.
+
+Residents work on problems Anthropic researchers set. This plan is my own agenda, but the testbed and its records (spec-cited PRs, rulings pinned to commits, dated corrections, token tallies per host) can serve a problem a mentor brings just as well.
+
+I bring a working testbed, the failure cases it produced, and the habit of measuring before I claim. I need what I cannot build alone: researchers who know these models from the inside, human labelling at a scale one person cannot reach, and the rigor to tell me which of my results hold.
+
+## Limits
+
+- No human labels yet. Every alignment share and every monitor score is against labels from one model, checked for agreement only by the same model.
+- No trained model beats its baseline yet.
+- Tokens per merged PR is a floor, and no cost trend can be claimed in either direction.
+- Nothing here is attributed to a single cause: rules, judges, models, hosts and the auto-filer all changed in the same weeks.
+- No code in this repo. The scripts that tally transcripts and draw the figures are kept outside it, so the figures cannot be rebuilt from this repo alone.
+- The full list is under known gaps in [METHOD.md](METHOD.md).
 
 ## Data and method
 
 - `data/`: weekly aggregates, each with a header line naming its source and window: merges by repo, merge share, tokens by host, alignment label shares, and seven-day host utilization.
 - [`METHOD.md`](METHOD.md): how every number was computed (GitHub queries, read-only database tables, transcript tally deduplicated by message id and request id) and the known gaps.
 - `incidents/`: the eight failure cases.
+
+## How this was written
+
+The question and the plan come from my own first draft. Claude refined the wording and assembled this repo, and the agent fleet described here gathered the figures.
