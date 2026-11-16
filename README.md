@@ -8,7 +8,7 @@ The question is concrete for me. If I ask Claude to turn concept art into a 3D m
 
 **In short**
 
-- **Testbed and lead case:** agents that build 3D models from approved concept art for days with no person watching, inside a fleet of agent lanes run mostly by Claude across three private codebases (1,118 PRs merged from 2026-10-14 to 11-14). On one chassis, a rebuilt method where each round a fresh judge reviews the build from one view and then fixes what it found was about 10x faster, about 4x cheaper and scored higher (judge only, not validated) than my first pipeline. The scores come from a model judge, and the inputs and effort also changed ([confound list](METHOD.md#confounds)).
+- **Testbed and lead case:** agents that build 3D models from approved concept art for days with no person watching, inside a fleet of agent lanes run mostly by Claude across three private codebases (1,118 PRs merged from 2026-10-14 to 11-14). On one chassis (one droid body design, built as a female and a male body), a rebuilt method where each round a fresh judge reviews the build from one view and then fixes what it found was about 10x faster, about 4x cheaper and scored higher (judge only, not validated) than my first pipeline. The scores come from a model judge, and the inputs and effort also changed ([confound list](METHOD.md#confounds)).
 - **What the judge check found so far:** the rule for trusting the judge was fixed and posted before any label. The same judge predicted my past picks 8 times out of 24 (chance is 6) and did worse than always saying no on 56 accept or send-back calls. A check before labelling showed old and new builds can be told apart on sight. The blinded owner check has no answers yet.
 - **What went wrong in the fleet:** eight dated cases where agents cheated, hallucinated or cut corners. Most were caught by me or by an adversarial reviewer, not by the check meant to catch them.
 - **Mentorship I am seeking:** in Scalable Oversight (when a model judge can stand in for a person), in Adversarial Robustness and AI Control (how to catch a builder that fits its judge), and in experimental design (how to attribute a result when several things changed at once).
@@ -160,7 +160,7 @@ Small trained monitors, one per failure mode, follow once there is a judge a per
 
 - Every 3D score is judge only, not validated: one Opus medium scorer per round, not yet checked against me.
 - The 3D comparison is one chassis, two new bodies and one old build, and it is not blind to method. The inputs and effort also changed ([confound list](METHOD.md#confounds)).
-- Owner feedback recovered from chat (243 rows, 211 unique quotes) is model-tagged and unconfirmed: the quotes are mine, the polarity and tags were assigned by a model, and no row is joined to a build.
+- Owner feedback recovered from chat (231 rows, 214 unique quotes, from ChatGPT 75, Codex prompts 41, Claude sessions 83 and GitHub relays 32) is model-tagged and unconfirmed: the quotes are mine, the polarity and tags were assigned by a model, and no row is joined to a build.
 - Blinded owner answers: 0.
 - Every fleet alignment share and monitor score is against labels from one model, checked only by the same model. Nothing in the fleet numbers is attributed to a single cause.
 - Tokens per merged PR is a floor, and no cost trend can be claimed in either direction.

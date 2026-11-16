@@ -144,5 +144,5 @@ The comparison is not controlled. Changed between old and new, beyond the method
 | CPU targets | Targets configured during the window, checked against the utilization report: 90% on the game server, 70% on the orchestration server, none set on the city simulation server. The Mac's 70% is as stated by the owner. On 2026-11-14 the owner ordered 90% for all three servers. Both columns are in the CSV. |
 | Tally and figure scripts not in this repo | The scripts that tally transcripts and draw the figures are kept outside it, so the figures cannot be rebuilt from this repo alone. Only `scripts/wilson.py` is here |
 | One model labels, and the 3D scorer is one model | Every 3D score is judge only, not validated; the blinded owner check has 0 answers |
-| Owner feedback backfill | 243 rows (211 unique quotes) of the owner's past feedback recovered from chat; polarity and tags assigned by a model, none owner-confirmed, none joined to a build |
+| Owner feedback backfill | 231 rows (214 unique quotes: ChatGPT 75, Codex prompts 41, Claude sessions 83, GitHub relays 32) of the owner's past feedback recovered from chat; polarity and tags assigned by a model, none owner-confirmed, none joined to a build |
 | Judge strictness | Rejection rates rose in the last four days; stricter judging and worse work are not separated |
