@@ -55,14 +55,14 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 
 ### What was compared
 
-- **Old standard:** the first pipeline's best build of the standard chassis, frozen at commit d9c0ea79 after 74 rounds. It was built part by part against per-part reference images, with Opus at medium effort and Fable per part. It has one body with no sex.
+- **Old standard:** the first pipeline's best build of the standard chassis, frozen at commit d9c0ea79 after 74 rounds (70 on single parts, 4 whole-body passes). It was built part by part against per-part reference images, with Opus at medium effort and Fable per part. It has one body with no sex.
 - **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each: two phases (shape, then texture), two passes per phase (Opus high, then Fable high), three rounds per pass (one per view). Each round a fresh judge session reviews the build from one view (front, profile or back, in turn) against the owner-approved whole-body shape and texture art, then the same session fixes what it found; there is no handoff to a separate builder. A separate fresh scorer then scores the round at all three views. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
 
 ### How each number was computed
 
 | Number | How | Source |
 |---|---|---|
-| Agent wall hours per body: old 97.1, new 8.3 (female) and 10.0 (male) | Sum of lane wall clock per round. The old figure includes waits on account limits | old: baseline cost table on #727; new: lane durations on the game server |
+| Agent wall hours per body: old 97.1, new 8.3 (female) and 10.0 (male) | Sum of lane wall clock per round, build sessions. The new scorer sessions add 0.86 (female) and 0.93 (male) hours and are not in these figures. The old figure includes waits on account limits | old: baseline cost table on #727; new: lane durations on the game server |
 | Build cost per body: old 747.82 USD, new 182.00 (female) and 160.67 (male) USD | Sum of list-price cost, last result event per session id (the same method as the old baseline) | comments 6903328205 (old) and 6924712566 (new, corrected: the first posting 6915289250 counted some resumed sessions twice) |
 | Scorer cost: about 24 USD per body | Same method, scorer rounds only. An earlier figure of 334 USD double-counted resumed sessions and is withdrawn | scorer transcripts |
 | Cost ratio about 4x on build, 3.6x to 4.0x with scorer | 747.82 / 182.00 = 4.1 and 747.82 / 160.67 = 4.7 build only; 747.82 / 206.45 = 3.6 and 747.82 / 185.13 = 4.0 with scorer (24.45 and 24.46). The old figure already contains its own scoring | 6924712566 |

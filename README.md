@@ -38,12 +38,12 @@ The rule for trusting the judge, 85% agreement with me on blinded pairs with a 9
 2. **Gaming:** the gap between the builder's self-score, a fresh scorer, the views the builder was not judged on, and the person.
 3. **Cost:** USD per point that a person agrees with, not per point the judge awards.
 
-**Results so far.** Rows 1 to 6 are one chassis (the standard chassis): one old build, frozen after 74 rounds, against a female and a male new body, 12 rounds each. Every 3D score is from one fresh Opus medium scorer per round. How each number was computed, and the full confound list, are in [METHOD.md](METHOD.md#5-lead-case-3d-builds-with-no-person-watching).
+**Results so far.** Rows 1 to 5 are one chassis (the standard chassis): one old build, frozen after 74 rounds, against a female and a male new body, 12 rounds each. Row 6 covers every round so far that has both scores, on the standard and lean chassis. Every 3D score is from one fresh Opus medium scorer per round. How each number was computed, and the full confound list, are in [METHOD.md](METHOD.md#5-lead-case-3d-builds-with-no-person-watching).
 
 | # | Result | Old pipeline | New method | n | Caveat |
 |---|---|---|---|---|---|
-| 1 | Agent wall hours per body | 97.1 | 8.3 (female), 10.0 (male) | 1 old build, 2 new bodies | About 10 to 12x faster. The old hours include waits on account limits |
-| 2 | Cost per body, list price | 747.82 USD build, 74 rounds | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | same | About 4x cheaper on build cost (4.1x and 4.7x), 3.6x to 4.0x with the scorer included |
+| 1 | Agent wall hours per body | 97.1 | 8.3 (female), 10.0 (male) | 1 old build, 2 new bodies | About 10 to 12x faster on build sessions; the fresh scorer adds about 0.9 hours per body (9 to 11x with it). The old hours include waits on account limits |
+| 2 | Cost per body, list price | 747.82 USD build and scoring, 74 rounds (70 on single parts, 4 whole-body) | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | same | About 4x cheaper: 3.6x and 4.0x like for like, since the old figure contains its own scoring (4.1x and 4.7x on new build cost alone). A new round covers the whole body from one view, so the round counts are not the same unit |
 | 3 | Part regions against the owner-approved whole-body texture art, 0 to 100 | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | Judge only, not validated. The old pipeline was not built against this art. Not blind to method |
 | 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
