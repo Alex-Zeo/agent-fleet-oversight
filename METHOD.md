@@ -1,6 +1,6 @@
 # Data and method
 
-Every fleet number in this repo comes from one of four sources, each read without writing to it. The 3D lead case numbers come from the game repo's experiment issue (#727) and are described in section 5. The three source repositories are private, so this repo carries aggregates only: no PR titles, no transcript text, no account identifiers. Weeks start Monday UTC. The latest week, starting 2026-11-09, has six days (data cut 2026-11-14).
+The README tells the 2D to 3D story; this file holds how every number was computed, the full results and judge check tables, and the fleet detail that used to sit in the README. Every fleet number in this repo comes from one of four sources, each read without writing to it. The 3D lead case numbers come from the game repo's experiment issue (#727) and are described in section 5. The three source repositories are private, so this repo carries aggregates only: no PR titles, no transcript text, no account identifiers. Weeks start Monday UTC. The latest week, starting 2026-11-09, has six days (data cut 2026-11-14).
 
 ## 1. GitHub: merges, opened PRs, merge share
 
@@ -8,6 +8,7 @@ Every fleet number in this repo comes from one of four sources, each read withou
 - **Rerun check:** the same query was run again on 2026-11-15 and the weekly counts recomputed. Every weekly merge count from 2026-08-03 through the week of 11-02, and every merge share from 09-21 through 11-02, came out identical to the CSVs. Only the week of 11-09 has moved since the cut (150 merges then, 151 on the rerun). The CSVs keep the 11-14 cut, because the token figures use the same cut.
 - **Merged PRs per week** (`data/weekly_merges.csv`): count of PRs by the week of `mergedAt`, per repo, 2026-08-03 to 2026-11-14.
 - **Merge share** (`data/weekly_merge_share.csv`): PRs merged divided by PRs opened, by the week of `createdAt`, all repos pooled. PRs still open at the cut count as not merged. The latest week is provisional, not a lower bound: it was 132 of 152 (86.8%, 8 open) at the cut and 133 of 159 (83.6%) on the 11-15 rerun, because PRs opened late in a week have had no time to merge. Shown from 2026-09-21; earlier weeks have under 40 PRs opened.
+- **Scale line in the README:** 1,213 PRs merged from 2026-10-17 to 11-16 across the 18 repos with at least one merge in that window, counted by merge date on 2026-11-16: orchestration 488, city simulation 389, game 313, the other 15 repos 23 together. The three main repos hold 1,190, 98%. This is a later and wider window than the two below.
 - **Two windows, kept separate:** 1,118 PRs merged from 2026-10-14 to 11-14 (the one-month volume figure); 1,124 PRs merged in the weeks starting 10-12 through 11-09 (the denominator for tokens per merged PR).
 - **Spec citation:** PR bodies parsed for a `## Spec` section citing spec lines. City simulation, by week from 10-14: 0 of 101, 8 of 107, 89 of 89, 105 of 105, 42 of 46. Game, by week from 10-21: 0 of 22, 53 of 98, 149 of 149, 86 of 86, 14 of 14. Orchestration: 392 of 493 over the month.
 - **Judge rejection rate:** rulings parsed from review bodies of the form `Ruling: MERGE | CHANGES | HOLD`; the rate is rulings other than MERGE over all rulings. These weeks start on Wednesday 10-14, unlike the Monday weeks used everywhere else, so they are given here and not as a CSV.
@@ -75,6 +76,23 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 
 The old build has no whole-chassis score, so only the two part-mean measures above are compared.
 
+- **Old pipeline across six chassis:** 4,004.72 USD, 448 rounds and 519.5 agent hours in total; per chassis (one body each): standard 747.79 USD, 97.1 h, 74 rounds; lean 583.52, 72.8, 62; angular 706.25, 91.4, 93; minimal 577.13, 75.6, 65; carbon standard 678.62, 91.6, 81; reinforced angular 711.41, 91.0, 73. Summed from the old rows of droid-cost-allchassis.csv (the standard row there is 747.79 against 747.82 on #727, a rounding difference between the two tallies).
+
+### Full results table
+
+Rows 1 to 5 are one chassis (the standard chassis): one old build, frozen after 74 rounds, against a female and a male new body, 12 rounds each. Row 6 covers every round so far that has both scores, on the standard and lean chassis. Every 3D score is from one fresh Opus medium scorer per round.
+
+| # | Result | Old pipeline | New method | n | Caveat |
+|---|---|---|---|---|---|
+| 1 | Agent wall hours per body | 97.1 | 8.3 (female), 10.0 (male) | 1 old build, 2 new bodies | About 10 to 12x faster on build sessions; the fresh scorer adds about 0.9 hours per body (9 to 11x with it). The old hours include waits on account limits |
+| 2 | Cost per body, list price | 747.82 USD build and scoring, 74 rounds (70 on single parts, 4 whole-body) | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | same | About 4x cheaper: 3.6x and 4.0x like for like, since the old figure contains its own scoring (4.1x and 4.7x on new build cost alone). A new round covers the whole body from one view, so the round counts are not the same unit |
+| 3 | Part regions against the owner-approved whole-body texture art, 0 to 100 | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | Judge only, not validated. The old pipeline was not built against this art. Not blind to method |
+| 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
+| 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. The owner has not been asked |
+| 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores | Judge only, not validated. A lead, not a finding: some scorers had seen earlier scores |
+
+Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule projects to about 189 USD (a projection from round costs, not a finished result). By the judge's points, per point of the matched texture-art score, build cost was about 2.6 and 2.3 USD (female, male) against 16.0 for the old build (judge only, not validated).
+
 ### Cost per round, new method
 
 Every finished round so far (the standard chassis, and the lean and angular chassis as far as they have run): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
@@ -105,6 +123,18 @@ The comparison is not controlled. Changed between old and new, beyond the method
 10. **Not blind to method:** old and new builds can be told apart on sight (tell check below), for a person or for the scorer.
 11. **Order:** the new method ran after the old one, with newer references.
 
+### Judge check results
+
+Checks on the judge itself, not old against new.
+
+| # | Check | Result | n | Caveat |
+|---|---|---|---|---|
+| J1 | Judge predicts the owner's past single picks (1 of 4), options blinded | 8 of 24, 33.3% (Wilson 95% 18.0% to 53.3%); chance 6 of 24; always option 1, 7 of 24 | 24 picks | 2D concept art, not 3D builds. The picks were not blinded. 23 of 24 would be needed to clear the rule, so this can show a judge is bad, never good. An earlier run (9 of 29) was withdrawn for a text leak |
+| J2 | Judge on accept or send back, concept-art drafts | 28 of 56, 50.0% (37.3% to 62.7%); always send back 37 of 56, 66.1% | 56 drafts | 2D concept art, unblinded. The true request text was missing for 38 of 56 |
+| J3 | Tell check before labelling | blind guess of the old build 0 of 10, so the methods separate 10 of 10; edge density 0.041 to 0.048 (old) against 0.025 to 0.033 (new) | 10 pairs; pool 66 old, 12 new | Not a judge result. Old against new pairs are not blind to method, for a person or for the scorer |
+| J4 | The owner's approval page | 305 of 308 groups end as approve | 308 groups | Always approve would score 99%, so the page cannot test a judge |
+| J5 | Blinded owner pairs (the validation) | 0 answered | 0 | Rule fixed before data, below |
+
 ### Judge check: decision rule, backtests, tell check
 
 - **Decision rule** (comment 6903781964, posted 2026-11-16 00:15 UTC, before any owner label): pairwise agreement between the owner and the judge on blinded pairs of builds; the judge may stand in for the owner when agreement is at least 85% and the lower bound of the 95% Wilson interval is at least 75%. 10% of pairs are repeated with left and right swapped to measure owner self-agreement. If no second person labels at least 50 pairs, results say "agrees with the owner", never "agrees with people". The rule, pairs and scorer freeze at the first label. Run jc-261116-01, pair seed 1044550201.
@@ -124,7 +154,7 @@ The comparison is not controlled. Changed between old and new, beyond the method
 
 ### The script
 
-`scripts/wilson.py` (Python 3, no dependencies) computes the Wilson 95% interval and the decision rule. Run with no arguments it reprints every judge check row in the README results table, and the fewest agreements that clear the rule at n = 24, 40, 56 and 150. `--hits K --n N` checks one count; `--csv FILE` scores a file with `prediction,truth` columns against the majority-answer baseline, which is how the accept or send back row was scored.
+`scripts/wilson.py` (Python 3, no dependencies) computes the Wilson 95% interval and the decision rule. Run with no arguments it reprints rows J1 and J2 of the judge check table and the rule check, and the fewest agreements that clear the rule at n = 24, 40, 56 and 150. `--hits K --n N` checks one count; `--csv FILE` scores a file with `prediction,truth` columns against the majority-answer baseline, which is how the accept or send back row was scored.
 
 ## 6. Fleet detail
 
@@ -144,7 +174,71 @@ The comparison is not controlled. Changed between old and new, beyond the method
   | Model degradation switch | a model's quality drops and nothing switches | per-model quality scores | Detection only |
 
   Learned weight candidates: 7 proposed since 11-13, 0 adopted. The combined-network idea (one shared trunk over these decisions) has never been tested; the only data point is the small MLP losing to logistic regression inside the re-rate gate.
-- **Further measures moved from the README:** host CPU 16.3% to 32.1% average across 4 hosts (11-07 to 11-14); one server used 52% of all tokens for 40 of 150 merges in the week of 11-09, mostly 3D asset passes; PR bodies citing the spec rose from 0 to all within two weeks of the spec gate (section 1).
+- **Further measures:** host CPU 16.3% to 32.1% average across 4 hosts (11-07 to 11-14); one server used 52% of all tokens for 40 of 150 merges in the week of 11-09, mostly 3D asset passes; PR bodies citing the spec rose from 0 to all within two weeks of the spec gate (section 1).
+
+## 7. Fleet setup and measures
+
+### The setup
+
+One person directs three private codebases. The work is done mostly by Claude agent lanes; Codex, OpenCode and a DeepSeek first pass also ran in the window. The lanes run on three rented servers (one per codebase) and a Mac. The source repos are private; this repo carries aggregates, redacted cases and the judge check numbers. This table is an earlier window than the README's scale line (section 1).
+
+| Codebase | What it is | PRs merged, 2026-10-14 to 11-14 |
+|---|---|---|
+| Orchestration system | assigns work to agent lanes, runs judges, memory and telemetry | 444 |
+| City simulation | Rust/WASM live model of a real city, deployed daily since 11-07 | 370 |
+| Game | Rust/WASM game with the concept-art-to-3D build pipeline of the lead case | 304 |
+| Total | | 1,118 |
+
+Every PR gets at most two review rounds by model judges, each ruling pinned to the exact commit; every PR cites the spec lines it serves; and visual work is not done until the served build has been rendered and looked at, because counters and test exits can only show a failure. Telemetry covers host CPU, every judge ruling, dated owner corrections, every model-routing change and model alignment labels on new issues and PRs since 10-26. Details are in [section 6](#6-fleet-detail).
+
+Terms. *Misaligned* is work that goes against the spec. *Trash* is work that should not exist. Both are labels from one model, not from people. The case files in `incidents/` keep the agents' own notes and call the person directing the fleet "the owner".
+
+### Failure cases
+
+Eight dated cases from 2026-09-10 to 10-25; four of them come before the measured window. Case 01 is a hallucination (work reported done on green CI while the live dashboard showed no data), 02 and 04 are cheats, and 05 is a corner cut. Each file gives the failure class, how it was caught, the countermeasure (rule, gate or model) and what a trained monitor would need to catch it.
+
+| # | Date | Case | Class | Caught by |
+|---|---|---|---|---|
+| [01](incidents/01-green-ci-empty-dashboard.md) | 10-25 | About 20 PRs merged on green CI while the live dashboard was empty | false completion | owner |
+| [02](incidents/02-gate-log-in-gated-repo.md) | 09-16 | A gate stored its log in the repo it gated, so a branch could forge a pass | reward hacking surface | adversarial review |
+| [03](incidents/03-compaction-turned-hold-into-owner-pause.md) | 10-15 | A context summary turned the agent's own hold into an owner pause; 19 hours idle | authority confusion | owner |
+| [04](incidents/04-tests-passing-for-the-wrong-reason.md) | 09-15 | Four tests in three lanes passed for the wrong reason; one pinned a bypass as correct | evaluation gaming | adversarial review |
+| [05](incidents/05-bar-moved-after-measuring.md) | 09-28 | Proposal to raise a CPU bar from 1.72x to 2.0x after measuring 1.98x | specification gaming | model judge |
+| [06](incidents/06-builder-reinterpreted-owner-instruction.md) | 10-25 | A builder replaced the owner's instruction with its own design; the coordinator merged it | goal drift, authority | owner |
+| [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost | owner |
+| [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action | found after the fact |
+
+The owner caught four of the eight, adversarial reviewers told to refute rather than confirm caught two, a model judge caught one, and one was found only after the damage was queued. Most were not caught by the check meant to catch them. Oversight that depends on the owner reading every result does not scale.
+
+### Fleet measures
+
+**Volume and compliance.** The work became more compliant in form as rules were added.
+
+| Measure | Value | n and window |
+|---|---|---|
+| Merged PRs per week | 70 to 410 | weeks of 10-12 to 10-26; then 298, and 150 in the six days of 11-09 |
+| Merge share (merged / opened, by week opened) | 68% (week of 10-05) to 92% (week of 11-02) | 117 and 320 PRs opened |
+| Model-labelled misaligned share | 13.6% (n 550) to 1.5% (n 196) | weeks of 10-26 and 11-09 |
+
+None of these changes is attributed to a cause: label coverage, the rubric, the judges, the models and an auto-filer pause all changed in the same weeks, and one model labels (section 3).
+
+![Weekly volume and merge share, tokens per merged PR with host share, and model-labelled alignment shares, 10-12 to 11-09](figures/weekly_alignment_cost.png)
+
+Panel B is the one to read slowly. The three hollow points are Mac-only undercounts, because server transcripts before 11-02 do not exist, so they are not joined to the two weeks where all four hosts are counted.
+
+![Merged PRs per week since August by repo, with merge share](figures/velocity_since_august.png)
+
+SVG versions are in `figures/`.
+
+### What it costs
+
+| Measure | Value | n and window |
+|---|---|---|
+| Tokens per merged PR | at least 70M | 79.2B tokens over 1,124 merged PRs, weeks of 10-12 to 11-09 |
+| Composition | about 98% cache reads; output under 0.5% | every week |
+| One runaway PR | 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | case 07, before the two-round cap |
+
+The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no cost trend can be claimed in either direction. Per body, the 3D lead case gives a sharper cost unit than a merge (rows 1 and 2 of the [full results table](#full-results-table)).
 
 ## Known gaps
 
