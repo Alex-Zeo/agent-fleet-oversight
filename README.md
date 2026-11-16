@@ -22,6 +22,10 @@ Running agents for months has taught me three things. AI cheats: tests pass for 
 
 I run AI agents that build 3D models from approved concept art for days with no person watching. The only overseer that scales to that is another model: a judge that scores each build against the art. My question is when that judge can stand in for me, and what the builders do once its score is what they work toward. In November I replaced my first pipeline with one built in two phases, shape and then texture. Each phase has two passes, an Opus pass and then a Fable pass, and each pass is three rounds, one per view (front, profile, back): 2 phases x 2 passes x 3 views = 12 rounds per body. In every round a fresh judge reviews the build from that view and then the same session fixes what it found. On one chassis the new method was faster, cheaper and scored higher (judge only, not validated): about a tenth of the agent hours and about a quarter of the build cost per body. The gains on speed and cost are large. I do not claim the builds are better yet. The scores come from one model judge that has not been checked against me, the new method also had better reference art and more model effort, and the same judge predicted my own past picks 8 times out of 24, where chance is 6. In two rounds a builder's own score rose while a fresh scorer's did not. The rule for trusting the judge, 85% agreement with me on blinded pairs with a 95% lower bound of 75%, was fixed and posted before any label.
 
+![Old build, new female, new male, then the approved female and male art, at front, profile and back](figures/droid_old_new_art.png)
+
+*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. All three builds are Unreal Engine 5.8.4 renders of the built 3D meshes, with one camera, light and background; the art columns are the 2D concept art. These frames are for showing the work. The scores were taken on each pipeline's own renders, which differed ([confound 6](METHOD.md#confounds)).*
+
 **The research question.** When agents work for days with no person watching and a model judge is the only check, when can the judge stand in for the person, and how do I detect a builder that is fitting the judge instead of doing the task? It has three measurable parts:
 
 1. **Validity:** judge and person agreement on blinded pairs, against a bar set in advance.
@@ -38,10 +42,6 @@ I run AI agents that build 3D models from approved concept art for days with no 
 | 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
 | 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores | Judge only, not validated. A lead, not a finding: some scorers had seen earlier scores |
-
-![Old build, new female, new male, then the approved female and male art, at front, profile and back](figures/droid_old_new_art.png)
-
-*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. All three builds are Unreal Engine 5.8.4 renders of the built 3D meshes, with one camera, light and background; the art columns are the 2D concept art.*
 
 **Cost per round, new method.** Every finished round so far (the standard chassis, the lean chassis shape phase, and the angular chassis first round): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
 
