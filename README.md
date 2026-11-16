@@ -37,7 +37,23 @@ I run AI agents that build 3D models from approved concept art for days with no 
 | 3 | Part regions against the owner-approved whole-body texture art, 0 to 100 | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | Judge only, not validated. The old pipeline was not built against this art. Not blind to method |
 | 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
-| 6 | Builder self-score against a fresh scorer | | female: self 58 to 67 (profile), fresh 73.3 flat; male: self 61 to 72 (profile), fresh profile 76 to 70 | 2 cited rounds | Judge only, not validated. A lead, not a finding: both scorers had seen earlier scores |
+| 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores | Judge only, not validated. A lead, not a finding: some scorers had seen earlier scores |
+
+![Old build, new female, new male, then the approved female and male art, at front, profile and back](figures/droid_old_new_art.png)
+
+*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. One renderer, camera, light and background for all three builds.*
+
+**Cost per round, new method.** Every finished round so far (the standard chassis, the lean chassis shape phase, and the angular chassis first round): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
+
+| Pass | Rounds | Mean USD | SD | CV | Range |
+|---|---|---|---|---|---|
+| Shape, Opus high | 16 | 9.79 | 3.50 | 0.36 | 3.49 to 16.66 |
+| Shape, Fable high | 12 | 21.44 | 3.72 | 0.17 | 17.64 to 31.40 |
+| Texture, Opus high | 7 | 6.11 | 2.20 | 0.36 | 2.45 to 9.70 |
+| Texture, Fable high | 6 | 17.53 | 3.21 | 0.18 | 12.82 to 20.79 |
+| Fresh scorer, any pass | 36 | 2.01 | 0.21 | 0.10 | 1.67 to 2.41 |
+
+Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule (3 rounds in each of the 4 passes plus 12 scorer rounds) projects to about 189 USD, against 577 to 748 USD per chassis for the old pipeline across its six chassis. That is a projection from round costs, not a finished result: only the standard chassis is complete, so there is no across-chassis interval yet. Both new bodies together (342.67 USD build) cost 0.46 of the one old body. Per point of the matched texture-art score, build cost was about 2.6 and 2.3 USD (female, male) against 16.0 for the old build (judge only, not validated).
 
 **Judge check so far.** Rows 7 to 11 are checks on the judge itself, not old against new.
 
