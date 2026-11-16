@@ -49,17 +49,9 @@ The rule for trusting the judge, 85% agreement with me on blinded pairs with a 9
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
 | 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores | Judge only, not validated. A lead, not a finding: some scorers had seen earlier scores |
 
-**Cost per round, new method.** Every finished round so far (the standard chassis, the lean chassis shape phase, and the angular chassis first round): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
+**Cost per round, new method.** Across the 41 build rounds and 36 scorer rounds finished so far, the cost per round is steady within each pass: the coefficient of variation is 0.17 to 0.36 for the build passes and 0.10 for the scorer (table in [METHOD.md](METHOD.md#cost-per-round-new-method)).
 
-| Pass | Rounds | Mean USD | SD | CV | Range |
-|---|---|---|---|---|---|
-| Shape, Opus high | 16 | 9.79 | 3.50 | 0.36 | 3.49 to 16.66 |
-| Shape, Fable high | 12 | 21.44 | 3.72 | 0.17 | 17.64 to 31.40 |
-| Texture, Opus high | 7 | 6.11 | 2.20 | 0.36 | 2.45 to 9.70 |
-| Texture, Fable high | 6 | 17.53 | 3.21 | 0.18 | 12.82 to 20.79 |
-| Fresh scorer, any pass | 36 | 2.01 | 0.21 | 0.10 | 1.67 to 2.41 |
-
-Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule (3 rounds in each of the 4 passes plus 12 scorer rounds) projects to about 189 USD, against 577 to 748 USD per chassis for the old pipeline across its six chassis. That is a projection from round costs, not a finished result: only the standard chassis is complete, so there is no across-chassis interval yet. Both new bodies together (342.67 USD build) cost 0.46 of the one old body. Per point of the matched texture-art score, build cost was about 2.6 and 2.3 USD (female, male) against 16.0 for the old build (judge only, not validated).
+Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule (3 rounds in each of the 4 passes plus 12 scorer rounds) projects to about 189 USD, against 577 to 748 USD per body for the old pipeline across its six chassis (one body each). That is a projection from round costs, not a finished result: only the standard chassis is complete, so there is no across-chassis interval yet. The two finished new bodies cost 206 and 185 USD with scoring. Both new bodies together (342.67 USD build) cost 0.46 of the one old body. By the judge's points, which is not yet the unit I want: per point of the matched texture-art score, build cost was about 2.6 and 2.3 USD (female, male) against 16.0 for the old build (judge only, not validated).
 
 **Judge check so far.** Rows 7 to 11 are checks on the judge itself, not old against new.
 

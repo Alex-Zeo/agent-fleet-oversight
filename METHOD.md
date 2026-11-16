@@ -75,6 +75,20 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 
 The old build has no whole-chassis score, so only the two part-mean measures above are compared.
 
+### Cost per round, new method
+
+Every finished round so far (the standard chassis, and the lean and angular chassis as far as they have run): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
+
+| Pass | Rounds | Mean USD | SD | CV | Range |
+|---|---|---|---|---|---|
+| Shape, Opus high | 16 | 9.79 | 3.50 | 0.36 | 3.49 to 16.66 |
+| Shape, Fable high | 12 | 21.44 | 3.72 | 0.17 | 17.64 to 31.40 |
+| Texture, Opus high | 7 | 6.11 | 2.20 | 0.36 | 2.45 to 9.70 |
+| Texture, Fable high | 6 | 17.53 | 3.21 | 0.18 | 12.82 to 20.79 |
+| Fresh scorer, any pass | 36 | 2.01 | 0.21 | 0.10 | 1.67 to 2.41 |
+
+With the three partial rounds left out of the means, the 189 USD projection becomes about 193 USD.
+
 ### Confounds
 
 The comparison is not controlled. Changed between old and new, beyond the method itself:
