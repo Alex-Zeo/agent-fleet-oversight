@@ -56,7 +56,7 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 ### What was compared
 
 - **Old standard:** the first pipeline's best build of the standard chassis, frozen at commit d9c0ea79 after 74 rounds. It was built part by part against per-part reference images, with Opus at medium effort and Fable per part. It has one body with no sex.
-- **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each. Each round a fresh judge scores the build from three views (front, profile, back) against the owner-approved whole-body shape and texture art, then a builder fixes what it found. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
+- **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each. Each round a fresh judge session reviews the build from one view (front, profile or back, in turn) against the owner-approved whole-body shape and texture art, then the same session fixes what it found; there is no handoff to a separate builder. A separate fresh scorer then scores the round at all three views. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
 
 ### How each number was computed
 
@@ -71,13 +71,13 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 | Acceptable as is for the next step: female 20 of 24 rows, male 16 of 25 | The scorer's yes or no per part and target row. Not asked of the old build | comment 6915289250 |
 | Builder self-score against a fresh scorer | Two cited rounds, both Fable texture round 2: female self 58 to 67 on profile, fresh scorer 73.3 flat; male self 61 to 72 on profile, fresh scorer's profile score 76 to 70 | comment 6915289250 |
 
-The whole-chassis score of the new builds (about 73 to 74) is a different measure from the old 46.6, which is a mean of part regions. The two are never set side by side.
+The old build has no whole-chassis score, so only the two part-mean measures above are compared.
 
 ### Confounds
 
 The comparison is not controlled. Changed between old and new, beyond the method itself:
 
-1. **Scorer:** one Opus medium scorer per round, not validated; the blinded owner check has 0 answers; the taste backtests are at or below chance.
+1. **Scorer:** one Opus medium scorer per round, not validated; the blinded owner check has 0 answers; the taste backtests cannot be told apart from chance or fall below a trivial baseline.
 2. **Inputs:** the new method had better owner-approved inputs (whole-body shape and texture art). The old pipeline worked from per-part references and is scored against art approved after it froze.
 3. **Bodies:** one old body with no sex against a female and a male new body.
 4. **Effort and models:** old Opus medium plus Fable per part; new Opus high then Fable high. No old round ran Opus at high effort.
@@ -139,7 +139,7 @@ The comparison is not controlled. Changed between old and new, beyond the method
 | Session sync to the fleet database stalled | Sessions in the database are incomplete |
 | Label coverage uneven: 53% (game) to 95% (city simulation); 61% and 66% of items in the first two labelled weeks | Shares may not represent unlabelled work |
 | Rubric changed v2 to v3/v4 during the window | Weeks are not strictly comparable |
-| One model labels, and the same model checks agreement | Labels are unvalidated against humans; this is the first thing the proposed study fixes |
+| One model labels, and the same model checks agreement | Labels are unvalidated against humans; step 1 of the plan checks the 3D judge against the owner; the fleet labels are not yet in the plan |
 | Judges, model ladder, server cutover and the auto-filer pause all changed in the same weeks | No change in any share is attributed to any single cause |
 | CPU targets | Targets configured during the window, checked against the utilization report: 90% on the game server, 70% on the orchestration server, none set on the city simulation server. The Mac's 70% is as stated by the owner. On 2026-11-14 the owner ordered 90% for all three servers. Both columns are in the CSV. |
 | Tally and figure scripts not in this repo | The scripts that tally transcripts and draw the figures are kept outside it, so the figures cannot be rebuilt from this repo alone. Only `scripts/wilson.py` is here |
