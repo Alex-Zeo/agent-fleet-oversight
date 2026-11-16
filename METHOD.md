@@ -1,6 +1,6 @@
 # Data and method
 
-Every number in this repo comes from one of four sources, each read without writing to it. The three source repositories are private, so this repo carries aggregates only: no PR titles, no transcript text, no account identifiers. Weeks start Monday UTC. The latest week, starting 2026-11-09, has six days (data cut 2026-11-14).
+Every fleet number in this repo comes from one of four sources, each read without writing to it. The 3D lead case numbers come from the game repo's experiment issue (#727) and are described in section 5. The three source repositories are private, so this repo carries aggregates only: no PR titles, no transcript text, no account identifiers. Weeks start Monday UTC. The latest week, starting 2026-11-09, has six days (data cut 2026-11-14).
 
 ## 1. GitHub: merges, opened PRs, merge share
 
@@ -49,6 +49,87 @@ Every number in this repo comes from one of four sources, each read without writ
 
 The eight cases in `incidents/` come from dated notes the agents wrote after each owner correction (213 such notes, 80 with the owner's words quoted). Owner quotes are paraphrased as the rule they state. A separate audit found 48 correction markers in 14 days (25 repeated orders, 9 uses of a banned language, 5 false "done" claims), and a week audit found 28 verified corrections against 8 rows in the corrections table, so the logged corrections undercount.
 
+## 5. Lead case: 3D builds with no person watching
+
+All of these come from comments on the game repo's experiment issue (#727, private), each cited by comment id, and from the score tables those comments link. Every 3D score is **judge only, not validated**: it comes from one fresh Opus medium scorer per round, and that scorer has not been checked against the owner.
+
+### What was compared
+
+- **Old standard:** the first pipeline's best build of the standard chassis, frozen at commit d9c0ea79 after 74 rounds. It was built part by part against per-part reference images, with Opus at medium effort and Fable per part. It has one body with no sex.
+- **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each. Each round a fresh judge scores the build from three views (front, profile, back) against the owner-approved whole-body shape and texture art, then a builder fixes what it found. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
+
+### How each number was computed
+
+| Number | How | Source |
+|---|---|---|
+| Agent wall hours per body: old 97.1, new 8.8 (female) and 10.4 (male) | Sum of lane wall clock per round. The old figure includes waits on account limits | old: baseline cost table on #727; new: lane durations on the game server |
+| Build cost per body: old 747.82 USD, new about 191 and 182 USD | Sum of list-price cost from each round's result event | comments 6903328205 (old) and 6915289250 (new) |
+| Scorer cost: about 24 USD per body | Same method, scorer rounds only. An earlier figure of 334 USD double-counted resumed sessions and is withdrawn | scorer transcripts |
+| Cost ratio about 4x, about 3.5x with scorer | 747.82 / ~186 build only; 747.82 / ~210 with scorer. The old figure already contains its own scoring | as above |
+| Part regions vs the whole-body texture art: old 46.6, new 70.6 and 69.8 | Mean over the same 11 part rows, three views, of the final scorer's 0 to 100 scores against the approved texture art | comments 6904021106 (old), 6913124415 (female), 6915255579 (male); confirmed against the final scorers' score tables on 2026-11-16 |
+| Parts vs the old pipeline's own per-part references: old 54.9, new 59.9 and 60.9 | Mean over the same 11 part rows against the per-part references the old pipeline was built from | same |
+| Acceptable as is for the next step: female 20 of 24 rows, male 16 of 25 | The scorer's yes or no per part and target row. Not asked of the old build | comment 6915289250 |
+| Builder self-score against a fresh scorer | Two cited rounds, both Fable texture round 2: female self 58 to 67 on profile, fresh scorer 73.3 flat; male self 61 to 72 on profile, fresh scorer's profile score 76 to 70 | comment 6915289250 |
+
+The whole-chassis score of the new builds (about 73 to 74) is a different measure from the old 46.6, which is a mean of part regions. The two are never set side by side.
+
+### Confounds
+
+The comparison is not controlled. Changed between old and new, beyond the method itself:
+
+1. **Scorer:** one Opus medium scorer per round, not validated; the blinded owner check has 0 answers; the taste backtests are at or below chance.
+2. **Inputs:** the new method had better owner-approved inputs (whole-body shape and texture art). The old pipeline worked from per-part references and is scored against art approved after it froze.
+3. **Bodies:** one old body with no sex against a female and a male new body.
+4. **Effort and models:** old Opus medium plus Fable per part; new Opus high then Fable high. No old round ran Opus at high effort.
+5. **Unfinished old run:** the old build froze mid-run; its feet and hands never had rounds, and its side and back driver never started a round.
+6. **Render:** different render script, camera, light rig and resolution (old 1536x2304, new 1024x1536).
+7. **Anchoring:** scorers saw builder self-scores or earlier scores in some rounds, so treat their scores as upper bounds.
+8. **Wall hours:** the old 97.1 hours include waits on account limits.
+9. **Size:** one chassis, n = 2 new bodies, one scorer session per round, no repeat runs, no variance.
+10. **Not blind to method:** old and new builds can be told apart on sight (tell check below), for a person or for the scorer.
+11. **Order:** the new method ran after the old one, with newer references.
+
+### Judge check: decision rule, backtests, tell check
+
+- **Decision rule** (comment 6903781964, posted 2026-11-16 00:15 UTC, before any owner label): pairwise agreement between the owner and the judge on blinded pairs of builds; the judge may stand in for the owner when agreement is at least 85% and the lower bound of the 95% Wilson interval is at least 75%. 10% of pairs are repeated with left and right swapped to measure owner self-agreement. If no second person labels at least 50 pairs, results say "agrees with the owner", never "agrees with people". The rule, pairs and scorer freeze at the first label. Run jc-261116-01, pair seed 1044550201.
+- **Backtest on past single picks** (comment 6904535705): 24 groups where the owner picked 1 of 4 concept-art options. Options were re-encoded, renamed at random, shuffled and shown with no titles or descriptions. A fresh Opus medium judge per group. An earlier run (9 of 29) was withdrawn because option text leaked the original order. At n = 24 the judge needs 23 hits to clear the rule, so this backtest can show a judge is bad, never that it is good.
+- **Accept or send back** (ChatGPT concept-art drafts): 56 judged rows after 6 exclusions for wrong links or no single image. The true request text was missing for 38 of 56 rows. Unblinded.
+- **Approval page:** 305 of 308 page groups end as approve, so always approve would score 99% there; no approve or revise backtest is reported on the page.
+- **Tell check** (before labelling, not a judge result): 10 shape pairs drawn with the run seed, one old and one new item each, left and right random. A blind guess of which item is old was written down before unsealing.
+
+  | Check | Result |
+  |---|---|
+  | Blind guess of the old item | 0 of 10 correct: every guess inverted, so the methods separate 10 of 10 |
+  | Edge density inside the silhouette | old 0.041 to 0.048, new 0.025 to 0.033, no overlap (pool of 66 old and 12 new) |
+  | Feet on the bottom frame edge | 63 of 66 old items, 0 of 12 new |
+  | Background and figure brightness | identical |
+
+  The framing difference comes from fitting the camera to each asset's bounds; a fixed camera is proposed and not yet applied. The surface difference is in the geometry, so old against new pairs are reported as not blind to method, separately from same-method pairs.
+
+### The script
+
+`scripts/wilson.py` (Python 3, no dependencies) computes the Wilson 95% interval and the decision rule. Run with no arguments it reprints every judge check row in the README results table, and the fewest agreements that clear the rule at n = 24, 40, 56 and 150. `--hits K --n N` checks one count; `--csv FILE` scores a file with `prediction,truth` columns against the majority-answer baseline, which is how the accept or send back row was scored.
+
+## 6. Fleet detail
+
+- **Review ladder (since 11-03; current models since 11-09).** Each PR gets at most two counted review rounds: builder (Sonnet, low effort), judge 1 (Opus, medium), builder 2 (Sonnet, low), judge 2 (Fable, high), then a final touch by Opus on judge 2's findings with no third review. Each ruling (`Ruling: MERGE | CHANGES | HOLD`) is posted as a review pinned to the exact commit, and a judge may not sign with a session that wrote any commit on the PR.
+- **Spec gate (from about 10-21).** Every issue cites a spec line, and every PR carries a `## Spec` section citing the lines it serves and how each was checked.
+- **Internal names in the data:** Stella is the orchestration system, Atlanta PoLE the city simulation, Alex Net the game. Aurelian is the live alignment monitor. WSP is the harness that proposes small-model weights. Bloomnet picks the context a new session starts with. MQI is a per-model quality index.
+- **Small models, planned or weak.** None has beaten its baseline.
+
+  | Model | Failure mode it targets | Label source | Status |
+  |---|---|---|---|
+  | Alignment monitor | work that does not serve the spec or the owner's prompts | model labels, about 1,150 items | Live, weak: AUC 0.651, 0 of 63 trash caught |
+  | Re-rate gate | when to re-rate work (cost) | labels exist | Best AUC 0.681 (logistic); a small MLP reached 0.523; not adopted |
+  | Ruling predictor | review rounds that will not converge (case 07) | judge rulings, about 1,500 | Planned |
+  | Filing gate | low-value issues and PRs filed before anyone checks them | 566 model labels | Shadow mode |
+  | Changed-surface test selection | CI runs nobody needed | CI results by surface, not yet joined | A rule today, not a model |
+  | Context selection | sessions that start without the rulings and past failures they need | none yet: of 401 recommendations, 346 were acknowledged and usage was recorded for 0 | No weights |
+  | Model degradation switch | a model's quality drops and nothing switches | per-model quality scores | Detection only |
+
+  Learned weight candidates: 7 proposed since 11-13, 0 adopted. The combined-network idea (one shared trunk over these decisions) has never been tested; the only data point is the small MLP losing to logistic regression inside the re-rate gate.
+- **Further measures moved from the README:** host CPU 16.3% to 32.1% average across 4 hosts (11-07 to 11-14); one server used 52% of all tokens for 40 of 150 merges in the week of 11-09, mostly 3D asset passes; PR bodies citing the spec rose from 0 to all within two weeks of the spec gate (section 1).
+
 ## Known gaps
 
 | Gap | Effect |
@@ -61,5 +142,7 @@ The eight cases in `incidents/` come from dated notes the agents wrote after eac
 | One model labels, and the same model checks agreement | Labels are unvalidated against humans; this is the first thing the proposed study fixes |
 | Judges, model ladder, server cutover and the auto-filer pause all changed in the same weeks | No change in any share is attributed to any single cause |
 | CPU targets | Targets configured during the window, checked against the utilization report: 90% on the game server, 70% on the orchestration server, none set on the city simulation server. The Mac's 70% is as stated by the owner. On 2026-11-14 the owner ordered 90% for all three servers. Both columns are in the CSV. |
-| No code in this repo | The scripts that tally transcripts and draw the figures are kept outside it, so the figures cannot be rebuilt from this repo alone |
+| Tally and figure scripts not in this repo | The scripts that tally transcripts and draw the figures are kept outside it, so the figures cannot be rebuilt from this repo alone. Only `scripts/wilson.py` is here |
+| One model labels, and the 3D scorer is one model | Every 3D score is judge only, not validated; the blinded owner check has 0 answers |
+| Owner feedback backfill | 243 rows (211 unique quotes) of the owner's past feedback recovered from chat; polarity and tags assigned by a model, none owner-confirmed, none joined to a build |
 | Judge strictness | Rejection rates rose in the last four days; stricter judging and worse work are not separated |
