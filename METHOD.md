@@ -98,7 +98,7 @@ The comparison is not controlled. Changed between old and new, beyond the method
 3. **Bodies:** one old body with no sex against a female and a male new body.
 4. **Effort and models:** old Opus medium plus Fable per part; new Opus high then Fable high. No old round ran Opus at high effort.
 5. **Unfinished old run:** the old build froze mid-run; its feet and hands never had rounds, and its side and back driver never started a round.
-6. **Render:** different render script, camera, light rig and resolution (old 1536x2304, new 1024x1536).
+6. **Render:** different render script, camera, light rig and resolution (old 1536x2304, new 1024x1536). The frames in the README figure and in the video are separate from these scoring renders. They were rendered afterwards for showing the work, on one rig for all three builds (old d9c0ea79, new female 6ec7429d, new male f671f540): the Unreal Engine 5.8.4 editor, where `jc_render.py` imports each head's built mesh and renders it with a camera fitted from the mesh bounds and one light set and background. They are renders of the built 3D meshes and were not used for scoring; only the art columns are 2D. Renderer confirmed by the AlexNet lane, 2026-11-16 about 22:10 UTC.
 7. **Anchoring:** scorers saw builder self-scores or earlier scores in some rounds, so treat their scores as upper bounds.
 8. **Wall hours:** the old 97.1 hours include waits on account limits.
 9. **Size:** one chassis, n = 2 new bodies, one scorer session per round, no repeat runs, no variance.
