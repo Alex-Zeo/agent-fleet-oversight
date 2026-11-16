@@ -56,7 +56,7 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 ### What was compared
 
 - **Old standard:** the first pipeline's best build of the standard chassis, frozen at commit d9c0ea79 after 74 rounds. It was built part by part against per-part reference images, with Opus at medium effort and Fable per part. It has one body with no sex.
-- **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each. Each round a fresh judge session reviews the build from one view (front, profile or back, in turn) against the owner-approved whole-body shape and texture art, then the same session fixes what it found; there is no handoff to a separate builder. A separate fresh scorer then scores the round at all three views. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
+- **New method:** the same chassis rebuilt twice, a female body and a male body, 12 judge-builder rounds each: two phases (shape, then texture), two passes per phase (Opus high, then Fable high), three rounds per pass (one per view). Each round a fresh judge session reviews the build from one view (front, profile or back, in turn) against the owner-approved whole-body shape and texture art, then the same session fixes what it found; there is no handoff to a separate builder. A separate fresh scorer then scores the round at all three views. Builders were Opus at high effort, then Fable at high effort. Final builds: female 6ec7429d, male f671f540.
 
 ### How each number was computed
 
