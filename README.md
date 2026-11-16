@@ -9,7 +9,7 @@ The question is concrete for me. If I ask Claude to turn concept art into a 3D m
 **In short**
 
 - **Testbed and lead case:** agents that build 3D models from approved concept art for days with no person watching, inside a fleet of agent lanes run mostly by Claude across three private codebases (1,118 PRs merged from 2026-10-14 to 11-14). On one chassis (one droid body design, built as a female and a male body), a rebuilt method, where in every round a fresh judge reviews the build from one view and then fixes what it found, took 8 to 10 agent hours of build sessions per body against 97, and 161 to 182 USD of build cost (185 to 206 with scoring) against 748: about 10x faster and about 4x cheaper. It also scored higher than my first pipeline (judge only, not validated). The schedule is two phases (shape, then texture), each with two passes (Opus, then Fable), 12 rounds per body. The scores come from a model judge, and the inputs and effort also changed ([confound list](METHOD.md#confounds)).
-- **What the judge check found so far:** the rule for trusting the judge was fixed and posted before any label. The same judge predicted my past picks 8 times out of 24 (chance is 6) and did worse than always saying no on 56 accept or send-back calls. A check before labelling showed old and new builds can be told apart on sight. The blinded owner check has no answers yet.
+- **What the judge check found so far:** the rule for trusting the judge was fixed and posted before any label. A judge of the same model and effort predicted my past picks 8 times out of 24 (chance is 6) and did worse than always saying no on 56 accept or send-back calls. A check before labelling showed old and new builds can be told apart on sight. The blinded owner check has no answers yet.
 - **What went wrong in the fleet:** eight dated cases where agents cheated, hallucinated or cut corners. Most were caught by me or by an adversarial reviewer, not by the check meant to catch them.
 - **Mentorship I am seeking:** in Scalable Oversight (when a model judge can stand in for a person), in Adversarial Robustness and AI Control (how to catch a builder that fits its judge), and in experimental design (how to attribute a result when several things changed at once).
 - **Plan:** close the blinded judge check with a second rater, test for builders that fit the judge, then one controlled rerun on one chassis with references, effort and render held fixed.
@@ -24,7 +24,7 @@ I run AI agents that build 3D models from approved concept art for days with no 
 
 On one chassis the new method was faster, cheaper and scored higher (judge only, not validated): about a tenth of the agent hours and about a quarter of the build cost per body. The gains on speed and cost are large, and they do not rest on the judge: they come from session transcripts at list price. Per body, build sessions took 8 to 10 agent hours against 97 and cost 161 to 182 USD (185 to 206 with scoring) against 748.
 
-I do not claim the builds are better yet. The scores come from one model judge that has not been checked against me, the new method also had better reference art and more model effort, and the same judge predicted my own past picks 8 times out of 24, where chance is 6. In two rounds a builder's own score rose while a fresh scorer's did not.
+I do not claim the builds are better yet. The scores come from one model judge that has not been checked against me, the new method also had better reference art and more model effort, and a judge of the same model and effort predicted my own past picks 8 times out of 24, where chance is 6. In two rounds a builder's own score rose while a fresh scorer's did not.
 
 The rule for trusting the judge, 85% agreement with me on blinded pairs with a 95% lower bound of 75%, was fixed and posted before any label.
 
@@ -79,7 +79,7 @@ The intervals in rows 7 and 8 and the rule check can be rerun with [`scripts/wil
 
 **What it does not show.**
 
-- That the new builds are better to a person. Every score is judge only, not validated, and the same judge does no better than chance at predicting my past picks.
+- That the new builds are better to a person. Every score is judge only, not validated, and a judge of the same model and effort does no better than chance at predicting my past picks.
 - That the method caused the gain. The inputs, the model effort, the bodies, the render rig and the run order all changed too, and the old run froze before its feet, hands and side and back views had rounds ([confound list](METHOD.md#confounds)).
 - That the scorer was blind. Old and new builds differ on sight, and later scorers saw earlier scores.
 - That it repeats. One chassis, two bodies, no repeat runs.
