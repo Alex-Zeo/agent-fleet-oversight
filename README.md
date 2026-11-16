@@ -41,7 +41,7 @@ I run AI agents that build 3D models from approved concept art for days with no 
 
 ![Old build, new female, new male, then the approved female and male art, at front, profile and back](figures/droid_old_new_art.png)
 
-*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. One renderer, camera, light and background for all three builds.*
+*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. All three builds are Unreal Engine 5.8.4 renders of the built 3D meshes, with one camera, light and background; the art columns are the 2D concept art.*
 
 **Cost per round, new method.** Every finished round so far (the standard chassis, the lean chassis shape phase, and the angular chassis first round): 41 build rounds and 36 scorer rounds, list price, one session each, so nothing is counted twice. Three rounds that ended at an account limit are included at their partial cost.
 
