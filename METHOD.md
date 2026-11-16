@@ -62,10 +62,10 @@ All of these come from comments on the game repo's experiment issue (#727, priva
 
 | Number | How | Source |
 |---|---|---|
-| Agent wall hours per body: old 97.1, new 8.8 (female) and 10.4 (male) | Sum of lane wall clock per round. The old figure includes waits on account limits | old: baseline cost table on #727; new: lane durations on the game server |
-| Build cost per body: old 747.82 USD, new about 191 and 182 USD | Sum of list-price cost from each round's result event | comments 6903328205 (old) and 6915289250 (new) |
+| Agent wall hours per body: old 97.1, new 8.3 (female) and 10.0 (male) | Sum of lane wall clock per round. The old figure includes waits on account limits | old: baseline cost table on #727; new: lane durations on the game server |
+| Build cost per body: old 747.82 USD, new 182.00 (female) and 160.67 (male) USD | Sum of list-price cost, last result event per session id (the same method as the old baseline) | comments 6903328205 (old) and 6924712566 (new, corrected: the first posting 6915289250 counted some resumed sessions twice) |
 | Scorer cost: about 24 USD per body | Same method, scorer rounds only. An earlier figure of 334 USD double-counted resumed sessions and is withdrawn | scorer transcripts |
-| Cost ratio about 4x, about 3.5x with scorer | 747.82 / ~186 build only; 747.82 / ~210 with scorer. The old figure already contains its own scoring | as above |
+| Cost ratio about 4x on build, 3.6x to 4.0x with scorer | 747.82 / 182.00 = 4.1 and 747.82 / 160.67 = 4.7 build only; 747.82 / 206.45 = 3.6 and 747.82 / 185.13 = 4.0 with scorer (24.45 and 24.46). The old figure already contains its own scoring | 6924712566 |
 | Part regions vs the whole-body texture art: old 46.6, new 70.6 and 69.8 | Mean over the same 11 part rows, three views, of the final scorer's 0 to 100 scores against the approved texture art | comments 6904021106 (old), 6913124415 (female), 6915255579 (male); confirmed against the final scorers' score tables on 2026-11-16 |
 | Parts vs the old pipeline's own per-part references: old 54.9, new 59.9 and 60.9 | Mean over the same 11 part rows against the per-part references the old pipeline was built from | same |
 | Acceptable as is for the next step: female 20 of 24 rows, male 16 of 25 | The scorer's yes or no per part and target row. Not asked of the old build | comment 6915289250 |

@@ -32,8 +32,8 @@ I run AI agents that build 3D models from approved concept art for days with no 
 
 | # | Result | Old pipeline | New method | n | Caveat |
 |---|---|---|---|---|---|
-| 1 | Agent wall hours per body | 97.1 | 8.8 (female), 10.4 (male) | 1 old build, 2 new bodies | About 10x faster. The old hours include waits on account limits |
-| 2 | Cost per body, list price | 747.82 USD build, 74 rounds | build about 191 and 182 USD, 12 rounds each; scorer about 24 USD per body | same | About 4x cheaper on build cost, about 3.5x with the scorer included |
+| 1 | Agent wall hours per body | 97.1 | 8.3 (female), 10.0 (male) | 1 old build, 2 new bodies | About 10 to 12x faster. The old hours include waits on account limits |
+| 2 | Cost per body, list price | 747.82 USD build, 74 rounds | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | same | About 4x cheaper on build cost (4.1x and 4.7x), 3.6x to 4.0x with the scorer included |
 | 3 | Part regions against the owner-approved whole-body texture art, 0 to 100 | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | Judge only, not validated. The old pipeline was not built against this art. Not blind to method |
 | 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
