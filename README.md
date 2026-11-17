@@ -18,7 +18,7 @@ Alex Net's harness (experiment issue #727). The job: take owner-approved concept
 
 ## Results across droids
 
-As of 2026-11-17, n=4 of 6. Male droids only. d-minimal and f-reinforced-angular are still running.
+Male droids only, as of 2026-11-17, n=4 of 6. d-minimal and f-reinforced-angular are still running.
 
 | Droid | Old pipeline, USD | New method, USD | Reduction | Rounds, old | Rounds, new |
 |---|---|---|---|---|---|
@@ -34,7 +34,7 @@ As of 2026-11-17, n=4 of 6. Male droids only. d-minimal and f-reinforced-angular
 
 ## Experiments, in the order I ran them
 
-Each change below was added on top of the ones before. None was ever run alone.
+Each change below was added on top of the ones before. None was ever run alone. First-pipeline scores are the loop's own judge; new-method scores are a fresh scorer; the two are not one scale. All are AI judge only, not yet checked against my blind labels ([sources and n](METHOD.md#experiments-in-historical-order)).
 
 ### Nov 10, first pipeline: Do more rounds make a better model?
 
@@ -44,7 +44,7 @@ My first pipeline was a loop that ran to plateau: it kept running rounds, scored
 
 ### Nov 11: Was each round trying to do too much?
 
-**No.** I split the droid into 11 parts, each with its own rounds. 70 more rounds on single parts (651.85 USD) moved the loop's score from 50 to 56 on the standard droid.
+**No.** I split the droid into 11 parts, each with its own rounds. 70 more rounds on single parts (651.85 USD) moved the loop's score from 50 to 56 on the standard droid (n=1 droid).
 
 I also expected parts to run in parallel. They did not: inside each droid the parts ran one after another, and the only speed-up came from six droids running at once.
 
@@ -56,7 +56,7 @@ Side views arrived the same day, so the two changes cannot be told apart. I appr
 
 ### Nov 13 to 14: Were builders only looking at the front?
 
-**Partly.** In the new method, the view a round worked on gained 7.22 points against 0.72 for the other two views, in 33 of 36 rounds.
+**Partly.** In the new method, the view a round worked on gained about ten times as much as the other two views, in almost every round (both bodies pooled; numbers in METHOD).
 
 The builds looked flat from the side, so judging and fixing moved to front, profile and back, one view per round. The scorer knew which view each round built. In the first pipeline, judging all three views slowed the gain per round from 3.56 to 1.95 points, on a stricter score.
 
@@ -64,11 +64,11 @@ The builds looked flat from the side, so judging and fixing moved to front, prof
 
 **Yes, on the four finished droids, for the whole bundle.** Builders got high-contrast art for shape first, then colour art for texture. The male whole-droid score went from 43 after round 1 to 71 after round 12 on average (n=4), for 187.19 USD a male droid on average.
 
-This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. All four droids peaked one to three rounds before the end. The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
+This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. All four droids peaked one to three rounds before the end (for the carbon droid, among its scored rounds: two late rounds were never scored). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
 
 ## Two more things in the records
 
-- **A loop that stops on a score can be steered by the score.** In 9 of 33 new-method rounds with both scores, the builder's own score ran more than 5 points above a fresh scorer's (AI judge only, not yet checked against my blind labels).
+- **A loop that stops on a score can be steered by the score.** In several new-method rounds the builder's own score ran more than 5 points above a fresh scorer's, and in some it rose while the fresh score fell (AI judge only, not yet checked against my blind labels).
 - **Review loops burn the same way.** Before I capped pull request review at two rounds, one PR went 11 rounds and about 6.0B cache-read tokens in 36 hours for 12 merges ([case 07](incidents/07-eleven-review-rounds-36-hour-burn.md)).
 
 ## Judge check status
