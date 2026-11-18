@@ -40,7 +40,7 @@ Each change below was added on top of the ones before. None was ever run alone. 
 
 ### Nov 10, first pipeline: Do more rounds make a better model?
 
-**No, not after round two.** On the standard droid the loop's own judge went from 29 to 47 in the first two whole-body rounds (55.76 USD), then gained 9 points in the next 63 rounds (692.03 USD). A fresh judge scored the final build 47. n=1 droid, the only one that ran more than one whole-body round.
+**No, not after round two.** On the standard droid the loop's own judge went from 29 to 47 in the first two whole-body rounds (55.76 USD), then gained 9 points over the 72 rounds after that (692.03 USD; 74 rounds in all, 65 finished). A fresh judge scored the final build 47. n=1 droid, the only one that ran more than one whole-body round.
 
 My first pipeline was a loop that ran to plateau: it kept running rounds, scored by a model judge, until the score stopped rising. Across six droids it spent 4,004.72 USD on 448 rounds.
 
@@ -66,7 +66,7 @@ The builds looked flat from the side, so judging and fixing moved to front, prof
 
 **Yes, on all six droids, for the whole bundle.** Builders got high-contrast art for shape first, then colour art for texture. The male whole-droid score went from 43.7 after round 1 to 72.0 after round 12 on average (n=6), and every part improved on every droid (66 of 66). Every droid's best score came before round 12: five of six one to three rounds before, the sixth (f-reinforced-angular) at round 7.
 
-This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. Most of the gain came from the Opus passes: +22.0 points for about 61 USD, against +6.3 for about 122 USD from the Fable passes. Fable always ran second, on a better build, so this is not a test of Opus against Fable ([per pass](METHOD.md#per-pass-new-method-male-n6)). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
+This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. The gain was uneven across the four passes: the last one (Fable, texture) cost about 58 USD and added about 1 point, and the largest jump (+14.7, texture Opus) is partly colour arriving on a build scored against colour art. Fable always ran second, on a better build, so this is not a test of Opus against Fable ([per pass](METHOD.md#per-pass-new-method-male-n6)). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
 
 ## Two more things in the records
 
