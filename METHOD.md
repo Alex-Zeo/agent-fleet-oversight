@@ -419,7 +419,7 @@ SVG versions are in `figures/`.
 | Composition | about 98% cache reads; output under 0.5% | every week |
 | One runaway PR | 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | case 07, before the two-round cap |
 
-The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no cost trend can be claimed in either direction. Per body, the 3D lead case gives a sharper cost unit than a merge ([results across droids](#results-across-droids-as-of-2026-11-17-n4-of-6)).
+The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no cost trend can be claimed in either direction. Per body, the 3D lead case gives a sharper cost unit than a merge ([results across droids](#results-across-droids)).
 
 ## Known gaps
 

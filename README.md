@@ -1,6 +1,6 @@
 # 2D concept art to 3D models, with no person watching
 
-This repo is part of my application to the Anthropic Residency. I study how to keep oversight of agents on long work that nobody watches, and what that work costs, through one concrete task: a harness that turns 2D concept art into 3D models for Alex Net, a game I am building, with no person watching each round. Fresh AI judges (Opus and Fable) score each build and then fix what they found, and I am setting up my own blinded labels of the builds, made without seeing any judge score. On the four droids finished so far the new method built about the same droid, as far as an AI judge can tell, for about 72% less cost than my first pipeline, though several changes landed together. I want to take the next step with Anthropic's help: turn my labels and the judge records into a trained model (weights) that judges 3D work, checked against blinded human labels.
+This repo is part of my application to the Anthropic Residency. I study how to keep oversight of agents on long work that nobody watches, and what that work costs, through one concrete task: a harness that turns 2D concept art into 3D models for Alex Net, a game I am building, with no person watching each round. Fresh AI judges (Opus and Fable) score each build and then fix what they found, and I am setting up my own blinded labels of the builds, made without seeing any judge score. On all six droids the new method built about the same droid, as far as an AI judge can tell, for about 72% less cost than my first pipeline, in about a fifth of the time, though several changes landed together. I want to take the next step with Anthropic's help: turn my labels and the judge records into a trained model (weights) that judges 3D work, checked against blinded human labels.
 
 **Scale:** 1,213 merged pull requests across 18 repos, 98% in three, from 2026-10-17 to 11-16: the orchestration system that runs the agent lanes (488), Atlanta, a live city simulation (389), and Alex Net (313). The 3D work runs in Alex Net, from concept art, and in Atlanta, from map data. The source repos are private; this repo carries aggregates, the experiment records and the judge check ([how each number was counted](METHOD.md)).
 
@@ -18,19 +18,21 @@ Alex Net's harness (experiment issue #727). The job: take owner-approved concept
 
 ## Results across droids
 
-Male droids only, as of 2026-11-17, n=4 of 6. d-minimal and f-reinforced-angular are still running.
+Male droids only, all six finished (n=6 of 6). Scorer cost is counted on both sides ([definitions](METHOD.md#results-across-droids)).
 
-| Droid | Old pipeline, USD | New method, USD | Reduction | Rounds, old | Rounds, new |
-|---|---|---|---|---|---|
-| a-standard | 749.14 | 185.13 | 75.3% | 74 | 12 |
-| b-lean | 584.86 | 182.62 | 68.8% | 62 | 12 |
-| c-angular | 707.59 | 199.33 | 71.8% | 93 | 12 |
-| e-carbon-standard | 679.96 | 181.70 | 73.3% | 81 | 12 |
+| Droid | Old pipeline, USD | New method, USD | Cost reduction | Old wall h | New wall h | Time reduction | Rounds, old | Rounds, new |
+|---|---|---|---|---|---|---|---|---|
+| a-standard | 749.14 | 185.17 | 75.3% | 101.89 | 12.09 | 88.1% | 74 | 12 |
+| b-lean | 584.86 | 182.61 | 68.8% | 77.82 | 16.06 | 79.4% | 62 | 12 |
+| c-angular | 707.59 | 199.35 | 71.8% | 96.42 | 21.32 | 77.9% | 93 | 12 |
+| d-minimal | 578.47 | 165.79 | 71.3% | 79.72 | 17.79 | 77.7% | 65 | 12 |
+| e-carbon-standard | 679.96 | 185.15 | 72.8% | 96.42 | 24.82 | 74.3% | 81 | 12 |
+| f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 73 | 12 |
 
-- **Cost:** each droid's own reduction runs from 68.8% (min) to 75.3% (max), mean 72.3% (n=4). List price, old body including its share of scoring, new male body including its fresh scorer rounds ([definitions](METHOD.md#results-across-droids-as-of-2026-11-17-n4-of-6)).
-- **Rounds:** 62 to 93 old rounds against 12 new ones per body. Not the same unit: an old round worked on one part, a new round covers the whole body from one view.
-- **Quality:** scored as the mean over 11 part regions, 0 to 100. Against the new male texture art, the new finals score 21.4 points higher than the old finals on average (from 20.3 to 23.2, n=4). But the old pipeline was never built to that art. Against the art it was built to, there is no gain: the new finals range from 12.2 points lower (the carbon droid) to 6.0 points higher, 2.75 points lower on average (n=4). So the honest headline is about the same droid, as far as an AI judge can tell, for about 72% less cost, not a better droid. AI judge only, not yet checked against my blind labels.
-- **Time:** being re-measured, so I give no time reduction here. The two bodies of each new droid ran side by side, and the source tables mix summed agent hours with elapsed hours ([why](METHOD.md#time)).
+- **Cost:** each droid's own reduction runs from 68.8% (min) to 75.3% (max), mean 72.3%. List price, old body including its share of scoring, new male body including its 12 fresh scorer rounds.
+- **Time:** wall time only, the elapsed span from first start to last finish, never halved. Each droid's reduction runs from 74.3% to 88.1%, mean 78.8%, about a fifth of the time. All six old droids ran at once on shared accounts, which stretched the old spans. Old agent hours were never measured (the old column is summed lane time), so I make no agent-hour comparison ([why](METHOD.md#time-and-agent-hours)).
+- **Rounds:** 62 to 93 old rounds against 12 new ones per body, a reduction of 80.6% to 87.1%, mean 83.6%. Not the same unit: an old round worked on one part, a new round covers the whole body from one view.
+- **Quality:** scored as the mean over 11 part regions, 0 to 100. Against the new male texture art, the new finals score 23.4 points higher than the old finals on average (from +20.3 to +29.3), higher on 6 of 6. But the old pipeline was never built to that art. Against the art it was built to, there is no gain: from 12.2 points lower (the carbon droid) to 6.1 points higher, 1.8 points lower on average, higher on 2 of 6. So the honest headline is about the same droid, as far as an AI judge can tell, for about 72% less cost, in about a fifth of the time, not a better droid. AI judge only, not yet checked against my blind labels.
 
 ## Experiments, in the order I ran them
 
@@ -56,24 +58,26 @@ Side views arrived the same day, so the two changes cannot be told apart. I appr
 
 ### Nov 13 to 14: Were builders only looking at the front?
 
-**Partly.** In the new method, the view a round worked on gained about ten times as much as the other two views, in almost every round (both bodies pooled; numbers in METHOD).
+**Partly.** In the new method, the view a round worked on gained 6.4 points against 0.7 for the other two views, more in 58 of 66 rounds (six male droids). The scorer knew which view each round built.
 
-The builds looked flat from the side, so judging and fixing moved to front, profile and back, one view per round. The scorer knew which view each round built. In the first pipeline, judging all three views slowed the gain per round from 3.56 to 1.95 points, on a stricter score.
+The builds looked flat from the side, so judging and fixing moved to front, profile and back, one view per round. In the first pipeline, judging all three views slowed the gain per round from 3.56 to 1.95 points, on a stricter score.
 
 ### Nov 15: Should shape come before texture?
 
-**Yes, on the four finished droids, for the whole bundle.** Builders got high-contrast art for shape first, then colour art for texture. The male whole-droid score went from 43 after round 1 to 71 after round 12 on average (n=4), for 187.19 USD a male droid on average.
+**Yes, on all six droids, for the whole bundle.** Builders got high-contrast art for shape first, then colour art for texture. The male whole-droid score went from 43.7 after round 1 to 72.0 after round 12 on average (n=6), and every part improved on every droid (66 of 66). Every droid's best score came before round 12: five of six one to three rounds before, the sixth (f-reinforced-angular) at round 7.
 
-This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. All four droids peaked one to three rounds before the end (for the carbon droid, among its scored rounds: two late rounds were never scored). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
+This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. Most of the gain came from the Opus passes: +22.0 points for about 61 USD, against +6.3 for about 122 USD from the Fable passes. Fable always ran second, on a better build, so this is not a test of Opus against Fable ([per pass](METHOD.md#per-pass-new-method-male-n6)). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
 
 ## Two more things in the records
 
-- **A loop that stops on a score can be steered by the score.** In several new-method rounds the builder's own score ran more than 5 points above a fresh scorer's, and in some it rose while the fresh score fell (AI judge only, not yet checked against my blind labels).
+- **A loop that stops on a score can be steered by the score.** On the six male droids the builder scored the view it worked on up 24.3 points on average, more than the other two views in 71 of 71 rounds, where the fresh scorer saw 6.4 ([three views](METHOD.md#three-views-and-builder-self-score-male-n6)). AI judge only, not yet checked against my blind labels.
 - **Review loops burn the same way.** Before I capped pull request review at two rounds, one PR went 11 rounds and about 6.0B cache-read tokens in 36 hours for 12 merges ([case 07](incidents/07-eleven-review-rounds-36-hour-burn.md)).
 
 ## Judge check status
 
-0 blinded labels so far. Before labelling, a 10-pair test showed that old and new builds could be told apart 10 of 10. One cause is framing (the camera was fitted to each build), which is being fixed, with every item rendered again. The other is build style (old builds panelled, new ones smooth), which cannot be hidden without hiding the shape being judged. So the main measure is pairs inside the new method only, and old against new is a side result labelled "not blind to method". The decision rule was posted before any label and is unchanged: 85% agreement with me, a 95% Wilson lower bound of at least 75%, and 10% of pairs repeated to measure my own consistency ([design](METHOD.md#judge-check-decision-rule-design-backtests-tell-check)). Approvals recovered from my past messages are backfilled, not blind, and are kept separate.
+0 blinded labels so far. Before labelling, a 10-pair test showed that old and new builds could be told apart 10 of 10, by framing (the camera was fitted to each build) and by build style (old builds panelled, new ones smooth). The camera fix is done: every item was rendered again with one fixed camera and ground line, and on a repeat test the framing tell is gone. Old against new is still separable by build style, which cannot be hidden without hiding the shape being judged, so it stays a side result labelled "not blind to method".
+
+The first batch is published: 60 primary pairs (new method only, same droid, same view), 24 secondary old against new pairs, and 10% repeats with left and right swapped, 92 pairs in 2 sittings. The decision rule was posted before any label and is unchanged: 85% agreement with me and a 95% Wilson lower bound of at least 75%, on the primary pairs only. With 60 pairs that needs at least 52 agreements out of 60 non-tie answers. A tell check on the primary pairs: a fresh judge picked the earlier round in 8 of 10, from build detail only, with no render cue ([design](METHOD.md#judge-check-decision-rule-design-backtests-tell-check)). Approvals recovered from my past messages are backfilled, not blind, and are kept separate.
 
 ## The proposal: a trained model for judging 3D work
 
@@ -98,14 +102,14 @@ I will work on the problem my mentor sets, using this testbed and its records. T
 | Area | The gap, and where it shows | What I would ask |
 |---|---|---|
 | Scalable Oversight | Every score is from an AI judge; I have 0 blinded labels (results, every experiment) | How to size and blind a labelled set, and how to decide when a judge can stand in for a person |
-| Adversarial Robustness and AI Control | The view a round worked on gained ten times more than the others, and the judge knew which view was built (Nov 13 to 14 experiment) | How to test whether a builder is fitting its judge, and how to red-team a judge before trusting it |
-| Experimental design (Alignment Science) | Two of four answers are "Partly" and the "Yes" is for a bundle, because changes landed together and nothing was run with one change removed; and the quality gap is about 21 points or none, depending on which art is used to score | How to plan runs so an effect can be attributed, at about 190 USD a run, and how to build a measure that does not depend on the target it was tuned to |
+| Adversarial Robustness and AI Control | Builders scored their own rounds up about 24 points where a fresh judge saw about 6, and the judge knew which view was built (Nov 13 to 14 experiment and the self-score result) | How to test whether a builder is fitting its judge, and how to red-team a judge before trusting it |
+| Experimental design (Alignment Science) | Two of four answers are "Partly" and the "Yes" is for a bundle, because changes landed together and nothing was run with one change removed; and the quality gap is about 23 points or none, depending on which art is used to score | How to plan runs so an effect can be attributed, at about 184 USD a body, and how to build a measure that does not depend on the target it was tuned to |
 | ML systems and training | Nothing I have trained has beaten its baseline (the proposal) | How to train and test a small judge from about 150 pairwise labels |
 
 ## Limits
 
 - No run with one change removed. Every experiment's answer belongs to changes that landed together.
-- At most six droids, four finished, one build per body, no repeat runs.
+- Six droids, one build per body, no repeat runs.
 - One labeller (me), and 0 blinded labels so far.
 - Every quality number comes from an AI judge: one Opus medium scorer per round. Some scorers saw the builder's own score or earlier scores, so treat the scores as upper bounds. Old and new builds can be told apart on sight, and their render setups differed ([confound list](METHOD.md#confounds)).
 - The proposal is untested. Nothing I have trained so far has beaten its baseline.
@@ -117,7 +121,6 @@ I will work on the problem my mentor sets, using this testbed and its records. T
 - [Failure cases](METHOD.md#failure-cases): eight dated cases where agents cheated, hallucinated or cut corners in the fleet, with the files in [`incidents/`](incidents/).
 - [`scripts/wilson.py`](scripts/wilson.py): the Wilson interval and backtest scoring behind the judge check; `python3 scripts/wilson.py`, no dependencies.
 - `data/` and `figures/`: weekly fleet aggregates and figures, each with its source and window.
-- An earlier 2-minute video tells an earlier version of this story, with the experiments in a different order and cost and time figures that predate the corrections here: https://youtu.be/vTkcXYL4Rr4
 
 ## How this was written
 
