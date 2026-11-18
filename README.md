@@ -18,7 +18,7 @@ Alex Net's harness (experiment issue #727). The job: take owner-approved concept
 
 ## Results across droids
 
-Male droids only, all six finished (n=6 of 6). Scorer cost is counted on both sides ([definitions](METHOD.md#results-across-droids)).
+Six droid designs, twelve bodies built in all (a male and a female body per design). The comparison below is on the male body of each design, all six finished (n=6 of 6). Scorer cost is counted on both sides ([definitions](METHOD.md#results-across-droids)).
 
 | Droid | Old pipeline, USD | New method, USD | Cost reduction | Old wall h | New wall h | Time reduction | Rounds, old | Rounds, new |
 |---|---|---|---|---|---|---|---|---|
@@ -30,7 +30,7 @@ Male droids only, all six finished (n=6 of 6). Scorer cost is counted on both si
 | f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 73 | 12 |
 
 - **Cost:** each droid's own reduction runs from 68.8% (min) to 75.3% (max), mean 72.3%. List price, old body including its share of scoring, new male body including its 12 fresh scorer rounds.
-- **Time:** wall time only, the elapsed span from first start to last finish, never halved. Each droid's reduction runs from 74.3% to 88.1%, mean 78.8%, about a fifth of the time. All six old droids ran at once on shared accounts, which stretched the old spans. Old agent hours were never measured (the old column is summed lane time), so I make no agent-hour comparison ([why](METHOD.md#time-and-agent-hours)).
+- **Time:** wall time only, the elapsed span from first start to last finish, never halved. Each droid's reduction runs from 74.3% to 88.1%, mean 78.8%, about a fifth of the time. All six old droids ran at once on shared accounts, which stretched the old spans. Angular, carbon standard and reinforced angular share one old wall time (96.42 h) because the old pipeline ran those three as one parallel batch. Old agent hours were never measured (the old column is summed lane time), so I make no agent-hour comparison ([why](METHOD.md#time-and-agent-hours)).
 - **Rounds:** 62 to 93 old rounds against 12 new ones per body, a reduction of 80.6% to 87.1%, mean 83.6%. Not the same unit: an old round worked on one part, a new round covers the whole body from one view.
 - **Quality:** scored as the mean over 11 part regions, 0 to 100. Against the new male texture art, the new finals score 23.4 points higher than the old finals on average (from +20.3 to +29.3), higher on 6 of 6. But the old pipeline was never built to that art. Against the art it was built to, there is no gain: from 12.2 points lower (the carbon droid) to 6.1 points higher, 1.8 points lower on average, higher on 2 of 6. So the honest headline is about the same droid, as far as an AI judge can tell, for about 72% less cost, in about a fifth of the time, not a better droid. AI judge only, not yet checked against my blind labels.
 
