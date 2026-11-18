@@ -52,56 +52,132 @@ The eight cases in `incidents/` come from dated notes the agents wrote after eac
 
 ## 5. Lead case: 3D builds with no person watching
 
-All of these come from comments on the game repo's experiment issue (#727, private), each cited by comment id, from the score tables those comments link, and from the Alex Net lane's experiment analysis of 2026-11-17 (lane an-dx-theories-261117, file droid-experiments-261117 with its CSVs droid-experiments, droid-history, droid-score-vs-rounds and droid-cost-allchassis). Every 3D score is **AI judge only, not yet checked against my blind labels**: it comes from one fresh Opus medium scorer per round (or, where named, the first pipeline's own in-round judge), and no scorer has been checked against the owner.
+All of these come from comments on the game repo's experiment issue (#727, private), each cited by comment id, from the score tables those comments link, and from the Alex Net lane's experiment analysis of 2026-11-17 (lane an-dx-theories-261117, file droid-experiments-261117 with its CSVs droid-experiments, droid-history, droid-score-vs-rounds and droid-cost-allchassis), and from the six-droid statistics of 2026-11-18 (stats6, comment 6965472258, report droid-stats6-261117 with its CSV droid-stats6-male). Every 3D score is **AI judge only, not yet checked against my blind labels**: it comes from one fresh Opus medium scorer per round (or, where named, the first pipeline's own in-round judge), and no scorer has been checked against the owner.
 
 Three different 0 to 100 measures appear below and are not one scale: the first pipeline's **in-loop judge** (whole-droid score inside the loop), the fresh scorer's **11-region mean** (mean over 11 part regions and three views, the only measure scored the same way for old and new builds), and the fresh scorer's **whole-droid score** (new method only). Each number names its measure.
 
-### Results across droids (as of 2026-11-17, n=4 of 6)
+### Results across droids
 
-Male droids only. Four of six droids are finished (a-standard, b-lean, c-angular, e-carbon-standard); d-minimal and f-reinforced-angular are still running and will be added to these tables when they finish.
+Male droids only, all six finished: a-standard, b-lean, c-angular, d-minimal, e-carbon-standard and f-reinforced-angular. Source: stats6 (comment 6965472258, report droid-stats6-261117 and its CSV droid-stats6-male), which recomputes every male lane from its own transcripts and RUNNER.md; the d-minimal and f-reinforced-angular results are comments 6963046572 and 6965690397. n=6, not a controlled comparison, no ablation: the difference belongs to the whole method.
 
-| Droid | Old cost, USD | New male cost, USD | Reduction | Old rounds | New rounds | Source |
-|---|---|---|---|---|---|---|
-| a-standard | 749.14 | 185.13 | 75.3% | 74 | 12 | stats3, comment 6951147899 |
-| b-lean | 584.86 | 182.62 | 68.8% | 62 | 12 | stats3; b-lean result, comment 6939125964 |
-| c-angular | 707.59 | 199.33 | 71.8% | 93 | 12 | stats3; c-angular result, comment 6951013658 |
-| e-carbon-standard | 679.96 | 181.70 | 73.3% | 81 | 12 | e-carbon-standard result, comment 6958924820 |
-| Mean | 680.39 | 187.19 | 72.3% | 77.5 | 12 | computed here |
+**One definition on both sides, scorer cost in.** Old = every round of that droid in the first pipeline (in-round judges, set-aside and stopped rounds included) plus a one-sixth share of the old fresh scorer (1.34 USD, 0.10 lane h). New male = the 12 male build rounds plus their 12 fresh scorer rounds. USD = list price, the last result event per session id, summed over sessions. Wall h = elapsed time, first start to last finish of that droid's own lanes, never halved. Lane h = RUNNER.md start-to-exit segments summed over the same lanes. Rounds = build rounds (scorer rounds not counted).
 
-- **Reduction** is each droid's own: 1 minus new male cost over old cost. Min 68.8%, max 75.3%, mean 72.3% (n=4). Pooled over the four droids it is 72.5%.
-- **Old cost** is the first pipeline's one unsexed body for that droid, list price, last result event per session id, plus a one-sixth share of the old fresh scorer (1.34 USD). That share is why a-standard is 749.14 here and 747.80 in the stall figures below (747.82 on the first #727 tally, 747.79 in the cost CSV, a rounding difference).
-- **New male cost** is the male body's 12 build rounds plus its fresh scorer rounds, same method. e-carbon-standard male has 10 scorer rounds, not 12 (texture Fable rounds 1 and 2 were never scored), so its cost is about 4 USD lower than a full set would be.
+| Droid | Old USD | New male USD | USD reduction | Old wall h | New wall h | Wall h reduction | Old lane h | New lane h | New agent h | Old rounds | New rounds |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| a-standard | 749.14 | 185.17 | 75.3% | 101.89 | 12.09 | 88.1% | 97.18 | 13.04 | 10.94 | 74 (66 finished) | 12 |
+| b-lean | 584.86 | 182.61 | 68.8% | 77.82 | 16.06 | 79.4% | 72.91 | 11.53 | 9.46 | 62 (55 finished) | 12 |
+| c-angular | 707.59 | 199.35 | 71.8% | 96.42 | 21.32 | 77.9% | 91.50 | 12.18 | 8.97 | 93 (85 finished) | 12 |
+| d-minimal | 578.47 | 165.79 | 71.3% | 79.72 | 17.79 | 77.7% | 75.74 | 11.94 | 9.91 | 65 (58 finished) | 12 |
+| e-carbon-standard | 679.96 | 185.15 | 72.8% | 96.42 | 24.82 | 74.3% | 91.70 | 12.22 | 10.43 | 81 (73 finished) | 12 |
+| f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 91.11 | 12.33 | 11.97 | 73 (65 finished) | 12 |
+
+| Measure (n=6) | Min | Max | Mean | Median |
+|---|---|---|---|---|
+| USD reduction | 68.8% | 75.3% | 72.3% | 72.3% |
+| Old USD | 578.47 | 749.14 | 668.80 | 693.78 |
+| New male USD | 165.79 | 199.35 | 183.77 | 184.86 |
+| Wall h reduction | 74.3% | 88.1% | 78.8% | 77.8% |
+| Old wall h | 77.82 | 101.89 | 91.45 | 96.42 |
+| New wall h | 12.09 | 24.82 | 19.32 | 19.55 |
+| Lane h reduction | 84.2% | 86.7% | 85.8% | 86.5% |
+| Rounds reduction | 80.6% | 87.1% | 83.6% | 83.7% |
+| Old rounds | 62 | 93 | 74.67 | 73.50 |
+| Agent h reduction | not measured | | | |
+
+- **Reduction** is each droid's own: (old minus new) over old. Mean 72.3% cost, 78.8% wall time, 83.6% rounds. In ratios, the mean old wall time is 5.03 times the new (3.88 to 8.43), about a fifth of the time.
+- **Wall time:** all six old droids ran at the same time on four shared accounts, so account limits stretched every old span. New male lanes also overlapped the female lanes and other droids. The old span leaves out the separate old scorer, which ran later (0.10 h per droid, included in old USD and lane h). Male and female new bodies ran side by side, so nothing is halved.
+- **Changes from the n=4 tables** (all from stats6 recomputing from transcripts): a-standard new male 185.13 to 185.17 USD, b-lean 182.62 to 182.61, c-angular 199.33 to 199.35, e-carbon-standard 181.70 to 185.15, because its texture Fable rounds 1 and 2 have now been scored and their scorer cost is in. e-carbon-standard now has all 12 scorer rounds.
 - **Rounds** are not the same unit: an old round worked on one part, a new round covers the whole body from one view.
+
+### Time and agent hours
+
+- **Old agent hours were never measured.** The old `agent_h` column in the cost CSV (droid-cost-allchassis, 97.08 on standard) equals the baseline's `wall_min`/60 for all 448 old lanes, 0 mismatches: it is RUNNER.md start to exit or stop (443 lanes) or driver-log times (5 lanes), which is lane time. The baseline kept no per-round agent duration and most old transcripts were cleared. So there is no agent-hour comparison, and the time result uses wall h (elapsed span) only. Lane h is given on both sides because it is the same definition on both.
+- **a-standard new male: 10.94 agent h against 13.04 lane h.** 10.94 (10.93 in the CSV, 10.934 summing its three-decimal rows) is the sum of `duration_ms` from the last result event per session over the 24 male lanes, agent time as Claude Code reports it. 13.04 is RUNNER.md start-to-exit segments summed over the same 24 lanes. The experiment analysis (T1) called 13.04 "agent h" and stats3 called it "new male wall h"; the elapsed span is 12.09. Both 10.94 and 13.04 are correct for their definitions, and neither is halved.
+- The per-droid result comments give their own agent-hour figures (d-minimal male 10.24, f-reinforced-angular male 12.08, near stats6's all-result-events column, 10.23 and 12.08); stats6's agent h uses the last result event per session, 9.91 and 11.97. This file uses stats6. The "wall hours" in those comments (75.6 and 91.0 for the old builds) are summed lane time, not elapsed.
+- The draft 6 video's "97 to 13 hours" matches a-standard's old lane h (97.18) against its new male lane h (13.04): lane time, not elapsed. It is replaced by the wall-time figures above, and the earlier "about a tenth of the agent hours" stays withdrawn.
 
 **Quality, male, 11-region mean** (AI judge only, not yet checked against my blind labels):
 
-| Droid | Old final | New male final, against the male texture art | Gain | New male final, against the old per-part references | Old final, against its own per-part references | Difference |
+| Droid | Old final, male texture art | New male final, male texture art | New minus old | Old final, old per-part references | New male final, old per-part references | New minus old |
 |---|---|---|---|---|---|---|
-| a-standard | 46.6 | 69.8 | +23.2 | 60.9 | 54.9 | +6.0 |
-| b-lean | 51.9 | 72.3 | +20.4 | 56.9 | 59.1 | -2.2 |
-| c-angular | 48.4 | 70.0 | +21.6 | 53.6 | 56.2 | -2.6 |
-| e-carbon-standard | 49.5 | 69.8 | +20.3 | 47.3 | 59.5 | -12.2 |
-| Mean (n=4) | | | +21.4 | | | -2.75 |
+| a-standard | 46.6 | 69.8 | +23.3 | 54.9 | 60.9 | +6.1 |
+| b-lean | 51.9 | 72.3 | +20.4 | 59.1 | 56.9 | -2.1 |
+| c-angular | 48.4 | 70.0 | +21.6 | 56.2 | 53.6 | -2.6 |
+| d-minimal | 46.6 | 75.9 | +29.3 | 58.5 | 54.9 | -3.7 |
+| e-carbon-standard | 49.5 | 69.8 | +20.3 | 59.5 | 47.3 | -12.2 |
+| f-reinforced-angular | 45.0 | 70.7 | +25.8 | 52.8 | 56.8 | +4.0 |
 
-- The old builds were scored against the male whole-body texture art, so male against old is the only comparison on the same art. The old pipeline was never built to that art; it was built part by part to the per-part references, and on that target there is no gain (from 12.2 lower to 6.0 higher, mean 2.75 lower).
-- Sources: a-standard comments 6904021106 (old), 6915255579 (male); b-lean 6939125964; c-angular 6951013658; e-carbon-standard 6958924820; stats3 6951147899 for the old finals of a, b and c.
-- **Both bodies averaged, three droids** (stats3, includes female scores, kept here and not in the README): against the texture art the new body mean is +21.9 over the old final; against the per-part references it is +5.6, -4.1 and +0.5, mean +0.6. The draft 7 video brief quoted "+22" and "+0.6" from this three-droid table; the four-droid male figures above replace them in the README.
-- Headline from these numbers: about the same droid, as far as an AI judge can tell, for about 72% less cost. Not "a better droid": the +21.4 depends on scoring against art the old pipeline never used.
+| Difference, points (n=6) | Min | Max | Mean | Median | New higher |
+|---|---|---|---|---|---|
+| Male texture art | +20.3 | +29.3 | +23.4 | +22.5 | 6 of 6 |
+| Old per-part references | -12.2 | +6.1 | -1.8 | -2.4 | 2 of 6 |
 
-### Time
+- Both sides: a fresh Opus medium scorer, the same #727 rubric, 11 regions, mean of front, profile and back. Old = the old-build scorer of 2026-11-16; new = the round 12 scorer. Render rigs differ between the two scorers. The old scorer gave no whole-droid row, so the 11-region mean is the only measure scored the same way on both sides.
+- The old pipeline was never built to the male texture art; it was built part by part to the per-part references, and on that target there is no gain (from 12.2 lower to 6.1 higher, mean 1.8 lower).
+- a-standard is +23.3 and +6.1 here (stats6) where the n=4 table gave +23.2 and +6.0, a rounding difference; b-lean -2.1 here against -2.2.
+- **Both bodies averaged, three droids** (stats3, includes female scores, kept here and not in the README): against the texture art the new body mean is +21.9 over the old final; against the per-part references it is +5.6, -4.1 and +0.5, mean +0.6.
+- Headline from these numbers: about the same droid, as far as an AI judge can tell, for about 72% less cost, in about a fifth of the time. Not "a better droid": the +23.4 depends on scoring against art the old pipeline never used.
 
-No time reduction is given until the Alex Net lane re-measures it. The sources do not yet give a male-only elapsed figure on one definition for old and new:
+### Score by round, new method (male, n=6)
 
-- The two bodies of each new droid ran side by side, so a both-bodies figure cannot be halved into a per-body one.
-- For a-standard the experiment analysis gives the chassis (both bodies) 24.40 summed lane hours and 12.09 elapsed hours; stats3 lists 24.40 as "new chassis wall h". The b-lean and e-carbon-standard result tables give 23.98 and 22.70 as the sum of the two bodies' lane hours.
-- Stats3 says the old rounds kept no agent duration, while the experiment analysis gives old summed lane hours (97.08 on standard, 519.54 on all six) from RUNNER start to exit. The old elapsed span on standard is 97.18 hours in stats3 and 101.89 in the experiment analysis.
-- The draft 6 video said "97 to 13 hours". It may set old elapsed hours against new agent hours, and is withdrawn here, as is the earlier "about a tenth of the agent hours". The Alex Net lane is tracing the column (stats6, queued for when all six droids finish).
+Whole-droid score against the male whole-body texture art, mean of front, profile and back, after each round. Rounds 1 to 3 shape Opus, 4 to 6 shape Fable, 7 to 9 texture Opus, 10 to 12 texture Fable. AI judge only, not yet checked against my blind labels.
+
+| Droid | r1 | r2 | r3 | r4 | r5 | r6 | r7 | r8 | r9 | r10 | r11 | r12 | Best (round) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| a-standard | 46.7 | 48.3 | 51.0 | 55.7 | 57.3 | 57.3 | 69.3 | 72.0 | 72.7 | 76.7 | 72.0 | 72.7 | 76.7 (r10) |
+| b-lean | 42.0 | 43.0 | 50.7 | 55.0 | 58.0 | 59.3 | 65.3 | 64.7 | 67.3 | 71.0 | 72.0 | 71.3 | 72.0 (r11) |
+| c-angular | 39.3 | 41.3 | 49.0 | 52.0 | 52.7 | 48.3 | 70.7 | 65.3 | 66.0 | 69.0 | 75.3 | 70.0 | 75.3 (r11) |
+| d-minimal | 44.7 | 42.7 | 49.7 | 51.3 | 54.7 | 58.3 | 69.3 | 70.0 | 70.7 | 76.0 | 80.0 | 77.0 | 80.0 (r11) |
+| e-carbon-standard | 43.3 | 42.7 | 52.0 | 57.0 | 59.0 | 59.7 | 70.7 | 65.3 | 76.0 | 71.3 | 73.0 | 70.0 | 76.0 (r9) |
+| f-reinforced-angular | 46.0 | 53.0 | 53.7 | 51.7 | 53.3 | 53.7 | 74.7 | 74.3 | 72.3 | 61.3 | 66.0 | 71.0 | 74.7 (r7) |
+| Mean | 43.7 | | | | | | | | | | | 72.0 | |
+
+- Mean 43.7 at round 1 to 72.0 at round 12 (43.67 to 72.00, +65%).
+- Every droid's best score came before round 12: five of six one to three rounds before (rounds 9 to 11), and f-reinforced-angular at round 7, five rounds before.
+- Per part, against the male texture art: every one of the 11 regions scored higher at round 12 than at round 1 on every droid (66 of 66). The 11-region mean went from 42.6 to 71.4 on average (per droid 44.3 to 69.8, 43.2 to 72.3, 37.6 to 70.0, 39.8 to 75.9, 42.2 to 69.8, 48.5 to 70.7).
+- Part of the round 7 jump is colour arriving: shape rounds are scored here against the texture art.
+
+### Per pass, new method (male, n=6)
+
+| Pass | Score gain, mean (min to max) | USD, mean (min to max) | Build USD mean | Scorer USD mean |
+|---|---|---|---|---|
+| Shape, Opus | +7.3 (+4.3 to +9.7), round 1 to 3 only | 34.52 (30.99 to 40.45) | 28.73 | 5.79 |
+| Shape, Fable | +5.1 (-0.7 to +8.7) | 64.74 (60.08 to 70.69) | 59.15 | 5.59 |
+| Texture, Opus | +14.7 (+8.0 to +18.7) | 26.85 (22.73 to 28.80) | 21.70 | 5.15 |
+| Texture, Fable | +1.2 (-6.0 to +6.3) | 57.66 (50.37 to 63.67) | 52.12 | 5.54 |
+| Opus passes together | +22.0 | 61.37 (about 61) | | |
+| Fable passes together | +6.3 | 122.40 (about 122) | | |
+
+- Score gain = whole-droid score against the male texture art at the pass's last round minus at the previous pass's last round. Shape Opus has no score before round 1, so its row covers two rounds of change, not three. USD = the pass's 3 build rounds plus their 3 scorer rounds. The two "together" rows are sums of the rows above.
+- Against the shape art instead: shape Opus round 1 to 3 +8.8 (+4.0 to +13.7), shape Fable round 3 to 6 +9.2 (+6.7 to +11.0).
+- Fable always ran second in each phase, on a better build, so this is not a test of Opus against Fable. Part of texture Opus's gain is colour arriving.
+
+### Three views and builder self-score (male, n=6)
+
+| Source | Worked view, mean change | Other two views, mean change | Difference | Worked view higher | Rounds |
+|---|---|---|---|---|---|
+| Fresh scorer, whole-droid against the male texture art, rounds 2 to 12 | +6.36 (about 6.4) | +0.68 (about 0.7) | +5.68 | 58 of 66 (0 ties) | 66 |
+| Fresh scorer, rounds 2 to 12 without the first round of a pass (4, 7, 10) | +5.54 | -0.59 | +6.14 | 43 of 48 (0 ties) | 48 |
+| Builder self-score, same round before against after | +24.25 (about 24.3) | +8.04 | +16.22 | 71 of 71 (0 ties) | 71 |
+
+| Droid, fresh scorer | Worked view | Other two | Difference | Worked view higher |
+|---|---|---|---|---|
+| a-standard | +6.45 | +0.32 | +6.14 | 9 of 11 |
+| b-lean | +5.64 | +1.18 | +4.45 | 10 of 11 |
+| c-angular | +7.18 | +0.59 | +6.59 | 10 of 11 |
+| d-minimal | +6.91 | +0.95 | +5.95 | 10 of 11 |
+| e-carbon-standard | +6.64 | +0.32 | +6.32 | 10 of 11 |
+| f-reinforced-angular | +5.36 | +0.73 | +4.64 | 9 of 11 |
+
+- Each round works on one view (front, profile, back in turn in every pass). Fresh scorer change = that round's whole-droid score for a view minus the previous round's, same target; round 1 has no earlier score. The scorer was told which view the round built, so it was not blind to the view.
+- Builder rows come from each round's own before and after self-scores (a-standard round 1 has none). They are not the same measure as the fresh scorer rows: within one round, before against after, over 71 rounds, against round over previous round over 66. "71 of 71" means the worked view gained more than the other two in every round. In the builder's own scoring the worked view rose about 24 points; the fresh scorer saw about 6.
+- These replace the earlier pooled female and male figures from the experiment analysis (+7.22 against +0.72, 33 of 36 rounds).
 
 ### Stats3: old against new, three droids, both bodies (comment 6951147899)
 
-Copied from stats3 as posted. n=3, not a controlled comparison, no ablation. The bootstrap intervals (10,000 draws, seed 1044550201) have only 10 distinct resamples at n=3 and are not inference. Scores are AI judge only, not yet checked against my blind labels.
+Copied from stats3 as posted; superseded for male droids by the six-droid tables above. stats3's "wall h" columns are summed lane time (old 97.18 is a-standard's old lane h; 24.40 is both new bodies' lane h). n=3, not a controlled comparison, no ablation. The bootstrap intervals (10,000 draws, seed 1044550201) have only 10 distinct resamples at n=3 and are not inference. Scores are AI judge only, not yet checked against my blind labels.
 
-| Droid | Old USD | New female USD | New male USD | New both bodies USD | Old wall h | New both bodies "wall h" (see Time) | Old rounds | New rounds (body / droid) |
+| Droid | Old USD | New female USD | New male USD | New both bodies USD | Old wall h | New both bodies "wall h" (lane h, see [Time and agent hours](#time-and-agent-hours)) | Old rounds | New rounds (body / droid) |
 |---|---|---|---|---|---|---|---|---|
 | a-standard | 749.14 | 206.45 | 185.13 | 391.58 | 97.18 | 24.40 | 74 | 12 / 24 |
 | b-lean | 584.86 | 195.84 | 182.62 | 378.46 | 72.91 | 23.98 | 62 | 12 / 24 |
@@ -112,7 +188,7 @@ Copied from stats3 as posted. n=3, not a controlled comparison, no ablation. The
 | Cost, per body | 3.48 | 3.53 | 3.09 | 3.83 |
 | Cost, droid (both bodies) | 1.74 | 1.77 | 1.55 | 1.91 |
 | Wall h, per body | not used here: it halves a both-bodies figure | | | |
-| Wall h, droid | not used here: see Time | | | |
+| Wall h, droid | not used here: lane time, see Time and agent hours | | | |
 | Rounds, droid | 3.18 | 3.08 | 2.58 | 3.88 |
 
 | Droid, 11-region mean against the male texture art | Old | New female | New male | New body mean | New minus old |
@@ -131,10 +207,10 @@ Dates are when each change first ran (droid-history CSV, from lane logs, art fil
 | Nov 10 | Do more rounds make a better model? (first pipeline, run to plateau) | No, not after round two | In-loop judge 29 to 47 in the first two whole-body rounds (55.76 USD), then 47 to 56 over the next 63 rounds (692.03 USD); a fresh scorer gave the final build 47. 74 rounds, 747.80 USD in all | 1 droid (standard, the only one with more than one whole-body round) | In-loop judge, droid-score-vs-rounds CSV; cost from droid-cost-allchassis CSV (whole-body passes p1 and p2: 29.48 and 26.28 USD) | In-loop judge and fresh scorer differ in rubric and art. Six old droids in all: 4,004.72 USD, 448 rounds |
 | Nov 11 | Was each round trying to do too much? (one body part at a time, run in parallel) | No | 70 rounds on single parts (62 finished), 651.85 USD, moved the in-loop judge from 50 to 56 on standard. Inside each droid parts ran one after another: summed lane hours over elapsed span 0.936 to 0.953; the 5.10 across all six came from six droids running at once | 6 old droids; score on 1 | In-loop judge; experiment analysis T2 | No serial run of the same work exists. The new whole-body method uses 12 rounds per body against 62 to 93 |
 | Nov 11 | Was the concept art too small? (a 1254 px close-up per part and view, in place of one 1536x1024 sheet shared by six droids) | Partly | Mean change per round 5.45 points on the sheet, 8.50 on the close-up art; larger in 10 of 14 parts (median paired difference +2.25) | 15 parts, 31 and 36 round pairs | In-loop judge, front scoring only, same-model pairs; experiment analysis T4 | Side views arrived the same day. In the new method the 3 parts given newer close-up art gained 18.70 against 24.16 for other parts (n=3 against 19). Every art set was approved, so approvals cannot separate old and new art |
-| Nov 13 to 14 | Were builders only looking at the front? (judge and fix from front, profile and back) | Partly | New method: the view a round worked on gained 7.22 points against 0.72 for the other two views, higher in 33 of 36 rounds. First pipeline: judging all three views lowered the mean change per round from 3.56 to 1.95 points (higher in 8 of 17 parts) | 36 new rounds, female and male bodies pooled; 20 old parts | Fresh scorer whole-droid view scores (new); in-loop judge (old); experiment analysis T3 | The scorer was told which view was built. The old three-view score is the lowest of three views, a lower scale |
-| Nov 15 | Should shape come before texture? (high-contrast shape art, shape phase then texture phase) | Yes on the four finished droids, for the bundle | Male whole-droid score 43 after round 1 to 71 after round 12 on average (a-standard 46.7 to 72.7, b-lean 42.0 to 71.3, c-angular 39.3 to 70.0, e-carbon-standard 43.3 to 70.0); 187.19 USD mean per male droid | 4 male droids | Fresh scorer whole-droid score against the texture art in every round; a-standard from the droid-score-vs-rounds CSV, others from the result comments above | Bundle: judge and builder in one session, the whole-body three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer all arrived together. All four male droids peaked one to three rounds before round 12 (e-carbon-standard among its scored rounds only: its rounds 10 and 11 were never scored). The dark-art idea behind the split is weak: darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but Spearman rho -0.127, p 0.38, n=50, and darkness is confounded with droid |
+| Nov 13 to 14 | Were builders only looking at the front? (judge and fix from front, profile and back) | Partly | New method, six male droids: the view a round worked on gained 6.36 points (about 6.4) against 0.68 (about 0.7) for the other two views, higher in 58 of 66 rounds (an earlier pooled female and male figure was 7.22 against 0.72, 33 of 36). First pipeline: judging all three views lowered the mean change per round from 3.56 to 1.95 points (higher in 8 of 17 parts) | 66 new male rounds (rounds 2 to 12, six droids); 20 old parts | Fresh scorer whole-droid view scores (new, stats6); in-loop judge (old); experiment analysis T3 | The scorer was told which view was built. The old three-view score is the lowest of three views, a lower scale |
+| Nov 15 | Should shape come before texture? (high-contrast shape art, shape phase then texture phase) | Yes on all six droids, for the bundle | Male whole-droid score 43.7 after round 1 to 72.0 after round 12 on average (a-standard 46.7 to 72.7, b-lean 42.0 to 71.3, c-angular 39.3 to 70.0, d-minimal 44.7 to 77.0, e-carbon-standard 43.3 to 70.0, f-reinforced-angular 46.0 to 71.0); every part improved on every droid (66 of 66); 183.77 USD mean per male droid | 6 male droids | Fresh scorer whole-droid score against the texture art in every round; stats6 | Bundle: judge and builder in one session, the whole-body three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer all arrived together. Every droid's best score came before round 12: five of six one to three rounds before, f-reinforced-angular at round 7. Opus passes gained +22.0 for about 61 USD and Fable passes +6.3 for about 122 USD, but Fable always ran second, on a better build. The dark-art idea behind the split is weak: darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but Spearman rho -0.127, p 0.38, n=50, and darkness is confounded with droid |
 
-The draft 6 video's per-experiment slide values are in its make_spec.py (shots s04 to s09) and match the rows above for the standard droid, except the s09 time values (97 to 13 and 73 to 9 hours), which are withdrawn (see [Time](#time)); the rows above add the other finished droids.
+The draft 6 video's per-experiment slide values are in its make_spec.py (shots s04 to s09) and match the rows above for the standard droid, except the s09 time values (97 to 13 and 73 to 9 hours), which are withdrawn (see [Time and agent hours](#time-and-agent-hours)); the rows above add the other droids.
 
 ### What was compared on the first droid (a-standard)
 
@@ -143,7 +219,7 @@ The draft 6 video's per-experiment slide values are in its make_spec.py (shots s
 
 | Number | How | Source |
 |---|---|---|
-| Hours per body: old 97.1, new 8.3 (female) and 10.0 (male) | Withdrawn pending the trace in [Time](#time) | was: baseline cost table on #727 and lane durations |
+| Hours per body: old 97.1, new 8.3 (female) and 10.0 (male) | Withdrawn; replaced by wall h and lane h per male droid in [Results across droids](#results-across-droids) | was: baseline cost table on #727 and lane durations |
 | Build cost per body: old 747.82 USD, new 182.00 (female) and 160.67 (male) USD | Sum of list-price cost, last result event per session id. With scorers: 206.45 and 185.13 (stats3) | comments 6903328205 (old) and 6924712566 (new, corrected: the first posting 6915289250 counted some resumed sessions twice) |
 | Scorer cost: about 24 USD per body | Same method, scorer rounds only. An earlier figure of 334 USD double-counted resumed sessions and is withdrawn | scorer transcripts |
 | Cost per round by pass, and the 189 USD projection | Mean, SD and range over every finished new round at 2026-11-16 (41 build, 36 scorer) in droid-cost-allchassis.csv (525 rows, old rounds included; 21 of 448 old rounds carry estimated cost, 180.84 USD, flagged). Projection = 3 x (9.79 + 21.44 + 6.11 + 17.53) + 24 | Alex Net lane, 2026-11-16, recomputed here from the CSV |
@@ -153,7 +229,7 @@ The draft 6 video's per-experiment slide values are in its make_spec.py (shots s
 | Acceptable as is for the next step: female 20 of 24 rows, male 16 of 25 | The scorer's yes or no per part and target row. Not asked of the old build | comment 6915289250 |
 | Builder self-score against a fresh scorer | Two cited rounds, both Fable texture round 2: female self 58 to 67 on profile, fresh scorer 73.3 flat; male self 61 to 72 on profile, fresh scorer's profile score 76 to 70 | comment 6915289250 |
 
-- **Old pipeline across six droids:** 4,004.72 USD and 448 rounds in total; per droid (one body each): standard 747.79 USD, 74 rounds; lean 583.52, 62; angular 706.25, 93; minimal 577.13, 65; carbon standard 678.62, 81; reinforced angular 711.41, 73. Summed from the old rows of droid-cost-allchassis.csv. The summed lane hours (519.5 on all six) are not used until the hours trace reports.
+- **Old pipeline across six droids:** 4,004.72 USD and 448 rounds in total; per droid (one body each): standard 747.79 USD, 74 rounds; lean 583.52, 62; angular 706.25, 93; minimal 577.13, 65; carbon standard 678.62, 81; reinforced angular 711.41, 73. Summed from the old rows of droid-cost-allchassis.csv. The summed lane hours (519.5 on all six) are old lane time, not agent time ([Time and agent hours](#time-and-agent-hours)); per droid, with the scorer share, they are in [Results across droids](#results-across-droids).
 
 ### Full results table, first droid
 
@@ -161,14 +237,14 @@ Rows 1 to 5 are the standard droid: one old build against a female and a male ne
 
 | # | Measure | Old pipeline | New method | n | Caveat |
 |---|---|---|---|---|---|
-| 1 | Hours per body | withdrawn | withdrawn | | See [Time](#time) |
+| 1 | Hours per body | withdrawn | withdrawn | | See [Results across droids](#results-across-droids) for wall h and lane h on one definition |
 | 2 | Cost per body, list price | 747.82 USD build and scoring, 74 rounds (70 on single parts, 4 whole-body) | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | 1 old build, 2 new bodies | 3.6x and 4.0x like for like, since the old figure contains its own scoring. A new round covers the whole body from one view, so the round counts are not the same unit |
 | 3 | 11-region mean against the owner-approved whole-body texture art | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | AI judge only. The old pipeline was not built against this art. Not blind to method |
-| 4 | 11-region mean against the old pipeline's own per-part references | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | AI judge only. The like-for-like target on this droid; on four droids the male mean is 2.75 lower |
+| 4 | 11-region mean against the old pipeline's own per-part references | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | AI judge only. The like-for-like target on this droid; on six droids the male mean is 1.8 lower |
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | AI judge only. The owner has not been asked |
 | 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores, female and male pooled | AI judge only. A lead, not a finding: some scorers had seen earlier scores |
 
-Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule projects to about 189 USD (a projection from round costs at 2026-11-16); the four finished male droids came in at a mean of 187.19 USD.
+Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule projects to about 189 USD (a projection from round costs at 2026-11-16); the six male droids came in at a mean of 183.77 USD (165.79 to 199.35).
 
 ### Cost per round, new method
 
@@ -195,9 +271,9 @@ The comparison is not controlled. Changed between old and new, beyond the method
 5. **Unfinished old run:** the old standard build froze mid-run; its feet and hands never had rounds, and its side and back driver never started a round.
 6. **Render:** different render script, camera, light rig and resolution (old 1536x2304, new 1024x1536). The repo figure `figures/droid_old_new_art.png` (no longer shown in the README, because it includes female bodies) was rendered afterwards for showing the work, on one rig for all three standard builds (old d9c0ea79, new female 6ec7429d, new male f671f540): the Unreal Engine 5.8.4 editor, where `jc_render.py` imports each head's built mesh and renders it with one shared camera frame, one light set and one background. It was not used for scoring.
 7. **Anchoring:** scorers saw builder self-scores or earlier scores in some rounds, so treat their scores as upper bounds.
-8. **Hours:** see [Time](#time); no hours figure is used.
-9. **Size:** four finished droids of six, one scorer session per round, no repeat runs, no run with one change removed.
-10. **Not blind to method:** old and new builds can be told apart on sight (tell check below), for a person or for the scorer.
+8. **Hours:** wall time is the elapsed span and includes waits. All six old droids ran at once on four shared accounts, which stretched every old span, and new lanes overlapped other work. Old agent hours were never measured, so no agent-hour comparison is made ([Time and agent hours](#time-and-agent-hours)).
+9. **Size:** six droids, one build per body, one scorer session per round, no repeat runs, no run with one change removed.
+10. **Not blind to method:** old and new builds can be told apart on sight, by build style, even after the camera fix (tell check below), for a person or for the scorer.
 11. **Order:** the new method ran after the old one, with newer references.
 
 ### Judge check results
@@ -209,18 +285,22 @@ Checks on the judge itself, not old against new.
 | J1 | Judge predicts the owner's past single picks (1 of 4), options blinded | 8 of 24, 33.3% (Wilson 95% 18.0% to 53.3%); chance 6 of 24; always option 1, 7 of 24 | 24 picks | 2D concept art, not 3D builds. The picks themselves were made unblinded. 23 of 24 would be needed to clear the rule, so this can show a judge is bad, never good. An earlier run (9 of 29) was withdrawn for a text leak |
 | J2 | Judge on accept or send back, concept-art drafts | 28 of 56, 50.0% (37.3% to 62.7%); always send back 37 of 56, 66.1% | 56 drafts | 2D concept art, unblinded. The true request text was missing for 38 of 56 |
 | J3 | Tell check before labelling | blind guess of the old build 0 of 10, so the methods separate 10 of 10; edge density 0.041 to 0.048 (old) against 0.025 to 0.033 (new) | 10 pairs; pool 66 old, 12 new | Not a judge result. Led to Revision 5 below |
+| J3b | Tell check repeated after the camera fix | the blind judge's two families matched old and new in 10 of 10 pairs (its guess of which is older inverted, 0 of 10); it found no framing cue; feet on the last image row 0 of 66 old, 0 of 12 new | 10 pairs; pool 66 old, 12 new | Not a judge result. Framing tell gone, build-style tell remains, so old against new stays secondary |
+| J3c | Tell check on the primary stratum | a fresh judge picked the earlier round in 8 of 10 (Wilson 95% 49% to 94%), from build detail only | 10 primary pairs | Not a judge result. No render, framing, lighting, background or file cue reported |
 | J4 | The owner's approval page | 305 of 308 groups end as approve | 308 groups | Always approve would score 99%, so the page cannot test a judge |
 | J5 | Blinded owner pairs (the validation) | 0 answered | 0 | Rule fixed before data, below |
 
 ### Judge check: decision rule, design, backtests, tell check
 
 - **Decision rule** (comment 6903781964, posted 2026-11-16 00:15 UTC, before any owner label): pairwise agreement between the owner and the judge on blinded pairs of builds; the judge may stand in for the owner when agreement is at least 85% and the lower bound of the 95% Wilson interval is at least 75%. 10% of pairs are repeated with left and right swapped to measure owner self-agreement. If no second person labels at least 50 pairs, results say "agrees with the owner", never "agrees with people". The rule, pairs and scorer freeze at the first label. Run jc-261116-01, pair seed 1044550201. Unchanged by every revision since.
-- **Design:** about 150 pairs plus 15 repeats, same droid, sex and phase in each pair; one image per item (front, side and back in one row) with no lane, model, round, cost or score in the image, file name or metadata; random item ids, the mapping sealed on the game server and the fleet database; the owner never sees a judge score while a run is open. Backfilled approvals recovered from past messages are kept in a separate column and are never called blind.
+- **Design** (as first posted): about 150 pairs plus 15 repeats, same droid, sex and phase in each pair; one image per item (front, side and back in one row) with no lane, model, round, cost or score in the image, file name or metadata; random item ids, the mapping sealed on the game server and the fleet database; the owner never sees a judge score while a run is open. Backfilled approvals recovered from past messages are kept in a separate column and are never called blind.
 - **Revision 5** (2026-11-17, comment 6953849465, decided before any pair was drawn or any label given), after the tell check:
   1. Framing: a fixed camera and a common ground line for every item, every item re-rendered, then the tell check repeated on the re-rendered set and posted on #727.
   2. Primary measure: pairs inside the new method only (round against round, Opus pass against Fable pass, same droid, same view). The decision rule applies to this stratum.
   3. Old against new stays as a secondary stratum, reported separately and labelled "not blind to method" everywhere it appears. It never counts toward the decision rule.
   4. Before the batch is published, the tell check also runs on the primary stratum (can a fresh judge tell the earlier round from the later one from the image alone, beyond the quality difference).
+
+  The re-render and batch comments (6968151817, 6968159053) call this same spec "Revision 3 of 2026-11-17"; the numbering here follows comment 6953849465.
 - **Backtest on past single picks** (comment 6904535705): 24 groups where the owner picked 1 of 4 concept-art options. Options were re-encoded, renamed at random, shuffled and shown with no titles or descriptions. A fresh Opus medium judge per group. An earlier run (9 of 29) was withdrawn because option text leaked the original order. At n = 24 the judge needs 23 hits to clear the rule, so this backtest can show a judge is bad, never that it is good.
 - **Accept or send back** (ChatGPT concept-art drafts): 56 judged rows after 6 exclusions for wrong links or no single image. The true request text was missing for 38 of 56 rows. Unblinded.
 - **Approval page:** 305 of 308 page groups end as approve, so always approve would score 99% there; no approve or revise backtest is reported on the page.
@@ -233,7 +313,25 @@ Checks on the judge itself, not old against new.
   | Feet on the bottom frame edge | 63 of 66 old items, 0 of 12 new |
   | Background and figure brightness | identical |
 
-  The framing difference came from fitting the camera to each asset's bounds and is being fixed (Revision 5, item 1). The surface difference is in the geometry (old builds panelled, new ones smooth) and cannot be hidden without hiding the shape being judged, so old against new pairs are reported as not blind to method, separately from same-method pairs.
+  The framing difference came from fitting the camera to each asset's bounds. The surface difference is in the geometry (old builds panelled, new ones smooth) and cannot be hidden without hiding the shape being judged, so old against new pairs are reported as not blind to method, separately from same-method pairs.
+
+- **Tell check repeated after the camera fix** (comment 6968151817, not a judge result): all 852 judge-check items re-rendered with one fixed camera and a common ground line (500 cm distance, 110 cm height, 240 cm vertical span, mesh root on z = 0), same light, background and resolution, hardware renderer only. New draw: seed 1044550201, offset 1, 10 of 66 old and 10 of 12 new shape-phase neutral items. A fresh Opus medium judge saw only the 20 images and wrote its guesses before unsealing.
+
+  | Check | Outcome |
+  |---|---|
+  | Family split against old and new | 10 of 10 pairs split the same way (panelled against smooth); its guess of which is older was inverted, 0 of 10 |
+  | Framing cue, judge's own view | none; the only framing-like difference was head height, which follows the droid's own height |
+  | Feet on the last image row | 0 of 66 old, 0 of 12 new (63 of 66 and 0 of 12 before the fix) |
+  | Lowest pixel, front view | old rows 1167 to 1169, new 1165 to 1174 (overlap) |
+
+  The framing tell is gone. Old against new is still separable by build style, so it stays a secondary stratum labelled not blind to method.
+- **First label batch, jc-261116-01-b1** (comment 6968159053, published, 0 labels so far): seed 1044550201.
+  - Primary stratum, the decision rule's set: 60 pairs, new method only, same droid (a-standard), same sex, same view. "Same view" means the image mode that matches the phase: shape rounds as neutral grey renders against the shape art, texture rounds as textured renders against the texture art. Per sex and view the 6 rounds give 15 pairs: 24 round against round in the same pass and 36 Opus pass against Fable pass; 30 male and 30 female, 30 shape and 30 texture.
+  - Secondary stratum: 24 pairs, old against new, labelled not blind to method, reported apart and never counted toward the rule.
+  - Repeats: 10% per stratum (6 primary, 2 secondary), left and right swapped, at least 10 pairs after the original or in the next sitting.
+  - Shown: 92 pairs in 2 sittings (42 and 50). Answers: A closer, B closer, can't tell, neither is acceptable. The page gets only item and pair ids and the reference art to show; no stratum, method, model, round, cost, score or judge pick.
+  - Bar: with 60 primary pairs the rule needs at least 52 agreements out of 60 non-tie answers (86.7%, Wilson lower bound 75.8%); 51 of 60 is 85.0% with a lower bound of 73.9%. Can't-tell and neither answers shrink n and raise the bar.
+- **Tell check on the primary stratum** (comment 6968159053, not a judge result): a fresh Opus medium judge that never saw the mapping got 10 random primary pairs (seed offset 3: 7 Opus pass against Fable pass, 3 round against round; 6 male, 4 female; 5 shape, 5 texture) and said which image was the earlier round. 8 of 10 correct (Wilson 95% 49% to 94%): shape 5 of 5, texture 3 of 5. Every call rested on build detail (helmet segments, knee pads, shoulder plates, rivets); it reported no render, framing, lighting, background or file cue. Inside the new method the order shows as a detail or quality difference, which is what the owner judges. Caveat: the same items recur across primary pairs, and the judge chained recurring states across pairs, which applies less to a labeller seeing one pair at a time.
 
 ### The script
 
