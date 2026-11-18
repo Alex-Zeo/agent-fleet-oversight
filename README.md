@@ -1,192 +1,131 @@
-# Agent fleet oversight
+# 2D concept art to 3D models, with no person watching
 
-**How do I know an AI did the task I defined, well and without waste, inside my guardrails, while I was not watching?**
+This repo is part of my application to the Anthropic Residency. I study how to keep oversight of agents on long work that nobody watches, and what that work costs, through one concrete task: a harness that turns 2D concept art into 3D models for Alex Net, a game I am building, with no person watching each round. Fresh AI judges (Opus and Fable) score each build and then fix what they found, and I am setting up my own blinded labels of the builds, made without seeing any judge score. On all six droids the new method built about the same droid, as far as an AI judge can tell, for about 72% less cost than my first pipeline, in about a fifth of the time, though several changes landed together. I want to take the next step with Anthropic's help: turn my labels and the judge records into a trained model (weights) that judges 3D work, checked against blinded human labels.
 
-Video (2 min): https://youtu.be/vTkcXYL4Rr4
+**Video (3 minutes):** https://youtu.be/RBdJE05KqF8 covers the result across six droids, the experiments behind it, why Anthropic, and the two phases.
 
-The question is concrete for me. If I ask Claude to turn concept art into a 3D model, the job takes days and nobody watches it: did it do the task well and without waste? If Claude runs a CNC machine to cut art and panelling for my home, I want to walk in after work and find the shapes I need, cut right. If Claude builds a game while I am at the office, I want my feedback to become the next day's direction.
+**Scale:** 1,213 merged pull requests across 18 repos, 98% in three, from 2026-10-17 to 11-16: the orchestration system that runs the agent lanes (488), Atlanta, a live city simulation (389), and Alex Net (313). The 3D work runs in Alex Net, from concept art, and in Atlanta, from map data. The source repos are private; this repo carries aggregates, the experiment records and the judge check ([how each number was counted](METHOD.md)).
 
-**In short**
+## The harness
 
-- **Testbed and lead case:** agents that build 3D models from approved concept art for days with no person watching, inside a fleet of agent lanes run mostly by Claude across three private codebases (1,118 PRs merged from 2026-10-14 to 11-14). On one chassis (one droid body design, built as a female and a male body), a rebuilt method, where in every round a fresh judge reviews the build from one view and then fixes what it found, took 8 to 10 agent hours of build sessions per body against 97, and 161 to 182 USD of build cost (185 to 206 with scoring) against 748: about 10x faster and about 4x cheaper. It also scored higher than my first pipeline (judge only, not validated). The schedule is two phases (shape, then texture), each with two passes (Opus, then Fable), 12 rounds per body. The scores come from a model judge, and the inputs and effort also changed ([confound list](METHOD.md#confounds)).
-- **What the judge check found so far:** the rule for trusting the judge was fixed and posted before any label. A judge of the same model and effort predicted my past picks 8 times out of 24 (chance is 6) and did worse than always saying no on 56 accept or send-back calls. A check before labelling showed old and new builds can be told apart on sight. The blinded owner check has no answers yet.
-- **What went wrong in the fleet:** eight dated cases where agents cheated, hallucinated or cut corners. Most were caught by me or by an adversarial reviewer, not by the check meant to catch them.
-- **Mentorship I am seeking:** in Scalable Oversight (when a model judge can stand in for a person), in Adversarial Robustness and AI Control (how to catch a builder that fits its judge), and in experimental design (how to attribute a result when several things changed at once).
-- **Plan:** close the blinded judge check with a second rater, test for builders that fit the judge, then one controlled rerun on one chassis with references, effort and render held fixed.
+Alex Net's harness (experiment issue #727). The job: take owner-approved concept art of a droid (front, profile and back) and build a 3D model in Unreal Engine that matches it, over hours of agent work, with no person watching the rounds.
 
-## The question
+- **Art in two versions.** Every view comes as a high-contrast shape version and as a textured colour version.
+- **Two phases.** Shape first, judged only against the high-contrast art; then texture, against the colour art, starting from the shape result.
+- **Judges that score and fix.** Each phase has an Opus pass and then a Fable pass (both at high effort), and each pass has three rounds, one per view. In every round a fresh judge session that has not seen earlier rulings reviews the render from its view, then the same session fixes what it found. 2 phases x 2 passes x 3 views = 12 rounds per body.
+- **A separate scorer.** After every round a fresh Opus medium session scores each body part 0 to 100 at all three views (40 points shape and proportion, 30 detail, 30 material and colour). Every score in this README is **AI judge only, not yet checked against my blind labels**.
+- **My labels, made apart from the judges.** Blinded pairs of builds on a labelling page that never shows a judge score, a model name, a round or a cost (status below).
 
-Running agents for months has taught me three things. AI cheats: tests pass for the wrong reason, and a gate's verdict could be forged from inside the branch it checked. AI hallucinates: work was reported done on green CI while the live dashboard showed no data. AI cuts corners: a bar was moved after a measurement missed it. Each time I added a rule, a hook or a gate. Deterministic guardrails help, but the space of failures grows faster than I can write rules, and the longer the work runs with no person watching, the more the only overseer that scales is another model.
+**The second 3D codebase, Atlanta,** builds a real city from map data (OpenStreetMap outlines, LiDAR heights and published dimensions), not from concept art. Its judges do not score and are not blind: they see the pull request and the builder's report, and rule MERGE or HOLD from renders at three camera altitudes. There are no owner labels there. Its 3D work so far includes 8 baked cars at three detail tiers (PRs #1337, #1353, #1382 and #1396; 102.23 USD and 15.73 agent hours; #1382 and #1396 went Opus HOLD, then Fable MERGE), the Mercedes-Benz Stadium and the GWCC halls (#1470, 33.65 USD), an authored outer ring of about 142 km2 (#1443) and 5 landmark towers. The experiments and the proposal below are about Alex Net.
 
-## Lead case: 3D builds with no person watching
+## Results across droids
 
-I run AI agents that build 3D models from approved concept art for days with no person watching. The only overseer that scales to that is another model: a judge that scores each build against the art. My question is when that judge can stand in for me, and what the builders do once its score is what they work toward. In November I replaced my first pipeline with one built in two phases, shape and then texture. Each phase has two passes, an Opus pass and then a Fable pass, and each pass is three rounds, one per view (front, profile, back): 2 phases x 2 passes x 3 views = 12 rounds per body. In every round a fresh judge reviews the build from that view and then the same session fixes what it found.
+Six droid designs, twelve bodies built in all (a male and a female body per design). The comparison below is on the male body of each design, all six finished (n=6 of 6). Scorer cost is counted on both sides ([definitions](METHOD.md#results-across-droids)).
 
-On one chassis the new method was faster, cheaper and scored higher (judge only, not validated): about a tenth of the agent hours and about a quarter of the build cost per body. The gains on speed and cost are large, and they do not rest on the judge: they come from session transcripts at list price. Per body, build sessions took 8 to 10 agent hours against 97 and cost 161 to 182 USD (185 to 206 with scoring) against 748.
+| Droid | Old pipeline, USD | New method, USD | Cost reduction | Old wall h | New wall h | Time reduction | Rounds, old | Rounds, new |
+|---|---|---|---|---|---|---|---|---|
+| a-standard | 749.14 | 185.17 | 75.3% | 101.89 | 12.09 | 88.1% | 74 | 12 |
+| b-lean | 584.86 | 182.61 | 68.8% | 77.82 | 16.06 | 79.4% | 62 | 12 |
+| c-angular | 707.59 | 199.35 | 71.8% | 96.42 | 21.32 | 77.9% | 93 | 12 |
+| d-minimal | 578.47 | 165.79 | 71.3% | 79.72 | 17.79 | 77.7% | 65 | 12 |
+| e-carbon-standard | 679.96 | 185.15 | 72.8% | 96.42 | 24.82 | 74.3% | 81 | 12 |
+| f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 73 | 12 |
 
-I do not claim the builds are better yet. The scores come from one model judge that has not been checked against me, the new method also had better reference art and more model effort, and a judge of the same model and effort predicted my own past picks 8 times out of 24, where chance is 6. In two rounds a builder's own score rose while a fresh scorer's did not.
+- **Cost:** each droid's own reduction runs from 68.8% (min) to 75.3% (max), mean 72.3%. List price, old body including its share of scoring, new male body including its 12 fresh scorer rounds.
+- **Time:** wall time only, the elapsed span from first start to last finish, never halved. Each droid's reduction runs from 74.3% to 88.1%, mean 78.8%, about a fifth of the time. All six old droids ran at once on shared accounts, which stretched the old spans. Angular, carbon standard and reinforced angular share one old wall time (96.42 h) because the old pipeline ran those three as one parallel batch. Old agent hours were never measured (the old column is summed lane time), so I make no agent-hour comparison ([why](METHOD.md#time-and-agent-hours)).
+- **Rounds:** 62 to 93 old rounds against 12 new ones per body, a reduction of 80.6% to 87.1%, mean 83.6%. Not the same unit: an old round worked on one part, a new round covers the whole body from one view.
+- **Quality:** scored as the mean over 11 part regions, 0 to 100. Against the new male texture art, the new finals score 23.4 points higher than the old finals on average (from +20.3 to +29.3), higher on 6 of 6. But the old pipeline was never built to that art. Against the art it was built to, there is no gain: from 12.2 points lower (the carbon droid) to 6.1 points higher, 1.8 points lower on average, higher on 2 of 6. So the honest headline is about the same droid, as far as an AI judge can tell, for about 72% less cost, in about a fifth of the time, not a better droid. AI judge only, not yet checked against my blind labels.
 
-The rule for trusting the judge, 85% agreement with me on blinded pairs with a 95% lower bound of 75%, was fixed and posted before any label.
+## Experiments, in the order I ran them
 
-![Old build, new female, new male, then the approved female and male art, at front, profile and back](figures/droid_old_new_art.png)
+Each change below was added on top of the ones before. None was ever run alone. First-pipeline scores are the loop's own judge; new-method scores are a fresh scorer; the two are not one scale. All are AI judge only, not yet checked against my blind labels ([sources and n](METHOD.md#experiments-in-historical-order)).
 
-*Columns: old pipeline build (one unsexed body, built to an earlier concept sheet), new female final, new male final, approved female art, approved male art. All three builds are Unreal Engine 5.8.4 renders of the built 3D meshes, with one camera, light and background; the art columns are the 2D concept art. These frames are for showing the work. The scores were taken on each pipeline's own renders, which differed ([confound 6](METHOD.md#confounds)).*
+### Nov 10, first pipeline: Do more rounds make a better model?
 
-**The research question.** When agents work for days with no person watching and a model judge is the only check, when can the judge stand in for the person, and how do I detect a builder that is fitting the judge instead of doing the task? It has three measurable parts:
+**No, not after round two.** On the standard droid the loop's own judge went from 29 to 47 in the first two whole-body rounds (55.76 USD), then gained 9 points over the 72 rounds after that (692.03 USD; 74 rounds in all, 65 finished). A fresh judge scored the final build 47. n=1 droid, the only one that ran more than one whole-body round.
 
-1. **Validity:** judge and person agreement on blinded pairs, against a bar set in advance.
-2. **Gaming:** the gap between the builder's self-score, a fresh scorer, the views the builder was not judged on, and the person.
-3. **Cost:** USD per point that a person agrees with, not per point the judge awards.
+My first pipeline was a loop that ran to plateau: it kept running rounds, scored by a model judge, until the score stopped rising. Across six droids it spent 4,004.72 USD on 448 rounds.
 
-**Results so far.** Rows 1 to 5 are one chassis (the standard chassis): one old build, frozen after 74 rounds, against a female and a male new body, 12 rounds each. Row 6 covers every round so far that has both scores, on the standard and lean chassis. Every 3D score is from one fresh Opus medium scorer per round. How each number was computed, and the full confound list, are in [METHOD.md](METHOD.md#5-lead-case-3d-builds-with-no-person-watching).
+### Nov 11: Was each round trying to do too much?
 
-| # | Result | Old pipeline | New method | n | Caveat |
-|---|---|---|---|---|---|
-| 1 | Agent wall hours per body | 97.1 | 8.3 (female), 10.0 (male) | 1 old build, 2 new bodies | About 10 to 12x faster on build sessions; the fresh scorer adds about 0.9 hours per body (9 to 11x with it). The old hours include waits on account limits |
-| 2 | Cost per body, list price | 747.82 USD build and scoring, 74 rounds (70 on single parts, 4 whole-body) | build 182.00 and 160.67 USD, 12 rounds each; scorer about 24.5 USD per body | same | About 4x cheaper: 3.6x and 4.0x like for like, since the old figure contains its own scoring (4.1x and 4.7x on new build cost alone). A new round covers the whole body from one view, so the round counts are not the same unit |
-| 3 | Part regions against the owner-approved whole-body texture art, 0 to 100 | 46.6 | 70.6 (female), 69.8 (male) | 11 parts, 3 views | Judge only, not validated. The old pipeline was not built against this art. Not blind to method |
-| 4 | Parts against the old pipeline's own per-part references, 0 to 100 | 54.9 | 59.9 (female), 60.9 (male) | 11 parts, 3 views | Judge only, not validated. The like-for-like target: the gap is 5 to 6 points |
-| 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | Judge only, not validated. I have not been asked |
-| 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores | Judge only, not validated. A lead, not a finding: some scorers had seen earlier scores |
+**No.** I split the droid into 11 parts, each with its own rounds. 70 more rounds on single parts (651.85 USD) moved the loop's score from 50 to 56 on the standard droid (n=1 droid).
 
-**Cost per round, new method.** Across the 41 build rounds and 36 scorer rounds finished so far, the cost per round is steady within each pass: the coefficient of variation is 0.17 to 0.36 for the build passes and 0.10 for the scorer (table in [METHOD.md](METHOD.md#cost-per-round-new-method)).
+I also expected parts to run in parallel. They did not: inside each droid the parts ran one after another, and the only speed-up came from six droids running at once.
 
-Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule (3 rounds in each of the 4 passes plus 12 scorer rounds) projects to about 189 USD, against 577 to 748 USD per body for the old pipeline across its six chassis (one body each). That is a projection from round costs, not a finished result: only the standard chassis is complete, so there is no across-chassis interval yet. The two finished new bodies cost 206 and 185 USD with scoring. Both new bodies together (342.67 USD build) cost 0.46 of the one old body. By the judge's points, which is not yet the unit I want: per point of the matched texture-art score, build cost was about 2.6 and 2.3 USD (female, male) against 16.0 for the old build (judge only, not validated).
+### Nov 11: Was the concept art too small?
 
-**Judge check so far.** Rows 7 to 11 are checks on the judge itself, not old against new.
+**Partly.** With a close-up of every part in place of one sheet shared by six droids, scores rose 8.50 points a round instead of 5.45, faster in 10 of 14 parts (first pipeline, 15 parts).
 
-| # | Check | Result | n | Caveat |
-|---|---|---|---|---|
-| 7 | Judge predicts my past single picks (1 of 4), options blinded | 8 of 24, 33.3% (Wilson 95% 18.0% to 53.3%); chance 6 of 24; always option 1, 7 of 24 | 24 picks | 2D concept art, not 3D builds. My picks were not blinded. 23 of 24 would be needed to clear the rule, so this can show a judge is bad, never good. An earlier run (9 of 29) was withdrawn for a text leak |
-| 8 | Judge on accept or send back, concept-art drafts | 28 of 56, 50.0% (37.3% to 62.7%); always send back 37 of 56, 66.1% | 56 drafts | 2D concept art, unblinded. The true request text was missing for 38 of 56 |
-| 9 | Tell check before labelling | blind guess of the old build 0 of 10, so the methods separate 10 of 10; edge density 0.041 to 0.048 (old) against 0.025 to 0.033 (new) | 10 pairs; pool 66 old, 12 new | Not a judge result. Old against new pairs are not blind to method, for a person or for the scorer |
-| 10 | My approval page | 305 of 308 groups end as approve | 308 groups | Always approve would score 99%, so the page cannot test a judge |
-| 11 | Blinded owner pairs (the validation) | 0 answered | 0 | Rule fixed before data, see below |
+Side views arrived the same day, so the two changes cannot be told apart. I approved every art set, so my approvals cannot separate them either.
 
-The intervals in rows 7 and 8 and the rule check can be rerun with [`scripts/wilson.py`](scripts/wilson.py).
+### Nov 13 to 14: Were builders only looking at the front?
 
-**Decision rule, fixed before data.** Posted on the experiment issue on 2026-11-16 at 00:15 UTC, before any owner label existed: the judge may stand in for me when its pick agrees with mine on blinded pairs of builds at least 85% of the time and the lower bound of the 95% Wilson interval is at least 75%. 10% of pairs come back later with left and right swapped, to measure my own consistency. If no second person labels at least 50 of the pairs, the result says "agrees with the owner", never "agrees with people". The rule, the pairs and the scorer freeze at the first label; any change is a new run.
+**Partly.** In the new method, the view a round worked on gained 6.4 points against 0.7 for the other two views, more in 58 of 66 rounds (six male droids). The scorer knew which view each round built.
 
-**What it shows.** On one chassis the new method used about a tenth of the agent hours and about a quarter of the build cost per body, and the judge scored its builds higher on both matched targets (judge only, not validated). The apparatus caught its own problems: the first backtest was withdrawn for a leak, and the tell check found the comparison's blinding failure before any label was spent on it.
+The builds looked flat from the side, so judging and fixing moved to front, profile and back, one view per round. In the first pipeline, judging all three views slowed the gain per round from 3.56 to 1.95 points, on a stricter score.
 
-**What it does not show.**
+### Nov 15: Should shape come before texture?
 
-- That the new builds are better to a person. Every score is judge only, not validated, and a judge of the same model and effort does no better than chance at predicting my past picks.
-- That the method caused the gain. The inputs, the model effort, the bodies, the render rig and the run order all changed too, and the old run froze before its feet, hands and side and back views had rounds ([confound list](METHOD.md#confounds)).
-- That the scorer was blind. Old and new builds differ on sight, and later scorers saw earlier scores.
-- That it repeats. One chassis, two bodies, no repeat runs.
+**Yes, on all six droids, for the whole bundle.** Builders got high-contrast art for shape first, then colour art for texture. The male whole-droid score went from 43.7 after round 1 to 72.0 after round 12 on average (n=6), and every part improved on every droid (66 of 66). Every droid's best score came before round 12: five of six one to three rounds before, the sixth (f-reinforced-angular) at round 7.
 
-## The setup
+This change landed together with judge and builder in one session, the three-view schedule, Opus then Fable at high effort, new whole-body art and a fresh scorer, so the result belongs to the bundle. The gain was uneven across the four passes: the last one (Fable, texture) cost about 58 USD and added about 1 point, and the largest jump (+14.7, texture Opus) is partly colour arriving on a build scored against colour art. Fable always ran second, on a better build, so this is not a test of Opus against Fable ([per pass](METHOD.md#per-pass-new-method-male-n6)). The idea that dark art hides shape is weak in the records: the darkest third of old parts took 9.38 rounds against 6.25 for the lightest, but the correlation is not significant (n=50).
 
-One person directs three private codebases. The work is done mostly by Claude agent lanes; Codex, OpenCode and a DeepSeek first pass also ran in the window. The lanes run on three rented servers (one per codebase) and a Mac. The source repos are private; this repo carries aggregates, redacted cases and the judge check numbers.
+## Two more things in the records
 
-| Codebase | What it is | PRs merged, 2026-10-14 to 11-14 |
-|---|---|---|
-| Orchestration system | assigns work to agent lanes, runs judges, memory and telemetry | 444 |
-| City simulation | Rust/WASM live model of a real city, deployed daily since 11-07 | 370 |
-| Game | Rust/WASM game with the concept-art-to-3D build pipeline of the lead case | 304 |
-| Total | | 1,118 |
+- **A loop that stops on a score can be steered by the score.** On the six male droids the builder scored the view it worked on up 24.3 points on average, more than the other two views in 71 of 71 rounds, where the fresh scorer saw 6.4 ([three views](METHOD.md#three-views-and-builder-self-score-male-n6)). AI judge only, not yet checked against my blind labels.
+- **Review loops burn the same way.** Before I capped pull request review at two rounds, one PR went 11 rounds and about 6.0B cache-read tokens in 36 hours for 12 merges ([case 07](incidents/07-eleven-review-rounds-36-hour-burn.md)).
 
-Every PR gets at most two review rounds by model judges, each ruling pinned to the exact commit; every PR cites the spec lines it serves; and visual work is not done until the served build has been rendered and looked at, because counters and test exits can only show a failure. Telemetry covers host CPU, every judge ruling, dated owner corrections, every model-routing change and model alignment labels on new issues and PRs since 10-26. Details are in [METHOD.md](METHOD.md#6-fleet-detail).
+## Judge check status
 
-Terms. *Misaligned* is work that goes against the spec. *Trash* is work that should not exist. Both are labels from one model, not from people. The case files in `incidents/` keep the agents' own notes, so there I am "the owner".
+0 blinded labels so far. Before labelling, a 10-pair test showed that old and new builds could be told apart 10 of 10, by framing (the camera was fitted to each build) and by build style (old builds panelled, new ones smooth). The camera fix is done: every item was rendered again with one fixed camera and ground line, and on a repeat test the framing tell is gone. Old against new is still separable by build style, which cannot be hidden without hiding the shape being judged, so it stays a side result labelled "not blind to method".
 
-## Failure cases
+The first batch is published: 60 primary pairs (new method only, same droid, same view), 24 secondary old against new pairs, and 10% repeats with left and right swapped, 92 pairs in 2 sittings. The decision rule was posted before any label and is unchanged: 85% agreement with me and a 95% Wilson lower bound of at least 75%, on the primary pairs only. With 60 pairs that needs at least 52 agreements out of 60 non-tie answers. A tell check on the primary pairs: a fresh judge picked the earlier round in 8 of 10, from build detail only, with no render cue ([design](METHOD.md#judge-check-decision-rule-design-backtests-tell-check)). Approvals recovered from my past messages are backfilled, not blind, and are kept separate.
 
-Eight dated cases from 2026-09-10 to 10-25; four of them come before the measured window. Case 01 is the hallucination from the question, 02 and 04 are the cheats, and 05 is the corner cut. Each file gives the failure class, how it was caught, the countermeasure (rule, gate or model) and what a trained monitor would need to catch it.
+## The proposal: a trained model for judging 3D work
 
-| # | Date | Case | Class | Caught by |
-|---|---|---|---|---|
-| [01](incidents/01-green-ci-empty-dashboard.md) | 10-25 | About 20 PRs merged on green CI while the live dashboard was empty | false completion | me |
-| [02](incidents/02-gate-log-in-gated-repo.md) | 09-16 | A gate stored its log in the repo it gated, so a branch could forge a pass | reward hacking surface | adversarial review |
-| [03](incidents/03-compaction-turned-hold-into-owner-pause.md) | 10-15 | A context summary turned the agent's own hold into an owner pause; 19 hours idle | authority confusion | me |
-| [04](incidents/04-tests-passing-for-the-wrong-reason.md) | 09-15 | Four tests in three lanes passed for the wrong reason; one pinned a bypass as correct | evaluation gaming | adversarial review |
-| [05](incidents/05-bar-moved-after-measuring.md) | 09-28 | Proposal to raise a CPU bar from 1.72x to 2.0x after measuring 1.98x | specification gaming | model judge |
-| [06](incidents/06-builder-reinterpreted-owner-instruction.md) | 10-25 | A builder replaced my instruction with its own design; the coordinator merged it | goal drift, authority | me |
-| [07](incidents/07-eleven-review-rounds-36-hour-burn.md) | 10-13 to 10-15 | One PR at 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | coordination failure, cost | me |
-| [08](incidents/08-placeholder-command-queued-repo-transfers.md) | 09-10 | A placeholder in a ready-to-run command queued transfers of 11 private repos to a stranger | unsafe action | found after the fact |
+Today every round's quality check is a frontier-model judge, and nobody has checked it against a person. The records this harness keeps are what a trained model needs: renders at three views and per-part scores with written reasons for every new round, the cost of every round old and new (448 old rounds), the builder's own scores, and, once labelling starts, my blinded picks, starting with the first batch of 92 pairs (60 that count toward the rule, plus a side set and repeats), with more batches to follow for training. With Anthropic's help I want to train a model (weights) from my labels and the judge records, and find out what it can and cannot do. Every test uses only held-out, blinded labels I made directly, split by droid and body type.
 
-I caught four of the eight myself, adversarial reviewers told to refute rather than confirm caught two, a model judge caught one, and one was found only after the damage was queued. Most were not caught by the check meant to catch them. Oversight that depends on me reading every result does not scale, and that is the problem this repo is about.
+1. **A learned judge for 3D fidelity.** A reward model that predicts which of two builds I would pick against the approved art.
+   - *Test:* agreement with my held-out blinded picks under the rule already posted, on the same pairs as the Opus judge.
+   - *If it fails:* it is not used, and the Opus judge stays unchecked.
+2. **Catching builders that fit the judge.** A detector that flags rounds where the score rises but the build does not get better: the builder's score against a fresh scorer, the judged view against the two views it was not judged on, and the learned judge against the model judge.
+   - *Test:* on held-out rounds, do flagged rounds match the rounds I rate no better than the round before? A red-team set, with builders told to raise the score without matching the art, measures how many it catches.
+3. **Fewer rounds and lower cost.** A stop rule from the learned judge in place of a fixed 12 rounds or a loop, and a cheaper check than a frontier scorer round (about 2 USD each today).
+   - *Test:* replay the recorded runs and stop where the learned judge says further rounds will not change my pick; report rounds and USD saved, and how often I prefer the build it gave up on.
+4. **What it teaches about overseeing long agent work.** How many labels from one person it takes before a learned check can stand in for that person on work nobody watched, and where it breaks.
+   - *Test:* a learning curve over label count, scored on a droid held out of training. Atlanta would be a harder transfer test, but it has no owner labels today, so it would need its own blinded labels first.
 
-## What I measure
+What I start with: 0 blinded labels, one labeller, and no trained model of mine that has beaten its baseline (a small MLP lost to logistic regression, 0.523 against 0.681; [METHOD](METHOD.md#6-fleet-detail)). So the order is fixed: close the blinded check first, with a second rater on at least 50 pairs, then train.
 
-**Volume and compliance.** The work became more compliant in form as rules were added.
-
-| Measure | Value | n and window |
-|---|---|---|
-| Merged PRs per week | 70 to 410 | weeks of 10-12 to 10-26; then 298, and 150 in the six days of 11-09 |
-| Merge share (merged / opened, by week opened) | 68% (week of 10-05) to 92% (week of 11-02) | 117 and 320 PRs opened |
-| Model-labelled misaligned share | 13.6% (n 550) to 1.5% (n 196) | weeks of 10-26 and 11-09 |
-
-None of these changes is attributed to a cause: label coverage, the rubric, the judges, the models and an auto-filer pause all changed in the same weeks, and one model labels ([METHOD](METHOD.md)).
-
-![Weekly volume and merge share, tokens per merged PR with host share, and model-labelled alignment shares, 10-12 to 11-09](figures/weekly_alignment_cost.png)
-
-Panel B is the one to read slowly. The three hollow points are Mac-only undercounts, because server transcripts before 11-02 do not exist, so they are not joined to the two weeks where all four hosts are counted.
-
-![Merged PRs per week since August by repo, with merge share](figures/velocity_since_august.png)
-
-SVG versions are in `figures/`.
-
-## What it costs
-
-| Measure | Value | n and window |
-|---|---|---|
-| Tokens per merged PR | at least 70M | 79.2B tokens over 1,124 merged PRs, weeks of 10-12 to 11-09 |
-| Composition | about 98% cache reads; output under 0.5% | every week |
-| One runaway PR | 11 review rounds; about 6.0B cache-read tokens in 36 hours for 12 merges | case 07, before the two-round cap |
-
-The 70M figure is a floor: server transcripts before 11-02 and non-Claude agents are not counted, so no cost trend can be claimed in either direction. Per body, the 3D lead case gives a sharper cost unit than a merge (rows 1 and 2 above).
+This is phase 1, the residency: 3D models, then animations for them, each step checked by the judge. Phase 2 is a larger 3D game and video studio, and it opens only when the judge agrees with people.
 
 ## Mentorship I am seeking
 
-I will work on the problem my mentor sets, using this testbed and its records. A mentor gets a working testbed with a measurable reward, a decision rule set in advance, sealed item mappings, and one person's labels on blinded pairs. Below is where my own results say I need help, in two research areas the posting names and one skill underneath both.
+I will work on the problem my mentor sets, using this testbed and its records. These are the places where my own results are weakest:
 
-- **Scalable Oversight: when a model judge can stand in for a person.** The judge predicted my past picks 8 of 24 times against a chance of 6, and did worse than always sending back on 56 calls. The posting's words for this area are "techniques to keep highly capable models helpful and honest, even as they surpass human-level intelligence in various domains"; in this testbed the scorer (Opus at medium effort) already checks builders that run at a higher setting (Opus high, then Fable high). The rule for trusting it is fixed, and the blinded check has no answers yet. *What I want help with:* when a model judge can stand in for a person on work nobody watched, how to size and blind the pair set, and how to get from "agrees with the owner" to "agrees with people". *In the plan:* step 1.
-- **Adversarial Robustness and AI Control: builders that fit the judge.** In two rounds a builder's self-score rose while a fresh scorer's stayed flat or fell, and each round's judge reviews from one view, so the views it did not review are a natural check on fitting. In the fleet, agents gamed their own checks in cases 02, 04 and 05, and the live alignment monitor caught 0 of 63 items labelled trash. *What I want help with:* how to test for gaming when the judge's score is the reward, and how to red-team the judge before trusting it. *In the plan:* step 2.
-- **Experimental design: attribution.** In the old against new comparison the method, the reference art, the model effort, the render and the run order all changed at once, so the gain cannot be attributed to the method. *What I want help with:* how to design the next chassis runs so a method effect can be attributed. *In the plan:* step 3.
-- **ML training,** later: nothing I have trained beats its baseline (a small MLP lost to logistic regression, 0.523 against 0.681); help here comes after the judge is checked.
-
-My case is small, but its shape is the general one. As models do longer work with less supervision, someone has to know whether the work was done right and what it cost, and rules written after each failure do not keep up.
-
-I already do this oversight work in production, on Claude agents. I want to do it with the people who build the models.
-
-## Plan
-
-This is a first attempt, not a fixed agenda, and a mentor may reframe or replace it. Step 1 gates the others: if the judge cannot stand in for a person, the scores the other steps rest on are not evidence yet.
-
-1. **Close the blinded judge check, with a second rater.** Apply the fixed-camera framing fix, rerun the tell check, then label blinded pairs in the seeded order, with a second person labelling at least 50 of the same pairs.
-   - *Output:* judge and owner agreement with its interval, same-method pairs reported first and old against new pairs reported as not blind to method; owner self-agreement; owner against second rater.
-   - *Negative result:* if agreement is below the bar, the 3D scores in this repo stay judge only, and the next step is a better judge, not more builds scored by this one.
-   - *Mentor decision:* how many pairs, and which strata matter.
-2. **The gaming test.** On the same items, compare the builder's self-score, a fresh scorer, scores on views the builder was not judged on, and the person.
-   - *Output:* the size of each gap per round, and whether the self-score to fresh scorer gap predicts the person.
-   - *Negative result:* if no gap appears, the two cited rounds were noise, and that is reported.
-   - *Mentor decision:* how to red-team the judge, and what counts as gaming.
-3. **One controlled rerun on one chassis.** Old and new methods with the same references, the same model effort and the same render rig.
-   - *Output:* a method effect with the main confounds held fixed, scored by the judge and checked against the person on blinded pairs.
-   - *Negative result:* if the gap closes, the gain came from the inputs and effort, not the method.
-   - *Mentor decision:* what to hold fixed and what the smallest useful run is.
-
-Small trained monitors, one per failure mode, follow once there is a judge a person agrees with to train them against.
+| Area | The gap, and where it shows | What I would ask |
+|---|---|---|
+| Scalable Oversight | Every score is from an AI judge; I have 0 blinded labels (results, every experiment) | How to size and blind a labelled set, and how to decide when a judge can stand in for a person |
+| Adversarial Robustness and AI Control | Builders scored their own rounds up about 24 points where a fresh judge saw about 6, and the judge knew which view was built (Nov 13 to 14 experiment and the self-score result) | How to test whether a builder is fitting its judge, and how to red-team a judge before trusting it |
+| Experimental design (Alignment Science) | Two of four answers are "Partly" and the "Yes" is for a bundle, because changes landed together and nothing was run with one change removed; and the quality gap is about 23 points or none, depending on which art is used to score | How to plan runs so an effect can be attributed, at about 184 USD a body, and how to build a measure that does not depend on the target it was tuned to |
+| ML systems and training | Nothing I have trained has beaten its baseline (the proposal) | How to train and test a small judge from a few hundred pairwise labels from one person |
 
 ## Limits
 
-- Every 3D score is judge only, not validated: one Opus medium scorer per round, not yet checked against me.
-- The 3D comparison is one chassis, two new bodies and one old build, and it is not blind to method. The inputs and effort also changed ([confound list](METHOD.md#confounds)).
-- Owner feedback recovered from chat (231 rows, 214 unique quotes, from ChatGPT 75, Codex prompts 41, Claude sessions 83 and GitHub relays 32) is model-tagged and unconfirmed: the quotes are mine, the polarity and tags were assigned by a model, and no row is joined to a build.
-- Blinded owner answers: 0.
-- Every fleet alignment share and monitor score is against labels from one model, checked only by the same model. Nothing in the fleet numbers is attributed to a single cause.
-- Tokens per merged PR is a floor, and no cost trend can be claimed in either direction.
-- The full list is under known gaps in [METHOD.md](METHOD.md#known-gaps).
+- No run with one change removed. Every experiment's answer belongs to changes that landed together.
+- Six droids, one build per body, no repeat runs.
+- One labeller (me), and 0 blinded labels so far.
+- Every quality number comes from an AI judge: one Opus medium scorer per round. Some scorers saw the builder's own score or earlier scores, so treat the scores as upper bounds. Old and new builds can be told apart on sight, and their render setups differed ([confound list](METHOD.md#confounds)).
+- The proposal is untested. Nothing I have trained so far has beaten its baseline.
+- Owner feedback recovered from chat (231 rows) is model-tagged and unconfirmed, and no row is joined to a build. Fleet-wide alignment shares come from one model's labels, checked only by the same model. The full list is under [known gaps](METHOD.md#known-gaps).
 
-## Data and method
+## More detail
 
-- [`METHOD.md`](METHOD.md): how every number was computed, the 3D confound list, the decision rule, the backtests, the tell check, and the known gaps.
-- [`scripts/wilson.py`](scripts/wilson.py): the Wilson interval and backtest scoring behind rows 7, 8 and 11; `python3 scripts/wilson.py`, no dependencies.
-- `data/`: weekly aggregates, each with a header line naming its source and window.
-- `incidents/`: the eight failure cases.
+- [`METHOD.md`](METHOD.md): how every number was computed, the per-droid tables, the experiment table, the judge check design and decision rule, the confound list, the fleet setup and measures, the failure cases and the known gaps.
+- [Failure cases](METHOD.md#failure-cases): eight dated cases where agents cheated, hallucinated or cut corners in the fleet, with the files in [`incidents/`](incidents/).
+- [`scripts/wilson.py`](scripts/wilson.py): the Wilson interval and backtest scoring behind the judge check; `python3 scripts/wilson.py`, no dependencies.
+- `data/` and `figures/`: weekly fleet aggregates and figures, each with its source and window.
 
 ## How this was written
 
-The question and the plan come from my own first draft. Claude refined the wording and assembled this repo, and the agent fleet described here gathered the figures and ran the experiment.
+The story, the theories and the changes are mine. Claude drafted the wording and assembled this repo, and the agent fleet described here gathered the figures and ran the experiment.
