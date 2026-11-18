@@ -84,17 +84,10 @@ Male droids only, all six finished: a-standard, b-lean, c-angular, d-minimal, e-
 | Old rounds | 62 | 93 | 74.67 | 73.50 |
 | Agent h reduction | not measured | | | |
 
-- **Reduction** is each droid's own: (old minus new) over old. Mean 72.3% cost, 78.8% wall time, 83.6% rounds. In ratios, the mean old wall time is 5.03 times the new (3.88 to 8.43), about a fifth of the time.
+- **Reduction** is each droid's own: (old minus new) over old. Mean 72.3% cost, 78.8% wall time, 83.6% rounds. The mean of the per-droid ratios old over new wall h is 5.03 (3.88 to 8.43), about a fifth of the time.
 - **Wall time:** all six old droids ran at the same time on four shared accounts, so account limits stretched every old span. New male lanes also overlapped the female lanes and other droids. The old span leaves out the separate old scorer, which ran later (0.10 h per droid, included in old USD and lane h). Male and female new bodies ran side by side, so nothing is halved.
 - **Changes from the n=4 tables** (all from stats6 recomputing from transcripts): a-standard new male 185.13 to 185.17 USD, b-lean 182.62 to 182.61, c-angular 199.33 to 199.35, e-carbon-standard 181.70 to 185.15, because its texture Fable rounds 1 and 2 have now been scored and their scorer cost is in. e-carbon-standard now has all 12 scorer rounds.
 - **Rounds** are not the same unit: an old round worked on one part, a new round covers the whole body from one view.
-
-### Time and agent hours
-
-- **Old agent hours were never measured.** The old `agent_h` column in the cost CSV (droid-cost-allchassis, 97.08 on standard) equals the baseline's `wall_min`/60 for all 448 old lanes, 0 mismatches: it is RUNNER.md start to exit or stop (443 lanes) or driver-log times (5 lanes), which is lane time. The baseline kept no per-round agent duration and most old transcripts were cleared. So there is no agent-hour comparison, and the time result uses wall h (elapsed span) only. Lane h is given on both sides because it is the same definition on both.
-- **a-standard new male: 10.94 agent h against 13.04 lane h.** 10.94 (10.93 in the CSV, 10.934 summing its three-decimal rows) is the sum of `duration_ms` from the last result event per session over the 24 male lanes, agent time as Claude Code reports it. 13.04 is RUNNER.md start-to-exit segments summed over the same 24 lanes. The experiment analysis (T1) called 13.04 "agent h" and stats3 called it "new male wall h"; the elapsed span is 12.09. Both 10.94 and 13.04 are correct for their definitions, and neither is halved.
-- The per-droid result comments give their own agent-hour figures (d-minimal male 10.24, f-reinforced-angular male 12.08, near stats6's all-result-events column, 10.23 and 12.08); stats6's agent h uses the last result event per session, 9.91 and 11.97. This file uses stats6. The "wall hours" in those comments (75.6 and 91.0 for the old builds) are summed lane time, not elapsed.
-- The draft 6 video's "97 to 13 hours" matches a-standard's old lane h (97.18) against its new male lane h (13.04): lane time, not elapsed. It is replaced by the wall-time figures above, and the earlier "about a tenth of the agent hours" stays withdrawn.
 
 **Quality, male, 11-region mean** (AI judge only, not yet checked against my blind labels):
 
@@ -117,6 +110,13 @@ Male droids only, all six finished: a-standard, b-lean, c-angular, d-minimal, e-
 - a-standard is +23.3 and +6.1 here (stats6) where the n=4 table gave +23.2 and +6.0, a rounding difference; b-lean -2.1 here against -2.2.
 - **Both bodies averaged, three droids** (stats3, includes female scores, kept here and not in the README): against the texture art the new body mean is +21.9 over the old final; against the per-part references it is +5.6, -4.1 and +0.5, mean +0.6.
 - Headline from these numbers: about the same droid, as far as an AI judge can tell, for about 72% less cost, in about a fifth of the time. Not "a better droid": the +23.4 depends on scoring against art the old pipeline never used.
+
+### Time and agent hours
+
+- **Old agent hours were never measured.** The old `agent_h` column in the cost CSV (droid-cost-allchassis, 97.08 on standard) equals the baseline's `wall_min`/60 for all 448 old lanes, 0 mismatches: it is RUNNER.md start to exit or stop (443 lanes) or driver-log times (5 lanes), which is lane time. The baseline kept no per-round agent duration and most old transcripts were cleared. So there is no agent-hour comparison, and the time result uses wall h (elapsed span) only. Lane h is given on both sides because it is the same definition on both.
+- **a-standard new male: 10.94 agent h against 13.04 lane h.** 10.94 (10.93 in the stats6 report's agent-hours note, 10.934 summing three-decimal rows) is the sum of `duration_ms` from the last result event per session over the 24 male lanes, agent time as Claude Code reports it. 13.04 is RUNNER.md start-to-exit segments summed over the same 24 lanes. The experiment analysis (T1) called 13.04 "agent h" and stats3 called it "new male wall h"; the elapsed span is 12.09. Both 10.94 and 13.04 are correct for their definitions, and neither is halved.
+- The per-droid result comments give their own agent-hour figures (d-minimal male 10.24, f-reinforced-angular male 12.08, near stats6's all-result-events column, 10.23 and 12.08); stats6's agent h uses the last result event per session, 9.91 and 11.97. This file uses stats6. The "wall hours" in those comments (75.6 and 91.0 for the old builds) are summed lane time, not elapsed.
+- The draft 6 video's "97 to 13 hours" is consistent with a-standard's old lane h (97.18) against its new male lane h (13.04), but its origin was not traced. It is withdrawn and replaced by the wall-time figures above, and the earlier "about a tenth of the agent hours" stays withdrawn.
 
 ### Score by round, new method (male, n=6)
 
@@ -244,7 +244,7 @@ Rows 1 to 5 are the standard droid: one old build against a female and a male ne
 | 5 | Judge's "acceptable as is for the next step" | not asked | female 20 of 24 rows, male 16 of 25 | part and target rows | AI judge only. The owner has not been asked |
 | 6 | Builder self-score against a fresh scorer | | mean self minus fresh +1.18 points (SD 5.32); self more than 5 points above fresh in 9 of 33 rounds. Cited cases: female self 58 to 67 (profile) while fresh stayed 73.3; male self 61 to 72 while fresh profile fell 76 to 70 | 33 rounds with both scores, female and male pooled | AI judge only. A lead, not a finding: some scorers had seen earlier scores |
 
-Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule projects to about 189 USD (a projection from round costs at 2026-11-16); the six male droids came in at a mean of 183.77 USD (165.79 to 199.35).
+Fable passes cost 2 to 3 times the Opus passes. A full body at this schedule projects to about 189 USD (a projection from round costs at 2026-11-16); the six male droids came in at a mean of 183.77 USD (about 184; 165.79 to 199.35).
 
 ### Cost per round, new method
 
