@@ -95,6 +95,8 @@ Today every round's quality check is a frontier-model judge, and nobody has chec
 
 What I start with: 0 blinded labels, one labeller, and no trained model of mine that has beaten its baseline (a small MLP lost to logistic regression, 0.523 against 0.681; [METHOD](METHOD.md#6-fleet-detail)). So the order is fixed: close the blinded check first, with a second rater on at least 50 pairs, then train.
 
+This is phase 1, the residency: 3D models, then animations for them, each step checked by the judge. Phase 2 is a larger 3D game and video studio, and it opens only when the judge agrees with people.
+
 ## Mentorship I am seeking
 
 I will work on the problem my mentor sets, using this testbed and its records. These are the places where my own results are weakest:
