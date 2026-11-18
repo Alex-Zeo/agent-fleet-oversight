@@ -64,12 +64,12 @@ Male droids only, all six finished: a-standard, b-lean, c-angular, d-minimal, e-
 
 | Droid | Old USD | New male USD | USD reduction | Old wall h | New wall h | Wall h reduction | Old lane h | New lane h | New agent h | Old rounds | New rounds |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| a-standard | 749.14 | 185.17 | 75.3% | 101.89 | 12.09 | 88.1% | 97.18 | 13.04 | 10.94 | 74 (66 finished) | 12 |
-| b-lean | 584.86 | 182.61 | 68.8% | 77.82 | 16.06 | 79.4% | 72.91 | 11.53 | 9.46 | 62 (55 finished) | 12 |
-| c-angular | 707.59 | 199.35 | 71.8% | 96.42 | 21.32 | 77.9% | 91.50 | 12.18 | 8.97 | 93 (85 finished) | 12 |
-| d-minimal | 578.47 | 165.79 | 71.3% | 79.72 | 17.79 | 77.7% | 75.74 | 11.94 | 9.91 | 65 (58 finished) | 12 |
-| e-carbon-standard | 679.96 | 185.15 | 72.8% | 96.42 | 24.82 | 74.3% | 91.70 | 12.22 | 10.43 | 81 (73 finished) | 12 |
-| f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 91.11 | 12.33 | 11.97 | 73 (65 finished) | 12 |
+| a-standard | 749.14 | 185.17 | 75.3% | 101.89 | 12.09 | 88.1% | 97.18 | 13.04 | 12.29 | 74 (66 finished) | 12 |
+| b-lean | 584.86 | 182.61 | 68.8% | 77.82 | 16.06 | 79.4% | 72.91 | 11.53 | 10.71 | 62 (55 finished) | 12 |
+| c-angular | 707.59 | 199.35 | 71.8% | 96.42 | 21.32 | 77.9% | 91.50 | 12.18 | 11.58 | 93 (85 finished) | 12 |
+| d-minimal | 578.47 | 165.79 | 71.3% | 79.72 | 17.79 | 77.7% | 75.74 | 11.94 | 10.23 | 65 (58 finished) | 12 |
+| e-carbon-standard | 679.96 | 185.15 | 72.8% | 96.42 | 24.82 | 74.3% | 91.70 | 12.22 | 11.69 | 81 (73 finished) | 12 |
+| f-reinforced-angular | 712.76 | 184.56 | 74.1% | 96.42 | 23.85 | 75.3% | 91.11 | 12.33 | 12.08 | 73 (65 finished) | 12 |
 
 | Measure (n=6) | Min | Max | Mean | Median |
 |---|---|---|---|---|
@@ -114,8 +114,8 @@ Male droids only, all six finished: a-standard, b-lean, c-angular, d-minimal, e-
 ### Time and agent hours
 
 - **Old agent hours were never measured.** The old `agent_h` column in the cost CSV (droid-cost-allchassis, 97.08 on standard) equals the baseline's `wall_min`/60 for all 448 old lanes, 0 mismatches: it is RUNNER.md start to exit or stop (443 lanes) or driver-log times (5 lanes), which is lane time. The baseline kept no per-round agent duration and most old transcripts were cleared. So there is no agent-hour comparison, and the time result uses wall h (elapsed span) only. Lane h is given on both sides because it is the same definition on both.
-- **a-standard new male: 10.94 agent h against 13.04 lane h.** 10.94 (10.93 in the stats6 report's agent-hours note, 10.934 summing three-decimal rows) is the sum of `duration_ms` from the last result event per session over the 24 male lanes, agent time as Claude Code reports it. 13.04 is RUNNER.md start-to-exit segments summed over the same 24 lanes. The experiment analysis (T1) called 13.04 "agent h" and stats3 called it "new male wall h"; the elapsed span is 12.09. Both 10.94 and 13.04 are correct for their definitions, and neither is halved.
-- The per-droid result comments give their own agent-hour figures (d-minimal male 10.24, f-reinforced-angular male 12.08, near stats6's all-result-events column, 10.23 and 12.08); stats6's agent h uses the last result event per session, 9.91 and 11.97. This file uses stats6. The "wall hours" in those comments (75.6 and 91.0 for the old builds) are summed lane time, not elapsed.
+- **New agent hours, corrected 2026-11-18.** The table above uses stats6's `new_agent_h_all_result_events` column: 12.29, 10.71, 11.58, 10.23, 11.69 and 12.08 agent hours for the six male droids. The stats6 comment first gave 10.94, 9.46, 8.97, 9.91, 10.43 and 11.97, which summed `duration_ms` from only the last result event in each session; `duration_ms` is per run, not cumulative, so resumed lanes were undercounted (Alex Net stats check, 2026-11-18). For a-standard the lane time is 13.04 h (RUNNER.md start to exit, summed over its 24 male lanes) and the elapsed span is 12.09 h. No headline number, cost reduction or chart uses agent hours.
+- The per-droid result comments give agent hours close to the corrected column (d-minimal male 10.24, f-reinforced-angular male 12.08). The "wall hours" in those comments (75.6 and 91.0) are summed lane time, not elapsed.
 - The draft 6 video's "97 to 13 hours" is consistent with a-standard's old lane h (97.18) against its new male lane h (13.04), but its origin was not traced. It is withdrawn and replaced by the wall-time figures above, and the earlier "about a tenth of the agent hours" stays withdrawn.
 
 ### Score by round, new method (male, n=6)
