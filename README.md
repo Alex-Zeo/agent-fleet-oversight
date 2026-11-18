@@ -81,7 +81,7 @@ The first batch is published: 60 primary pairs (new method only, same droid, sam
 
 ## The proposal: a trained model for judging 3D work
 
-Today every round's quality check is a frontier-model judge, and nobody has checked it against a person. The records this harness keeps are what a trained model needs: renders at three views and per-part scores with written reasons for every new round, the cost of every round old and new (448 old rounds), the builder's own scores, and, once labelling starts, my blinded picks on about 150 pairs plus repeats. With Anthropic's help I want to train a model (weights) from my labels and the judge records, and find out what it can and cannot do. Every test uses only held-out, blinded labels I made directly, split by droid and body type.
+Today every round's quality check is a frontier-model judge, and nobody has checked it against a person. The records this harness keeps are what a trained model needs: renders at three views and per-part scores with written reasons for every new round, the cost of every round old and new (448 old rounds), the builder's own scores, and, once labelling starts, my blinded picks, starting with the first batch of 92 pairs (60 that count toward the rule, plus a side set and repeats), with more batches to follow for training. With Anthropic's help I want to train a model (weights) from my labels and the judge records, and find out what it can and cannot do. Every test uses only held-out, blinded labels I made directly, split by droid and body type.
 
 1. **A learned judge for 3D fidelity.** A reward model that predicts which of two builds I would pick against the approved art.
    - *Test:* agreement with my held-out blinded picks under the rule already posted, on the same pairs as the Opus judge.
@@ -104,7 +104,7 @@ I will work on the problem my mentor sets, using this testbed and its records. T
 | Scalable Oversight | Every score is from an AI judge; I have 0 blinded labels (results, every experiment) | How to size and blind a labelled set, and how to decide when a judge can stand in for a person |
 | Adversarial Robustness and AI Control | Builders scored their own rounds up about 24 points where a fresh judge saw about 6, and the judge knew which view was built (Nov 13 to 14 experiment and the self-score result) | How to test whether a builder is fitting its judge, and how to red-team a judge before trusting it |
 | Experimental design (Alignment Science) | Two of four answers are "Partly" and the "Yes" is for a bundle, because changes landed together and nothing was run with one change removed; and the quality gap is about 23 points or none, depending on which art is used to score | How to plan runs so an effect can be attributed, at about 184 USD a body, and how to build a measure that does not depend on the target it was tuned to |
-| ML systems and training | Nothing I have trained has beaten its baseline (the proposal) | How to train and test a small judge from about 150 pairwise labels |
+| ML systems and training | Nothing I have trained has beaten its baseline (the proposal) | How to train and test a small judge from a few hundred pairwise labels from one person |
 
 ## Limits
 
