@@ -20,6 +20,7 @@
 - **My current role.** I am a technical leader: a Senior Analyst at Intercontinental Exchange, where I build and manage predictive and prescriptive risk models for data centers, operations and projects. I lead risk model analysis on corporate, operational and compliance data, showing where the largest cost reductions and savings lie as measured by risk and utilization.
 - **My role here.** I am the only person on this project. I write the specs and the rules, approve or send back every design, fix each experiment's pass rule before it runs, and direct a fleet of AI agents, mostly Claude, that merged 1,213 pull requests across 18 repos in a month. The agents work while I am at my day job.
 - **Why the residency.** Directing that fleet taught me that rules added after each failure do not keep up with agents working for hours unwatched. I want to learn to measure that properly, starting with the judge in this pipeline.
+- **Earlier work.** Agent MQI: a 24-metric index that detects when an AI coding agent is degrading, built from 2,740 of my own Claude Code sessions over 13 weeks. Each session is scored against its own model's baseline, and I used it to decide when to switch models. Source private, on request.
 - **Find me:** [LinkedIn](https://www.linkedin.com/in/alexdga/) · [GitHub](https://github.com/Alex-Zeo)
 
 ## The application in one paragraph
