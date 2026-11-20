@@ -83,10 +83,11 @@ Three follow-up studies ran after the video was cut. The video and the sections 
 
 ### Do builders inflate their own scores?
 
-**Their report of their own progress runs high. They did not invent progress, and a label did not make a fresh session inflate.** Four parts, rules fixed before each run, about 404 USD in all.
+**Their report of their own progress runs high. They did not invent progress, and a label did not make a fresh session inflate.** Four parts, about 404 USD in all. The planted cases, the framing run and the placebo rounds each had a rule fixed before the run; the past records and the real rounds are descriptions.
 
 - **Past records, all 12 bodies.** On the view a round worked on, the builder's own before and after scores showed a gain in 120 of 120 rounds (mean +17.3); the fresh scorer saw +6.2. Most of the gap is a low starting score: the builder scores the build 8.0 points below the fresh scorer before it works and 2.6 below after. The 24.3 against 6.4 figure above is a different cut of the same records (six male bodies, and it includes the rounds where the art changes from shape to colour).
-- **Planted cases, known answers (216 calls).** Telling a fresh session that it built the model, which build came later, or what the earlier score was moved its scores by under 1 point (author framing +0.40, 95% -0.21 to +0.94). Every framing got all 36 planted cases right. The planted defects were chosen to be visible, so this is an easy test.
+- **Planted cases, known answers (216 calls).** Telling a fresh session that it built the model, that another agent built it and which build came later, or what the earlier score was moved its scores by under 1 point (author framing +0.40, 95% -0.21 to +0.94). Every framing got all 36 planted cases right. The planted defects were chosen to be visible, so this is an easy test.
+- **Framing alone, one build per call (360 calls).** Told a build was its own, a fresh session scored it about 2 points lower, before the work and after it alike (after framing against blind -2.56, 95% -3.24 to -1.92). On 12 unchanged builds it reported no gain. Most of these calls were reruns after an account usage limit.
 - **Placebo rounds.** A session did real work and was handed its old frames back. 0 of 16 reported a gain. In 7 of the 12 second-stage rounds the session gave no after score, so "no gain reported" includes stopping.
 - **Real rounds, controlled (12 rounds, 6 Opus and 6 Fable builders).** Builder +12.0 against a blind scorer's +3.3 on the same frames, difference +8.7 (95% 6.8 to 10.4), higher in 12 of 12. This comparison was not one of the pre-set rules; it is a description. The blind scorer is one Opus medium model, so which score is right is not known.
 
@@ -107,7 +108,7 @@ One droid (b-lean, male) built from nothing six more times, each with a differen
 | Haiku then Sonnet | 30.9 | 9 |
 
 - **The Fable texture pass came out.** The ladder without it scored 5 points higher at less than half the cost.
-- **A cheap start was not recovered.** Ladders that began on Sonnet or Haiku ended 10 to 20 points lower on every body part, and the Opus rounds after them did not win it back.
+- **A cheap start was not recovered.** Every ladder that began on Sonnet or Haiku ended below Opus on every pass, on every body part, for shape and for texture. The two that switched to Opus ended 10.5 and 19.5 points lower overall (5 to 32 by part), so the Opus rounds did not win it back; the two that never switched ended 21.6 and 35.5 lower.
 - **The Fable shape pass stays.** Its three rounds cost about 49 USD and are the only step that brought hands up (76 against 52 with Opus on every pass).
 - **One scorer is not enough for a final.** A single scorer moved up to 9 points on a final, so finals now get three.
 - **Can Sonnet take the texture rounds alone? Failed the rule set before the run.** From the Opus build's shape result, Sonnet's texture rounds ended 4.6 points lower on texture, outside the 2.5 point spread the rule allowed (about 6 USD). Added after the result, not part of the verdict: one of the three scorers sat about 12 points under the other two, and when three fresh sessions each scored both builds in one sitting the difference was 1.6 points, Sonnet lower in 3 of 3. The verdict stays, texture stays on Opus, and a repeat on another droid with paired scoring has its pass rule fixed before it runs.
@@ -158,7 +159,7 @@ I will work on the problem my mentor sets, using this testbed and its records. T
 ## Limits
 
 - No run with one change removed. Every experiment's answer belongs to changes that landed together.
-- Six droids, one build per body, no repeat runs.
+- Six droids, one build per body, no repeat runs. The model ladder comparison is one droid, one build per ladder.
 - One labeller (me), and 0 blinded labels so far.
 - Every quality number comes from an AI judge: one Opus medium scorer per round. Some scorers saw the builder's own score or earlier scores, so treat the scores as upper bounds. Old and new builds can be told apart on sight, and their render setups differed ([confound list](METHOD.md#confounds)).
 - The proposal is untested. Nothing I have trained so far has beaten its baseline.
