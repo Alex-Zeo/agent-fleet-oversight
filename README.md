@@ -199,15 +199,15 @@ Limits: one droid, two repeats, one AI scorer family, AI judge only.
 
 ### Can agents rig and animate the droids, and does the engine matter?
 
-Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rigged on the Unreal Mannequin skeleton. The owner asked for each paid study to run once in Blender on the Mac and once in Unreal 5.8.4 on the Alex Net box. Every study had its rule written before it ran, a known good and a known bad control that could fail, and blind scorers with hidden codes. Every score is **AI judge only, not yet checked against my blind labels**.
+Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rigged on the Unreal Mannequin skeleton. The owner asked for each paid study to run once in Blender on the Mac and once in Unreal 5.8.4 on the Alex Net box. Every study had its rule written before it ran, with one disclosed exception (study 4's Blender clip measure ran once before its rule). The studies that used model scorers had a known good and a known bad control that could fail, and blind scorers with hidden codes. Every score is **AI judge only, not yet checked against my blind labels**.
 
 **Can a measure find a broken rig?**
-- Planted defects were a joint pivot moved 1, 3 and 6 cm, a plate bound to the wrong bone and a left and right swap.
+- Planted defects were a joint pivot moved 1, 3 and 6 cm, two rebinds (the lower 30 to 50% of a limb moved to its parent bone) and a left and right swap.
 - The first two measures each failed their own rule:
   - overlap and gap missed the elbow pivots;
   - seam slip missed one rebind by 0.01 cm and missed the swap.
 - Combined, and tested on a new body with new plants before use, they flagged every plant of 3 cm or more, both rebinds and the swap, with no flag on the unchanged case.
-- Every later rig result uses that combined measure, and only on the body it was tested on.
+- The rig rebuild study below uses that combined measure, on the body it was tested on. The finger study used its own finger-scale measures.
 
 **Can a judge see motion?**
 - The clip measure flagged every planted foot slide, one-frame pop, linear segment and loop seam, and passed both unchanged clips.
@@ -227,11 +227,11 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 | Opus, Unreal | 65, 67, 79 | no | 2.30 |
 | Sonnet, Blender | 48, 55, 52 | no | 0.60 |
 
-- The engine made little difference: Unreal scored 2.7 points lower for 0.51 USD less, with paired differences from -9 to +4.
-- Two clips first rendered 100 times too small, because their FBX animated the armature's scale in centimetres. I caught it from the frames, not from any number.
+- Unreal scored 2.7 points lower and missed the 70 line that Blender met. Paired differences ran from -9 to +4, so the gap is inside the scorer spread. The Unreal cost is its run's own reported figure (2.30 USD); priced from raw tokens like the others it is 1.40 USD, though its output counts look short.
+- Two clips first rendered 100 times too small, because their FBX animated the armature's scale in centimetres. I caught the Unreal clip from the frames. The Sonnet clip reached the scorers as blank frames and voided the first sitting, which was rerun after the fix. No number caught either one.
 
 **Does one clip play on all 12 bodies?**
-- Copied by bone name, the winning wave passed every motion line on all 12 bodies, at no token cost.
+- Copied by bone name, the winning wave passed every motion line on all 12 bodies, at no token cost. The motion values were identical on every body, so this half cannot see body shape.
 - On pose match there is no verdict:
   - The first sitting was void because the known good scored 67 once, under its 70 line.
   - The redo was void as written, because one scorer swapped two codes. I did not correct its answer by hand.
@@ -245,14 +245,14 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 |---|---|---|---|
 | Shipped rig (known good) | 90, 86, 84 | 86.7 | - |
 | Opus | 48, 72, 66 | 62.0 | 2.35 |
-| Shipped rig with one arm piece on the wrong bone (known bad) | 55, 45, 40 | 46.7 | - |
 | Sonnet | 45, 55, 55 | 51.7 | 0.69 |
+| Shipped rig with one arm piece on the wrong bone (known bad) | 55, 45, 40 | 46.7 | - |
 | Script | 15, 25, 20 | 20.0 | 0 |
 
 - Opus over Sonnet counts under the rule: all three scorers agree, by 10.3 points, for 1.66 USD more.
   - Opus left the knee plates on the thigh.
   - Sonnet put the shoulder and elbow pivots in the wrong place.
-- The first sitting was void. With the plain prompt, two of three scorers and both replacements could not tell the known bad from the shipped rig. A required joint-by-joint crop step fixed that: gaps of 35 to 44 points.
+- The first sitting was void. With the plain prompt, two of three scorers and both replacements did not put the known bad 25 points under the shipped rig; three of those four scored the two within 2 points. A required joint-by-joint crop step fixed that: gaps of 35 to 44 points.
 - Whether a Fable judge round earns its cost waits for Fable access, and the Unreal arms wait on an Unreal export check.
 
 What this changes:
