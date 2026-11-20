@@ -114,7 +114,7 @@ This change landed together with judge and builder in one session, the three-vie
 
 ## Follow-up studies (Nov 19 to 20)
 
-Five follow-up studies ran on Nov 19 and 20, after the six-droid run. The sections above describe that run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#follow-up-studies-nov-19-to-20).
+Six follow-up topics ran on Nov 19 and 20, after the six-droid run. The sections above describe that run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#follow-up-studies-nov-19-to-20).
 
 ### Do builders inflate their own scores?
 
@@ -196,6 +196,71 @@ Two defects were planted in a finished build of the lean droid: the helmet moved
 - **The blind scorers did not see defects this small.** In the paired sitting they gave the helmet and torso the same shape score for both builds, while the pixel measure put the defect left at 0.00 and 0.03 against 3.80 and 1.77. A judge for this pipeline needs a pixel check alongside the model scorer for small errors, which feeds the proposal below.
 
 Limits: one droid, two repeats, one AI scorer family, AI judge only.
+
+### Can agents rig and animate the droids, and does the engine matter?
+
+Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rigged on the Unreal Mannequin skeleton. The owner asked for each paid study to run once in Blender on the Mac and once in Unreal 5.8.4 on the Alex Net box. Every study had its rule written before it ran, a known good and a known bad control that could fail, and blind scorers with hidden codes. Every score is **AI judge only, not yet checked against my blind labels**.
+
+**Can a measure find a broken rig?**
+- Planted defects were a joint pivot moved 1, 3 and 6 cm, a plate bound to the wrong bone and a left and right swap.
+- The first two measures each failed their own rule:
+  - overlap and gap missed the elbow pivots;
+  - seam slip missed one rebind by 0.01 cm and missed the swap.
+- Combined, and tested on a new body with new plants before use, they flagged every plant of 3 cm or more, both rebinds and the swap, with no flag on the unchanged case.
+- Every later rig result uses that combined measure, and only on the body it was tested on.
+
+**Can a judge see motion?**
+- The clip measure flagged every planted foot slide, one-frame pop, linear segment and loop seam, and passed both unchanged clips.
+- Blind readers did as well as the measure only when they had the measure's table. Reading a 12-frame strip or an onion-skin overlay, they caught 4 of 12.
+- So motion is judged by the measure, and models judge only poses.
+
+**Fingers: stopped, a mesh change is needed.**
+- Each finger on this mesh is a set of strips running from the knuckle to the tip, and the joint rings already intersect the finger tubes at rest (1,646 triangle pairs).
+- Three script bindings, from one bone per piece to blended weights at the joints, all curl the fingers but open gaps or push faces through the rings.
+- The rule's stop line was met before any paid arm ran. Cutting the strips at the joints is the owner's call.
+
+**An emote from key-pose art (right-hand wave, one body).** Three blind scorers matched five key poses against the art:
+
+| Arm | Scores | Pass at 70 | USD |
+|---|---|---|---|
+| Opus, Blender | 74, 70, 75 | yes | 2.81 |
+| Opus, Unreal | 65, 67, 79 | no | 2.30 |
+| Sonnet, Blender | 48, 55, 52 | no | 0.60 |
+
+- The engine made little difference: Unreal scored 2.7 points lower for 0.51 USD less, with paired differences from -9 to +4.
+- Two clips first rendered 100 times too small, because their FBX animated the armature's scale in centimetres. I caught it from the frames, not from any number.
+
+**Does one clip play on all 12 bodies?**
+- Copied by bone name, the winning wave passed every motion line on all 12 bodies, at no token cost.
+- On pose match there is no verdict:
+  - The first sitting was void because the known good scored 67 once, under its 70 line.
+  - The redo was void as written, because one scorer swapped two codes. I did not correct its answer by hand.
+- Read with the swap undone (reported only), no body scored under 60. Every male body scored below every female body, and the scorers named the upper arm swinging wide on the broader shoulders.
+
+**Which model can rebuild a rig?**
+- One body was stripped to its mesh, with only the bone names and parents given. The arms were a script that reuses another body's skeleton, Sonnet and Opus.
+- No arm reached the shipped rig on the combined measure. The valid sitting:
+
+| Rig | Scores | Mean | USD |
+|---|---|---|---|
+| Shipped rig (known good) | 90, 86, 84 | 86.7 | - |
+| Opus | 48, 72, 66 | 62.0 | 2.35 |
+| Shipped rig with one arm piece on the wrong bone (known bad) | 55, 45, 40 | 46.7 | - |
+| Sonnet | 45, 55, 55 | 51.7 | 0.69 |
+| Script | 15, 25, 20 | 20.0 | 0 |
+
+- Opus over Sonnet counts under the rule: all three scorers agree, by 10.3 points, for 1.66 USD more.
+  - Opus left the knee plates on the thigh.
+  - Sonnet put the shoulder and elbow pivots in the wrong place.
+- The first sitting was void. With the plain prompt, two of three scorers and both replacements could not tell the known bad from the shipped rig. A required joint-by-joint crop step fixed that: gaps of 35 to 44 points.
+- Whether a Fable judge round earns its cost waits for Fable access, and the Unreal arms wait on an Unreal export check.
+
+What this changes:
+- Rig and motion defects are found by measures, and models only judge poses against art.
+- Scorer prompts for rigs now require joint crops.
+- Rig building stays on Opus.
+
+Limits: one body per study except the 12-body copy, one build per arm, and one AI scorer family. The Unreal side covers only the emote study so far.
 
 ## Labelling and the judge check
 
