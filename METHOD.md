@@ -173,9 +173,9 @@ Whole-droid score against the male whole-body texture art, mean of front, profil
 - Builder rows come from each round's own before and after self-scores (a-standard round 1 has none). They are not the same measure as the fresh scorer rows: within one round, before against after, over 71 rounds, against round over previous round over 66. "71 of 71" means the worked view gained more than the other two in every round. In the builder's own scoring the worked view rose about 24 points; the fresh scorer saw about 6.
 - These replace the earlier pooled female and male figures from the experiment analysis (+7.22 against +0.72, 33 of 36 rounds).
 
-### Since the video (Nov 19 to 20)
+### Follow-up studies (Nov 19 to 20)
 
-Five studies run after the video was cut. All scores are AI judge only, not yet checked against my blind labels. Per-round rows, scorer files and plans are in the private source records; this repo carries the aggregates below.
+Five studies run on Nov 19 and 20, after the six-droid run. All scores are AI judge only, not yet checked against my blind labels. Per-round rows, scorer files and plans are in the private source records; this repo carries the aggregates below.
 
 **Self-score study (selfscore-261119).** Spend: placebo and real rounds 286.36 USD, planted cases 79.72, a follow-up framing run 35.92, pilot 2.32; total 404.32.
 
@@ -208,7 +208,7 @@ Five studies run after the video was cut. All scores are AI judge only, not yet 
 - Scorer spread: one scorer moves about 5 points on a part (largest seen 16) and up to 9 on a final.
 - Cheap starts against Opus on every pass, mean of a part's shape and texture difference: Haiku then Opus -5.0 (feet) to -16.6 (neck); Sonnet then Opus -13.1 to -31.9; Sonnet on every pass -16.8 to -29.1; Haiku then Sonnet -22.6 to -42.2. No part was higher on shape or on texture in any of the four.
 - Hands: 73.2 shape and 78.7 texture on the first row against 48.9 and 55.1 with Opus on every pass. The Fable shape rounds (4 to 6) cost 48.56 USD and moved whole-body shape from 63.7 to 79.7.
-- Sonnet texture test: rule fixed before the run, "texture goes to Sonnet when the final texture score is within the spread of the Opus build's three-scorer mean and no part's shape falls by more than the spread". Result: texture 63.19 against 67.78, 4.59 lower, spread 2.47: fail. Cost 5.95 USD. Per-scorer texture: 68.63, 67.33, 53.60 against 66.80, 67.27, 69.27. Paired reading added after the result (three fresh sessions, each scoring both finals, neutral ids, order mixed), Sonnet minus Opus: texture -2.70, -0.40, -1.58 (mean -1.56); shape -0.97, -0.82, -0.20 (mean -0.66). The repeat's pass rule, fixed before it runs: six paired scorers, mean paired texture difference at least -2.0, 95% lower bound at least -4.0, no part below -6.0, mean paired shape difference at least -2.0.
+- Sonnet texture test: rule fixed before the run, "texture goes to Sonnet when the final texture score is within the spread of the Opus build's three-scorer mean and no part's shape falls by more than the spread". Result: texture 63.19 against 67.78, 4.59 lower, spread 2.47: fail. Cost 5.95 USD. Per-scorer texture: 68.63, 67.33, 53.60 against 66.80, 67.27, 69.27. Paired reading added after the result (three fresh sessions, each scoring both finals, neutral ids, order mixed), Sonnet minus Opus: texture -2.70, -0.40, -1.58 (mean -1.56); shape -0.97, -0.82, -0.20 (mean -0.66). The repeat's pass rule, fixed before it runs: six paired scorers, mean paired texture difference at least -2.0, 95% lower bound at least -4.0, no part below -6.0, mean paired shape difference at least -2.0. Repeat result (a second droid, texture rounds by Opus medium and by Sonnet low from one shape commit, six paired sessions, each order shown first in three), Sonnet minus Opus: texture -4.44, -7.04, -5.70, -3.57, -4.07, -4.60, mean -4.90, 95% lower bound -6.23; worst part shoulders and arms -11.61, legs and knees -6.50; shape mean -0.04. Three of the four conditions fail, so texture stays on Opus. Cost 19.37 USD for Opus against 4.99 for Sonnet.
 - Limits: one droid, one build per ladder; ladders differ in more than one pass, so no row isolates one model on one pass.
 
 **Pixel checks.**
@@ -249,7 +249,7 @@ Five studies run after the video was cut. All scores are AI judge only, not yet 
 - In that sitting the scorers gave helmet and torso the same shape score for both builds, while the pixel measure put the defect left at 0.00 and 0.03 against 3.80 and 1.77.
 - Limits: one droid, two repeats, one AI scorer family.
 
-Spend for the hands and pointer studies, with the reading tests and paired readings: about 148 USD of a 170 USD cap.
+Spend for the hands and pointer studies, with the reading tests and paired readings: 156 USD of a 170 USD cap.
 
 ### Stats3: old against new, three droids, both bodies (comment 6951147899)
 
