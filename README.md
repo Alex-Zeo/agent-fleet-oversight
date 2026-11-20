@@ -13,7 +13,7 @@
 - **A daily loop.** I set the agents on a task when I leave for work, play what they made when I get home, and my feedback becomes their next task. The project pushes on how far that can go.
 - **A machine learning project.** Every approval, every send-back with its reasons and every blinded pick is a label. The aim is a trained judge (a weights model) that learns from those labels, so the pipeline can run like a factory and I only check what it cannot.
 
-**See it:** [alejandro-gutierrez.com](https://alejandro-gutierrez.com/) · [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/RBdJE05KqF8)
+**See it:** [alejandro-gutierrez.com](https://alejandro-gutierrez.com/) · [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/S7ZKNDg6_jc)
 
 **Download the droids (3D models, art pending my approval):** lean droid, male: [GLB with materials](https://world.alejandro-gutierrez.com/downloads/droids/a-b-lean-male-94ac4e06.glb) (24.4 MB) · [STL](https://world.alejandro-gutierrez.com/downloads/droids/a-b-lean-male-94ac4e06.stl) (13.4 MB), build 94ac4e06, 78.4 of 100 from three AI judges, not yet checked against my blind labels · standard droid, male: [GLB with materials](https://world.alejandro-gutierrez.com/downloads/droids/a-standard-male-cbc978c7.glb) (27.0 MB) · [STL](https://world.alejandro-gutierrez.com/downloads/droids/a-standard-male-cbc978c7.stl) (22.8 MB), build cbc978c7, score not shown while my blind labelling of these builds is open. Most 3D viewers open the STL; the GLB opens in Blender or any glTF viewer.
 
@@ -29,9 +29,9 @@
 
 This repo is part of my application to the Anthropic Residency. I study how to keep oversight of agents on long work that nobody watches, and what that work costs, through one concrete task: a harness that turns 2D concept art into 3D models for Alex Net, a game I am building, with no person watching each round. Fresh AI judges (Opus and Fable) score each build and then fix what they found, and I am setting up my own blinded labels of the builds, made without seeing any judge score. On all six droids the new method built about the same droid, as far as an AI judge can tell, for about 72% less cost than my first pipeline, in about a fifth of the time, though several changes landed together. I want to take the next step with Anthropic's help: turn my labels and the judge records into a trained model (weights) that judges 3D work, checked against blinded human labels.
 
-**Video (3 minutes):** https://youtu.be/RBdJE05KqF8 covers the result across six droids, the experiments behind it, why Anthropic, and the two phases.
+**Video (3 minutes):** https://youtu.be/S7ZKNDg6_jc covers the result across six droids, the experiments behind it, the follow-up studies, why Anthropic, and what comes after the residency.
 
-**Since the video:** three follow-up studies from Nov 19 and 20 are [below](#since-the-video-nov-19-to-20): whether builders inflate their own scores, which model belongs on which pass, and what a pixel check can and cannot judge.
+**Follow-up studies:** five studies from Nov 19 and 20 are [below](#follow-up-studies-nov-19-to-20): whether builders inflate their own scores, which model belongs on which pass, what a pixel check can and cannot judge, whether one weak part can be fixed on its own, and whether pointing a builder at a defect helps it fix that defect. The video covers them in brief.
 
 **Scale:** 1,213 merged pull requests across 18 repos, 98% in three, from 2026-10-17 to 11-16: the orchestration system that runs the agent lanes (488), Atlanta, a live city simulation (389), and Alex Net (313). The 3D work runs in Alex Net, from concept art, and in Atlanta, from map data. The source repos are private; this repo carries aggregates, the experiment records and the judge check ([how each number was counted](METHOD.md)).
 
@@ -112,9 +112,9 @@ This change landed together with judge and builder in one session, the three-vie
 - **A loop that stops on a score can be steered by the score.** On the six male droids the builder scored the view it worked on up 24.3 points on average, more than the other two views in 71 of 71 rounds, where the fresh scorer saw 6.4 ([three views](METHOD.md#three-views-and-builder-self-score-male-n6)). AI judge only, not yet checked against my blind labels.
 - **Review loops burn the same way.** Before I capped pull request review at two rounds, one PR went 11 rounds and about 6.0B cache-read tokens in 36 hours for 12 merges ([case 07](incidents/07-eleven-review-rounds-36-hour-burn.md)).
 
-## Since the video (Nov 19 to 20)
+## Follow-up studies (Nov 19 to 20)
 
-Five follow-up studies ran after the video was cut. The video and the sections above describe the six-droid run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#since-the-video-nov-19-to-20).
+Five follow-up studies ran on Nov 19 and 20, after the six-droid run. The sections above describe that run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#follow-up-studies-nov-19-to-20).
 
 ### Do builders inflate their own scores?
 
@@ -150,7 +150,7 @@ One droid (b-lean, male) built from nothing six more times, each with a differen
 - **A cheap start was not recovered.** Every ladder that began on Sonnet or Haiku ended below Opus on every pass, on every body part, for shape and for texture. The two that switched to Opus ended 10.5 and 19.5 points lower overall (5 to 32 by part), so the Opus rounds did not win it back; the two that never switched ended 21.6 and 35.5 lower.
 - **The Fable shape pass stays.** Its three rounds cost about 49 USD and are the only step that brought hands up (76 against 52 with Opus on every pass).
 - **One scorer is not enough for a final.** A single scorer moved up to 9 points on a final, so finals now get three.
-- **Can Sonnet take the texture rounds alone? Failed the rule set before the run.** From the Opus build's shape result, Sonnet's texture rounds ended 4.6 points lower on texture, outside the 2.5 point spread the rule allowed (about 6 USD). Added after the result, not part of the verdict: one of the three scorers sat about 12 points under the other two, and when three fresh sessions each scored both builds in one sitting the difference was 1.6 points, Sonnet lower in 3 of 3. The verdict stays, texture stays on Opus, and a repeat on another droid with paired scoring has its pass rule fixed before it runs.
+- **Can Sonnet take the texture rounds alone? Failed the rule set before the run.** From the Opus build's shape result, Sonnet's texture rounds ended 4.6 points lower on texture, outside the 2.5 point spread the rule allowed (about 6 USD). Added after the result, not part of the verdict: one of the three scorers sat about 12 points under the other two, and when three fresh sessions each scored both builds in one sitting the difference was 1.6 points, Sonnet lower in 3 of 3. The verdict stays and texture stays on Opus. The repeat on a second droid, with its pass rule fixed before it ran and six sessions each scoring both builds, failed too: Sonnet's texture ended 4.9 points lower (every one of six sessions between 3.6 and 7.0 lower), with shape unchanged, for 5 USD against 19.
 
 Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 points between two rows decides nothing on its own.
 
