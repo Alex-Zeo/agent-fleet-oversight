@@ -4,6 +4,8 @@ This repo is part of my application to the Anthropic Residency. I study how to k
 
 **Video (3 minutes):** https://youtu.be/RBdJE05KqF8 covers the result across six droids, the experiments behind it, why Anthropic, and the two phases.
 
+**Since the video:** three follow-up studies from Nov 19 and 20 are [below](#since-the-video-nov-19-to-20): whether builders inflate their own scores, which model belongs on which pass, and what a pixel check can and cannot judge.
+
 **Scale:** 1,213 merged pull requests across 18 repos, 98% in three, from 2026-10-17 to 11-16: the orchestration system that runs the agent lanes (488), Atlanta, a live city simulation (389), and Alex Net (313). The 3D work runs in Alex Net, from concept art, and in Atlanta, from map data. The source repos are private; this repo carries aggregates, the experiment records and the judge check ([how each number was counted](METHOD.md)).
 
 ## The harness
@@ -74,6 +76,49 @@ This change landed together with judge and builder in one session, the three-vie
 
 - **A loop that stops on a score can be steered by the score.** On the six male droids the builder scored the view it worked on up 24.3 points on average, more than the other two views in 71 of 71 rounds, where the fresh scorer saw 6.4 ([three views](METHOD.md#three-views-and-builder-self-score-male-n6)). AI judge only, not yet checked against my blind labels.
 - **Review loops burn the same way.** Before I capped pull request review at two rounds, one PR went 11 rounds and about 6.0B cache-read tokens in 36 hours for 12 merges ([case 07](incidents/07-eleven-review-rounds-36-hour-burn.md)).
+
+## Since the video (Nov 19 to 20)
+
+Three follow-up studies ran after the video was cut. The video and the sections above describe the six-droid run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#since-the-video-nov-19-to-20).
+
+### Do builders inflate their own scores?
+
+**Their report of their own progress runs high. They did not invent progress, and a label did not make a fresh session inflate.** Four parts, rules fixed before each run, about 404 USD in all.
+
+- **Past records, all 12 bodies.** On the view a round worked on, the builder's own before and after scores showed a gain in 120 of 120 rounds (mean +17.3); the fresh scorer saw +6.2. Most of the gap is a low starting score: the builder scores the build 8.0 points below the fresh scorer before it works and 2.6 below after. The 24.3 against 6.4 figure above is a different cut of the same records (six male bodies, and it includes the rounds where the art changes from shape to colour).
+- **Planted cases, known answers (216 calls).** Telling a fresh session that it built the model, which build came later, or what the earlier score was moved its scores by under 1 point (author framing +0.40, 95% -0.21 to +0.94). Every framing got all 36 planted cases right. The planted defects were chosen to be visible, so this is an easy test.
+- **Placebo rounds.** A session did real work and was handed its old frames back. 0 of 16 reported a gain. In 7 of the 12 second-stage rounds the session gave no after score, so "no gain reported" includes stopping.
+- **Real rounds, controlled (12 rounds, 6 Opus and 6 Fable builders).** Builder +12.0 against a blind scorer's +3.3 on the same frames, difference +8.7 (95% 6.8 to 10.4), higher in 12 of 12. This comparison was not one of the pre-set rules; it is a description. The blind scorer is one Opus medium model, so which score is right is not known.
+
+What this changes: the supported reason for a blind judge is measurement, not honesty. A builder's score of its own round runs high and cannot be the round's result; incentive and cheating are not shown. That is narrower than "steered by the score" in the section above. Since Nov 19 the harness saves each builder's own score without using it, and a fresh session scores every round.
+
+### Which model belongs on which pass?
+
+One droid (b-lean, male) built from nothing six more times, each with a different model ladder, and compared with its earlier build. Each final is the mean of three fresh blind Opus medium scorers over ten body parts, shape and texture.
+
+| Ladder | Final, 0 to 100 | USD |
+|---|---|---|
+| Opus shape, Fable shape, Opus texture twice | 78.4 | 81 |
+| Earlier ladder, with a Fable texture pass (the b-lean build in the results above) | 73.1 | 183 |
+| Opus on every pass | 66.4 | 36 |
+| Haiku then Opus | 56.0 | 21 |
+| Sonnet then Opus | 46.9 | 20 |
+| Sonnet on every pass | 44.8 | 11 |
+| Haiku then Sonnet | 30.9 | 9 |
+
+- **The Fable texture pass came out.** The ladder without it scored 5 points higher at less than half the cost.
+- **A cheap start was not recovered.** Ladders that began on Sonnet or Haiku ended 10 to 20 points lower on every body part, and the Opus rounds after them did not win it back.
+- **The Fable shape pass stays.** Its three rounds cost about 49 USD and are the only step that brought hands up (76 against 52 with Opus on every pass).
+- **One scorer is not enough for a final.** A single scorer moved up to 9 points on a final, so finals now get three.
+- **Can Sonnet take the texture rounds alone? Failed the rule set before the run.** From the Opus build's shape result, Sonnet's texture rounds ended 4.6 points lower on texture, outside the 2.5 point spread the rule allowed (about 6 USD). Added after the result, not part of the verdict: one of the three scorers sat about 12 points under the other two, and when three fresh sessions each scored both builds in one sitting the difference was 1.6 points, Sonnet lower in 3 of 3. The verdict stays, texture stays on Opus, and a repeat on another droid with paired scoring has its pass rule fixed before it runs.
+
+Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 points between two rows decides nothing on its own.
+
+### What can a pixel check judge?
+
+- **Direction, not size.** On 36 planted cases the pixel score got the direction right in 34 (94%, 95% 82 to 98), but it moved about 2.6 points where the blind scorer moved 11.8. It is used as a flag and an early stop, never as the score.
+- **Not single parts.** On the best build the outline score put hips at 90 where the scorers ranked hips lowest, and hands at 53 where the scorers gave 73 to 79. Pixel and scorers disagree in both directions by part.
+- **Can a model read a correction drawn on the render? (192 reads, about 3 USD.)** A bump or dent was planted on one part's outline in 20 cases, with 4 unchanged cases. Pass was fixed at 16 of 20 with no part named on an unchanged case. A tint with the size printed: Opus 19, Sonnet 16. Local arrows with the size printed: 17 and 16. A plain overlay: 17 and 15. A per-part fit number alone: 0 and 0. No reader named a part on an unchanged case. Whether a builder that sees the drawing builds better is the next test and has not run.
 
 ## Judge check status
 
