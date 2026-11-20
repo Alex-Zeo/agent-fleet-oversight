@@ -1,5 +1,7 @@
 # Alex Net: 2D concept art to 3D models, built by AI agents with no person watching
 
+**My application to the Anthropic Residency.** The question behind it: how do you keep oversight of AI agents on long work that nobody watches, and what does that work cost?
+
 ![Six droid designs. Top row: the concept art I approved. Bottom row: the 3D models agents built from it.](figures/droids-art-to-model.jpg)
 
 *Top row: concept art I approved. Bottom row: the 3D models AI agents built from it, over hours, with no person watching the rounds.*
@@ -11,11 +13,11 @@
 - **A daily loop.** I set the agents on a task when I leave for work, play what they made when I get home, and my feedback becomes their next task. The project pushes on how far that can go.
 - **A machine learning project.** Every approval, every send-back with its reasons and every blinded pick is a label. The aim is a trained judge (a weights model) that learns from those labels, so the pipeline can run like a factory and I only check what it cannot.
 
-**See it:** [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [art I sent back, with reasons](https://alejandro-gutierrez.com/diary/concept-art-261110/revisions/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/RBdJE05KqF8)
+**See it:** [alejandro-gutierrez.com](https://alejandro-gutierrez.com/) · [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/RBdJE05KqF8)
 
 ## About me
 
-- **My current role.** I am a Senior Analyst at Intercontinental Exchange, a technical lead role. I build and manage predictive and prescriptive risk models for data centers, operations and projects, and I lead risk model analysis on corporate, operational and compliance data: where the largest cost reductions lie, measured by risk and utilization.
+- **My current role.** I am a technical leader: a Senior Analyst at Intercontinental Exchange, where I build and manage predictive and prescriptive risk models for data centers, operations and projects. I lead risk model analysis on corporate, operational and compliance data, showing where the largest cost reductions and savings lie as measured by risk and utilization.
 - **My role here.** I am the only person on this project. I write the specs and the rules, approve or send back every design, fix each experiment's pass rule before it runs, and direct a fleet of AI agents, mostly Claude, that merged 1,213 pull requests across 18 repos in a month. The agents work while I am at my day job.
 - **Why the residency.** Directing that fleet taught me that rules added after each failure do not keep up with agents working for hours unwatched. I want to learn to measure that properly, starting with the judge in this pipeline.
 - **Find me:** [LinkedIn](https://www.linkedin.com/in/alexdga/) · [GitHub](https://github.com/Alex-Zeo)
@@ -151,13 +153,9 @@ Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 po
 
 ### What can a pixel check judge?
 
-![Six panels: the concept art, the build render, the two compared with no alignment, after alignment, edges inside the body, and colour difference.](figures/pixel-diff-alignment.png)
+![Seven panels for the lean droid: the approved art, the build render, the two overlapped with no alignment, edges inside the body, colour difference, and the correction drawn by intensity and by hue.](figures/pixel-checks-lean.png)
 
-*How the pixel check compares a build with the art. Without alignment most of the miss is framing; after alignment what is left is real.*
-
-![Four ways of drawing a correction on the render: where the miss is, grow or shrink by intensity, direction as hue, and arrows.](figures/pixel-correction-in-colour.png)
-
-*Four ways of drawing the correction onto the render for the builder to read. The reading test below asks which of these a model can read.*
+*What the pixel checks see on one droid. Panels 3 to 5: red is only in the art, blue only in the build; in panel 5 blue is close and yellow to red is far. Panels 6 and 7 draw the correction onto the render for the builder to read: red means push out and blue means pull in, or the hue gives the direction. These are illustrations of the method, not output of the scorer used in the results.*
 
 - **Direction, not size.** On 36 planted cases the pixel score got the direction right in 34 (94%, 95% 82 to 98), but it moved about 2.6 points where the blind scorer moved 11.8. It is used as a flag and an early stop, never as the score.
 - **Not single parts.** On the best build the outline score put hips at 90 where the scorers ranked hips lowest, and hands at 53 where the scorers gave 73 to 79. Pixel and scorers disagree in both directions by part.
@@ -167,7 +165,7 @@ Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 po
 
 Two kinds of label come out of this project. Both are mine, and both are kept as an append-only record.
 
-**1. Approve or send back, on every piece of concept art.** Nothing is built from art I have not approved. As of Nov 20: 365 approved, 18 sent back, 45 waiting. Each view is accepted or sent back by itself, with the approved reference beside it, and a send-back carries reasons from a fixed list of 18 in six groups (form, surface, match to source, function and coverage, direction, general).
+**1. Approve or send back, on every piece of concept art.** Nothing is built from art I have not approved. As of Nov 20: 365 approved, 18 sent back, 45 waiting, decided a set at a time. A send-back carries reasons from a fixed list of 18. Since Nov 20 the page shows the approved reference beside every view, each view is accepted or sent back by itself, and the reasons are grouped (form, surface, match to source, function and coverage, direction, general).
 
 ![The approval page: the approved reference beside a new hand view, Accept and Send back buttons, and the grouped reasons for sending it back.](figures/labelling-reasons-per-view.png)
 
