@@ -1,4 +1,26 @@
-# 2D concept art to 3D models, with no person watching
+# Alex Net: 2D concept art to 3D models, built by AI agents with no person watching
+
+![Six droid designs. Top row: the concept art I approved. Bottom row: the 3D models agents built from it.](figures/droids-art-to-model.jpg)
+
+*Top row: concept art I approved. Bottom row: the 3D models AI agents built from it, over hours, with no person watching the rounds.*
+
+## What this is
+
+- **A game inspired by AlexNet,** the 2012 neural network that started modern AI. It is playable today: [play the world](https://world.alejandro-gutierrez.com/?play=1).
+- **An art to 3D pipeline.** I approve 2D concept art. Agents build the 3D model in Unreal Engine from it, and fresh AI judges score every round.
+- **A daily loop.** I set the agents on a task when I leave for work, play what they made when I get home, and my feedback becomes their next task. The project pushes on how far that can go.
+- **A machine learning project.** Every approval, every send-back with its reasons and every blinded pick is a label. The aim is a trained judge (a weights model) that learns from those labels, so the pipeline can run like a factory and I only check what it cannot.
+
+**See it:** [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [art I sent back, with reasons](https://alejandro-gutierrez.com/diary/concept-art-261110/revisions/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/RBdJE05KqF8)
+
+## About me
+
+- **My current role.** I am a Senior Analyst at Intercontinental Exchange, a technical lead role. I build and manage predictive and prescriptive risk models for data centers, operations and projects, and I lead risk model analysis on corporate, operational and compliance data: where the largest cost reductions lie, measured by risk and utilization.
+- **My role here.** I am the only person on this project. I write the specs and the rules, approve or send back every design, fix each experiment's pass rule before it runs, and direct a fleet of AI agents, mostly Claude, that merged 1,213 pull requests across 18 repos in a month. The agents work while I am at my day job.
+- **Why the residency.** Directing that fleet taught me that rules added after each failure do not keep up with agents working for hours unwatched. I want to learn to measure that properly, starting with the judge in this pipeline.
+- **Find me:** [LinkedIn](https://www.linkedin.com/in/alexdga/) · [GitHub](https://github.com/Alex-Zeo)
+
+## The application in one paragraph
 
 This repo is part of my application to the Anthropic Residency. I study how to keep oversight of agents on long work that nobody watches, and what that work costs, through one concrete task: a harness that turns 2D concept art into 3D models for Alex Net, a game I am building, with no person watching each round. Fresh AI judges (Opus and Fable) score each build and then fix what they found, and I am setting up my own blinded labels of the builds, made without seeing any judge score. On all six droids the new method built about the same droid, as far as an AI judge can tell, for about 72% less cost than my first pipeline, in about a fifth of the time, though several changes landed together. I want to take the next step with Anthropic's help: turn my labels and the judge records into a trained model (weights) that judges 3D work, checked against blinded human labels.
 
@@ -20,7 +42,15 @@ Alex Net's harness (experiment issue #727). The job: take owner-approved concept
 
 **The second 3D codebase, Atlanta,** builds a real city from map data (OpenStreetMap outlines, LiDAR heights and published dimensions), not from concept art. Its judges do not score and are not blind: they see the pull request and the builder's report, and rule MERGE or HOLD from renders at three camera altitudes. There are no owner labels there. Its 3D work so far includes 8 baked cars at three detail tiers (PRs #1337, #1353, #1382 and #1396; 102.23 USD and 15.73 agent hours; #1382 and #1396 went Opus HOLD, then Fable MERGE), the Mercedes-Benz Stadium and the GWCC halls (#1470, 33.65 USD), an authored outer ring of about 142 km2 (#1443) and 5 landmark towers. The experiments and the proposal below are about Alex Net.
 
+![The first droid from the front, the side and the back: the old pipeline's build, the new method's two builds, and the approved art they are judged against.](figures/droid_old_new_art.png)
+
+*The first droid from three views: the old pipeline's build, the new method's builds, and the approved art they are judged against.*
+
 ## Results across droids
+
+![All twelve bodies built by the new method: six designs, male above, female below.](figures/droids-all-twelve.jpg)
+
+*All twelve bodies built by the new method. Six designs, male above, female below.*
 
 Six droid designs, twelve bodies built in all (a male and a female body per design). The comparison below is on the male body of each design, all six finished (n=6 of 6). Scorer cost is counted on both sides ([definitions](METHOD.md#results-across-droids)).
 
@@ -107,6 +137,10 @@ One droid (b-lean, male) built from nothing six more times, each with a differen
 | Sonnet on every pass | 44.8 | 11 |
 | Haiku then Sonnet | 30.9 | 9 |
 
+![Per-part scores for the seven builds of one droid, drawn as radar charts on the build's outline.](figures/ladder-radar.png)
+
+*Each chart is one build. Black is shape, purple is texture, one spoke per body part, mean of three blind scorers. The figure in the middle is the build laid over the art: red is in the art and missing in the build, blue is in the build and not in the art.*
+
 - **The Fable texture pass came out.** The ladder without it scored 5 points higher at less than half the cost.
 - **A cheap start was not recovered.** Every ladder that began on Sonnet or Haiku ended below Opus on every pass, on every body part, for shape and for texture. The two that switched to Opus ended 10.5 and 19.5 points lower overall (5 to 32 by part), so the Opus rounds did not win it back; the two that never switched ended 21.6 and 35.5 lower.
 - **The Fable shape pass stays.** Its three rounds cost about 49 USD and are the only step that brought hands up (76 against 52 with Opus on every pass).
@@ -117,11 +151,31 @@ Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 po
 
 ### What can a pixel check judge?
 
+![Six panels: the concept art, the build render, the two compared with no alignment, after alignment, edges inside the body, and colour difference.](figures/pixel-diff-alignment.png)
+
+*How the pixel check compares a build with the art. Without alignment most of the miss is framing; after alignment what is left is real.*
+
+![Four ways of drawing a correction on the render: where the miss is, grow or shrink by intensity, direction as hue, and arrows.](figures/pixel-correction-in-colour.png)
+
+*Four ways of drawing the correction onto the render for the builder to read. The reading test below asks which of these a model can read.*
+
 - **Direction, not size.** On 36 planted cases the pixel score got the direction right in 34 (94%, 95% 82 to 98), but it moved about 2.6 points where the blind scorer moved 11.8. It is used as a flag and an early stop, never as the score.
 - **Not single parts.** On the best build the outline score put hips at 90 where the scorers ranked hips lowest, and hands at 53 where the scorers gave 73 to 79. Pixel and scorers disagree in both directions by part.
 - **Can a model read a correction drawn on the render? (192 reads, about 3 USD.)** A bump or dent was planted on one part's outline in 20 cases, with 4 unchanged cases. Pass was fixed at 16 of 20 with no part named on an unchanged case. A tint with the size printed: Opus 19, Sonnet 16. Local arrows with the size printed: 17 and 16. A plain overlay: 17 and 15. A per-part fit number alone: 0 and 0. No reader named a part on an unchanged case. Whether a builder that sees the drawing builds better is the next test and has not run.
 
-## Judge check status
+## Labelling and the judge check
+
+Two kinds of label come out of this project. Both are mine, and both are kept as an append-only record.
+
+**1. Approve or send back, on every piece of concept art.** Nothing is built from art I have not approved. As of Nov 20: 365 approved, 18 sent back, 45 waiting. Each view is accepted or sent back by itself, with the approved reference beside it, and a send-back carries reasons from a fixed list of 18 in six groups (form, surface, match to source, function and coverage, direction, general).
+
+![The approval page: the approved reference beside a new hand view, Accept and Send back buttons, and the grouped reasons for sending it back.](figures/labelling-reasons-per-view.png)
+
+**2. Blinded pairs of builds.** Which of two builds is closer to the approved art? The page never shows a judge score, a model name, a round or a cost. These are the labels that decide whether the AI judge can stand in for me.
+
+![The blinded labelling page: the reference art on top, builds A and B below, four choices and optional reasons.](figures/labelling-blind-pair.jpg)
+
+### Status of the blinded check
 
 0 blinded labels so far. Before labelling, a 10-pair test showed that old and new builds could be told apart 10 of 10, by framing (the camera was fitted to each build) and by build style (old builds panelled, new ones smooth). The camera fix is done: every item was rendered again with one fixed camera and ground line, and on a repeat test the framing tell is gone. Old against new is still separable by build style, which cannot be hidden without hiding the shape being judged, so it stays a side result labelled "not blind to method".
 
