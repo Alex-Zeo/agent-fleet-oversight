@@ -175,7 +175,7 @@ Whole-droid score against the male whole-body texture art, mean of front, profil
 
 ### Since the video (Nov 19 to 20)
 
-Three studies run after the video was cut. All scores are AI judge only, not yet checked against my blind labels. Per-round rows, scorer files and plans are in the private source records; this repo carries the aggregates below.
+Five studies run after the video was cut. All scores are AI judge only, not yet checked against my blind labels. Per-round rows, scorer files and plans are in the private source records; this repo carries the aggregates below.
 
 **Self-score study (selfscore-261119).** Spend: placebo and real rounds 286.36 USD, planted cases 79.72, a follow-up framing run 35.92, pilot 2.32; total 404.32.
 
@@ -218,6 +218,38 @@ Three studies run after the video was cut. All scores are AI judge only, not yet
 - Per part, front view, best build: hips outline 90, edge 88.8, where three scorers gave hips 66.4 shape and 70.3 texture; hands outline 53, where scorers gave 73 to 79.
 - Overlay shown to the builder (one build, Opus on every pass, outline overlay of art against build plus the pixel number for the view worked, every round): final shape 66.17, texture 67.12, final 66.65, 49.92 USD, against 65.09, 67.78, 66.44 and 36.17 USD without it. Three scorers, spread 8.3 on shape and 7.7 on texture. By part, shape and texture: hands +5.4 and +2.1, hips +7.5 and +3.8, neck -8.9 and -10.3, the rest within 4.2. No rule was set for this build before it ran. Paired reading added after the result (three fresh Opus medium sessions, each scoring both builds, neutral ids, two saw the overlay build first), overlay minus plain: final shape -1.87, -0.08, +0.52; final texture -1.67, -3.03, -0.04; hands shape -3.67, +2.00, +6.67. The one claim fixed before the paired reading, "the overlay helped hands" at +5 or more in 3 of 3, is not supported. Neck shape was lower in 3 of 3 (-10.00, -8.33, -6.67), noted only. Its front-view pixel score for hands was 52.6, the same as the best build (52.7), where scorers gave that build's hands 73 and 79.
 - Reading test: 24 cases (20 with one local bump or dent on one part's outline, 4 unchanged), 4 ways of drawing the correction, 2 readers (Opus, Sonnet), 192 reads, 2.95 USD. Pass, fixed before the run: 16 or more of 20 changed cases right and no part named on any unchanged case. Overlay: 17 and 15. Tint with the peak size printed: 19 and 16. Local arrows with the size printed: 17 and 16. Per-part fit number only: 0 and 0. No part named on an unchanged case by any reader. Weak spot: an inward change on a thin arm was read as outward.
+
+**One part at a time: hands (partroute P1).** Start: one finished b-lean male build (H0). Each arm rebuilt only the hands, one build per arm. Paired reading for every arm: three fresh Opus medium sessions, each scoring the arm's build and H0 in one sitting, neutral ids, order swapped in one. Claims fixed before any arm ran: (1) hands shape and the close-up hand view each at least +10 against H0 in 3 of 3; (2) the mean of the nine untouched parts within 3 points in 3 of 3.
+
+| Arm | Hands shape | Close-up hand | Claim 1 | Claim 2 | USD |
+|---|---|---|---|---|---|
+| H1 hands-only brief, Opus | +18.7, +15.3, +23.3 | +20.5, +16.7, +21.8 | met | met | 7.31 |
+| H4 hands code reused from an earlier build | +10.67, +10.67, +27.34 | +14.50, +18.58, +25.95 | met | met (+0.15, -0.40, -1.23) | 6.88 |
+| H6 close-up art, Opus, then one Fable high round | +16.66, +10.67, +22.67 | +21.67, +22.59, +20.75 | met | met (+0.11, -0.73, -0.90) | 19.53 |
+| H2 close-up art, Opus | +5.3, +18.0, +19.3 | +17.6, +18.2, +28.2 | not met | met | 10.10 |
+| H5 per-finger component art | +3.00, +4.66, +5.67 | +5.59, +6.09, +7.91 | not met | met (mean -0.30) | 9.70 |
+| H3 close-up art, Sonnet low | -2.67, +1.34, +0.67 | -2.30, -1.00, -0.04 | not met | met | 3.45 |
+
+- Changed after a result, and labelled: the plan first paired only arms whose single-scorer reading showed +10 or more. H1 read 55.5 alone and 64.7 to 68.7 paired, so the filter was dropped and every arm was paired.
+- H1 against H4, paired, hands shape: -2.0, +2.0, +9.3; no claim was set for this comparison.
+- One H5 scorer run returned cut-off JSON; it is kept on record as invalid and is not one of the three readings above.
+- Limits: one droid, one build per arm, one AI scorer family.
+
+**Pointing the builder at a defect (partroute P4b).** Start: the b-lean male Opus-on-every-pass final. Two defects planted: the helmet face moved 0.03 m sideways, and an outward bulge of 0.025 m over 0.12 m on the chest. Arms: a control round with no pointer; E7 (hue for in-plane direction, dots or hatching for depth, printed size per part); E4 (a table of the corrections, part by part, three axes); L3 (local arrows with the size printed). Two repeats each, one Opus medium round each. Pass rule fixed before the run: the defect left at a third of the control or less, and no other part more than 5.3 points below the control.
+
+| Arm | Torso defect left, rep 1 and 2 | Helmet defect left | Other parts more than 5.3 below control (unpaired) |
+|---|---|---|---|
+| Control | 1.77, 0.96 | 3.80, 0.18 | |
+| E4 table | 0.03, 0.00 | 0.00 to 0.13 | rep 1 neck -7.78, abdomen -8.33, feet -6.22; rep 2 feet -5.34 |
+| L3 arrows | 3.82, 0.10 | 0.00 to 0.13 | rep 2 feet -10.0, hips -9.44, legs -6.67, shoulders -6.44 |
+| E7 hue and size | 6.95, 1.45 | 0.00 to 0.13 | yes |
+
+- No arm passed. The helmet plant cannot separate arms: the control removed it by itself (46.1 before).
+- Paired reading added after the result, E4 rep 1 against control rep 1 only, claim fixed before it ran (offset if E4 is at or above control minus 3 in 3 of 3): the eight untouched parts differed by -0.17, -0.12, -0.13, so the unpaired drop was scorer offset. The verdict stays.
+- In that sitting the scorers gave helmet and torso the same shape score for both builds, while the pixel measure put the defect left at 0.00 and 0.03 against 3.80 and 1.77.
+- Limits: one droid, two repeats, one AI scorer family.
+
+Spend for the hands and pointer studies, with the reading tests and paired readings: about 148 USD of a 170 USD cap.
 
 ### Stats3: old against new, three droids, both bodies (comment 6951147899)
 

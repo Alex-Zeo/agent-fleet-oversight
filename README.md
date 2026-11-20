@@ -114,7 +114,7 @@ This change landed together with judge and builder in one session, the three-vie
 
 ## Since the video (Nov 19 to 20)
 
-Three follow-up studies ran after the video was cut. The video and the sections above describe the six-droid run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#since-the-video-nov-19-to-20).
+Five follow-up studies ran after the video was cut. The video and the sections above describe the six-droid run as it was run, and nothing above was changed. Every score in this section is **AI judge only, not yet checked against my blind labels**. Details and limits: [METHOD](METHOD.md#since-the-video-nov-19-to-20).
 
 ### Do builders inflate their own scores?
 
@@ -163,7 +163,39 @@ Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 po
 - **Direction, not size.** On 36 planted cases the pixel score got the direction right in 34 (94%, 95% 82 to 98), but it moved about 2.6 points where the blind scorer moved 11.8. It is used as a flag and an early stop, never as the score.
 - **Not single parts.** On the best build the outline score put hips at 90 where the scorers ranked hips lowest, and hands at 53 where the scorers gave 73 to 79. Pixel and scorers disagree in both directions by part.
 - **Showing the builder the overlay did not help.** One more build of the lean droid, Opus on every pass, with an outline overlay and the pixel number shown to the builder each round: 66.7 against 66.4 without it, for about 14 USD more. That is inside the scorer spread, and it is one build on each side. Hands looked higher with the overlay (shape 54 against 49), but a paired re-read added after the result, three fresh scorers each marking both builds, did not support it: higher by 5 or more in 1 of 3.
-- **Can a model read a correction drawn on the render? (192 reads, about 3 USD.)** A bump or dent was planted on one part's outline in 20 cases, with 4 unchanged cases. Pass was fixed at 16 of 20 with no part named on an unchanged case. A tint with the size printed: Opus 19, Sonnet 16. Local arrows with the size printed: 17 and 16. A plain overlay: 17 and 15. A per-part fit number alone: 0 and 0. No reader named a part on an unchanged case. Whether a builder that sees the drawing builds better is the next test and has not run.
+- **Can a model read a correction drawn on the render? (192 reads, about 3 USD.)** A bump or dent was planted on one part's outline in 20 cases, with 4 unchanged cases. Pass was fixed at 16 of 20 with no part named on an unchanged case. A tint with the size printed: Opus 19, Sonnet 16. Local arrows with the size printed: 17 and 16. A plain overlay: 17 and 15. A per-part fit number alone: 0 and 0. No reader named a part on an unchanged case. Whether a builder that sees the drawing builds better is the last study below.
+
+### Can one weak part be fixed on its own?
+
+Hands were the lowest part on most builds. Starting from one finished build of the lean droid (H0), each arm changed only the hands, then three fresh sessions each scored that arm's build and H0 in one sitting, the order swapped in one of the three. Two claims were fixed before any arm ran: hands shape and the close-up of the hand both at least 10 points higher than H0 in 3 of 3 sessions, and the nine untouched parts within 3 points in 3 of 3.
+
+| Arm | Hands shape, minus H0 | Close-up hand, minus H0 | Both claims | USD |
+|---|---|---|---|---|
+| Hands-only brief, Opus | +18.7, +15.3, +23.3 | +20.5, +16.7, +21.8 | met | 7.31 |
+| Hands code reused from an earlier build | +10.7, +10.7, +27.3 | +14.5, +18.6, +26.0 | met | 6.88 |
+| Close-up art, Opus, then one Fable round | +16.7, +10.7, +22.7 | +21.7, +22.6, +20.8 | met | 19.53 |
+| Close-up art, Opus | +5.3, +18.0, +19.3 | +17.6, +18.2, +28.2 | not met | 10.10 |
+| Hand built from per-finger component art | +3.0, +4.7, +5.7 | +5.6, +6.1, +7.9 | not met | 9.70 |
+| Close-up art, Sonnet | -2.7, +1.3, +0.7 | -2.3, -1.0, -0.0 | not met | 3.45 |
+
+- **A part can be fixed without breaking the rest.** The nine untouched parts stayed within 3 points in every session of every arm, and within 1.3 points wherever the per-session numbers were reported.
+- **The cheap arms that passed did as well as the dearest.** Scored side by side, the brief-only arm and the reused-code arm differed by -2.0, +2.0 and +9.3 on hands shape, with no clear winner; the Fable round cost about 2.7 times as much for a similar gain.
+- **Component art for each finger helped, about a third as much** as the three arms that passed (mean +6.5 on the close-up and +4.4 on shape), and it cost more than either cheap arm that passed.
+- **Sonnet did not move the hands at all,** which matches the ladders above: shape work stays on Opus or Fable.
+- **A rule I changed after a result.** I first planned to re-read only arms whose single-scorer reading already showed +10. The brief-only arm read 55.5 alone and 64.7 to 68.7 when paired, so the filter nearly dropped an arm that passes. I dropped the filter and paired every arm.
+
+Limits: one droid, one build per arm, one AI scorer family. Every score is AI judge only, not yet checked against my blind labels.
+
+### Does telling the builder where a defect is help it fix that defect?
+
+Two defects were planted in a finished build of the lean droid: the helmet moved 3 cm and an outward bulge of 2.5 cm on the torso. Three ways of pointing the builder at them were run twice each against a control round that got no pointer, one Opus round each. The pass rule was fixed before the run: the defect left at a third of the control or less, and no other part more than 5.3 points below the control.
+
+- **No arm passed.** One way of pointing (a table of the corrections, part by part) removed the torso bulge in both repeats (0.03 and 0.00 left, against 1.77 and 0.96 for the control). Arrows drawn on the render removed it in one repeat, and the third way made it worse in both. Every arm failed the second half of the rule.
+- **For the table arm, the second half was the scorer, not the build.** Added after the result, on its first repeat only: three fresh sessions each scored it and the control in one sitting, and the eight untouched parts differed by -0.17, -0.12 and -0.13. The earlier drop of more than 5.3 came from scoring each arm in a separate session. The verdict stays; the lesson is that every comparison rule now needs paired scoring.
+- **The helmet plant told nothing apart.** The control round removed it by itself (46.1 to 3.8 and 0.2).
+- **The blind scorers did not see defects this small.** In the paired sitting they gave the helmet and torso the same shape score for both builds, while the pixel measure put the defect left at 0.00 and 0.03 against 3.80 and 1.77. A judge for this pipeline needs a pixel check alongside the model scorer for small errors, which feeds the proposal below.
+
+Limits: one droid, two repeats, one AI scorer family, AI judge only.
 
 ## Labelling and the judge check
 
