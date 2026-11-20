@@ -240,9 +240,9 @@ Five studies run after the video was cut. All scores are AI judge only, not yet 
 | Arm | Torso defect left, rep 1 and 2 | Helmet defect left | Other parts more than 5.3 below control (unpaired) |
 |---|---|---|---|
 | Control | 1.77, 0.96 | 3.80, 0.18 | |
-| E4 table | 0.03, 0.00 | 0.00 to 0.13 | rep 1 neck -7.78, abdomen -8.33, feet -6.22; rep 2 feet -5.34 |
-| L3 arrows | 3.82, 0.10 | 0.00 to 0.13 | rep 2 feet -10.0, hips -9.44, legs -6.67, shoulders -6.44 |
-| E7 hue and size | 6.95, 1.45 | 0.00 to 0.13 | yes |
+| E4 table | 0.03, 0.00 | 0.00, 0.00 | rep 1 neck -7.78, abdomen -8.33, feet -6.22; rep 2 feet -5.34 |
+| L3 arrows | 3.82, 0.10 | 0.00, 0.00 | rep 2 feet -10.0, hips -9.44, legs -6.67, shoulders -6.44 |
+| E7 hue and size | 6.95, 1.45 | 0.13, 0.00 | rep 1 neck -8.67, abdomen -8.33; rep 2 neck -6.11, abdomen -7.0, back -7.0, feet -7.22 |
 
 - No arm passed. The helmet plant cannot separate arms: the control removed it by itself (46.1 before).
 - Paired reading added after the result, E4 rep 1 against control rep 1 only, claim fixed before it ran (offset if E4 is at or above control minus 3 in 3 of 3): the eight untouched parts differed by -0.17, -0.12, -0.13, so the unpaired drop was scorer offset. The verdict stays.
