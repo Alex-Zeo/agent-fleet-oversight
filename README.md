@@ -15,6 +15,8 @@
 
 **See it:** [alejandro-gutierrez.com](https://alejandro-gutierrez.com/) · [play the game world](https://world.alejandro-gutierrez.com/?play=1) · [approved concept art](https://alejandro-gutierrez.com/diary/concept-art-261110/concept-art/) · [Atlanta, the second 3D world](https://atlanta.alejandro-gutierrez.com/world-view/) · [3 minute video](https://youtu.be/RBdJE05KqF8)
 
+**Download the droids (3D models, art pending my approval):** lean droid, male: [GLB with materials](https://world.alejandro-gutierrez.com/downloads/droids/a-b-lean-male-94ac4e06.glb) (24.4 MB) · [STL](https://world.alejandro-gutierrez.com/downloads/droids/a-b-lean-male-94ac4e06.stl) (13.4 MB), build 94ac4e06, 78.4 of 100 from three AI judges, not yet checked against my blind labels · standard droid, male: [GLB with materials](https://world.alejandro-gutierrez.com/downloads/droids/a-standard-male-cbc978c7.glb) (27.0 MB) · [STL](https://world.alejandro-gutierrez.com/downloads/droids/a-standard-male-cbc978c7.stl) (22.8 MB), build cbc978c7, score not shown while my blind labelling of these builds is open. GitHub and most 3D viewers open the STL; the GLB opens in Blender or any glTF viewer.
+
 ## About me
 
 - **My current role.** I am a technical leader: a Senior Analyst at Intercontinental Exchange, where I build and manage predictive and prescriptive risk models for data centers, operations and projects. I lead risk model analysis on corporate, operational and compliance data, showing where the largest cost reductions and savings lie as measured by risk and utilization.
