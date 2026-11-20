@@ -159,6 +159,7 @@ Limits: one droid, one build per ladder, no repeat runs. A gap under about 10 po
 
 - **Direction, not size.** On 36 planted cases the pixel score got the direction right in 34 (94%, 95% 82 to 98), but it moved about 2.6 points where the blind scorer moved 11.8. It is used as a flag and an early stop, never as the score.
 - **Not single parts.** On the best build the outline score put hips at 90 where the scorers ranked hips lowest, and hands at 53 where the scorers gave 73 to 79. Pixel and scorers disagree in both directions by part.
+- **Showing the builder the overlay did not help.** One more build of the lean droid, Opus on every pass, with an outline overlay and the pixel number shown to the builder each round: 66.7 against 66.4 without it, for about 14 USD more. That is inside the scorer spread, and it is one build on each side. Hands were the one part that rose (shape 54 against 49).
 - **Can a model read a correction drawn on the render? (192 reads, about 3 USD.)** A bump or dent was planted on one part's outline in 20 cases, with 4 unchanged cases. Pass was fixed at 16 of 20 with no part named on an unchanged case. A tint with the size printed: Opus 19, Sonnet 16. Local arrows with the size printed: 17 and 16. A plain overlay: 17 and 15. A per-part fit number alone: 0 and 0. No reader named a part on an unchanged case. Whether a builder that sees the drawing builds better is the next test and has not run.
 
 ## Labelling and the judge check
