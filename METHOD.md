@@ -173,6 +173,49 @@ Whole-droid score against the male whole-body texture art, mean of front, profil
 - Builder rows come from each round's own before and after self-scores (a-standard round 1 has none). They are not the same measure as the fresh scorer rows: within one round, before against after, over 71 rounds, against round over previous round over 66. "71 of 71" means the worked view gained more than the other two in every round. In the builder's own scoring the worked view rose about 24 points; the fresh scorer saw about 6.
 - These replace the earlier pooled female and male figures from the experiment analysis (+7.22 against +0.72, 33 of 36 rounds).
 
+### Since the video (Nov 19 to 20)
+
+Three studies run after the video was cut. All scores are AI judge only, not yet checked against my blind labels. Per-round rows, scorer files and plans are in the private source records; this repo carries the aggregates below.
+
+**Self-score study (selfscore-261119).** Spend: placebo and real rounds 286.36 USD, planted cases 79.72, a follow-up framing run 35.92, pilot 2.32; total 404.32.
+
+| Part | What was done | n | Result |
+|---|---|---|---|
+| A, past records | Builder's own before and after score against the fresh scorer, view worked, all 12 bodies, rounds that cross the shape to colour change of art left out | 120 rounds | Self gain +17.3, above 0 in 120 of 120; fresh scorer +6.2, a gain in 97 and a drop in 18; difference +11.0 (95% bootstrap over bodies 10.0 to 12.1) |
+| A, levels | Builder's score against the fresh scorer on the same build | 360 before, 426 after | 8.0 below before it works, 2.6 below after |
+| A, views not worked | Builder's change against the fresh scorer's | 240 | Builder never down (177 up, mean +1.6); fresh scorer -0.3 |
+| B, planted cases | Fresh Opus medium sessions, no tools, four framings (blind, told it is another's build, told it is the author, shown the earlier score); cases built better, worse or unchanged | 216 calls | Author minus blind +0.40 (-0.21 to +0.94, n=24); other +0.53 (-0.24 to +1.48); earlier score +0.01 (-0.43 to +0.49); 36 of 36 right under every framing; unchanged pairs scored exactly 0 in 60 of 60 |
+| C, placebo | A session works a round and is handed its old frames | 16 rounds (4 stage 1, 12 stage 2) | 0 reported a gain; stage 2: 5 scored after equal to before, 7 gave no after score; the blind scorer saw 0 change on all 16 |
+| C, real | Same setup, true frames returned; 6 Opus medium and 6 Fable high builders | 12 rounds | Builder +12.0, blind +3.3, difference +8.7 (6.8 to 10.4), 12 of 12; Opus +7.0 against -1.2, Fable +17.0 against +7.8; mean of three views +4.7 against +1.5 |
+
+- The pre-set rule for part B needed at least 3 points of inflation from the author framing; not met. The pre-set placebo rule needed at least half the placebo rounds to report a gain of 5 or more; not met. The real-round comparison in part C was not a pre-set rule.
+- How the three self-score figures relate: 24.25 against 6.36 (six male bodies, 71 rounds, includes the rounds across the change of art; section above), 17.3 against 6.2 (all 12 bodies, 120 rounds, those rounds left out), 12.0 against 3.3 (12 new controlled rounds). They are three measurements, not one corrected number.
+- Limits: the builder's 0 to 100 score and the scorer's rubric are not the same instrument; in part B both builds are scored side by side, which is not how a builder scores its own round; placebo sessions could see that the frames were identical, and several searched the machine for the reason; two of the last three rounds could read the new self-score rule; 12 real rounds, one run each.
+
+**Model ladders (b-lean, male).** Six new builds from nothing, 12 rounds each (shape rounds 1 to 6, texture rounds 7 to 12), plus the earlier build scored again the same way. Final = mean of final shape and final texture, each the mean of ten body-part scores (0 to 100, mean over visible views), averaged over three fresh blind Opus medium scorer sessions.
+
+| Ladder | Final shape | Final texture | Final | USD |
+|---|---|---|---|---|
+| Opus shape, Fable shape, Opus texture twice | 77.01 | 79.83 | 78.42 | 81 |
+| Earlier ladder (Opus then Fable on shape and on texture) | 76.68 | 69.43 | 73.06 | 183 |
+| Opus on every pass | 65.09 | 67.78 | 66.44 | 36 |
+| Haiku then Opus | 53.49 | 58.47 | 55.98 | 21 |
+| Sonnet then Opus | 43.15 | 50.70 | 46.92 | 20 |
+| Sonnet on every pass | 40.45 | 49.14 | 44.80 | 11 |
+| Haiku then Sonnet | 27.12 | 34.76 | 30.94 | 9 |
+
+- Scorer spread: one scorer moves about 5 points on a part (largest seen 16) and up to 9 on a final.
+- Hands: 73.2 shape and 78.7 texture on the first row against 48.9 and 55.1 with Opus on every pass. The Fable shape rounds (4 to 6) cost 48.56 USD and moved whole-body shape from 63.7 to 79.7.
+- Sonnet texture test: rule fixed before the run, "texture goes to Sonnet when the final texture score is within the spread of the Opus build's three-scorer mean and no part's shape falls by more than the spread". Result: texture 63.19 against 67.78, 4.59 lower, spread 2.47: fail. Cost 5.95 USD. Per-scorer texture: 68.63, 67.33, 53.60 against 66.80, 67.27, 69.27. Paired reading added after the result (three fresh sessions, each scoring both finals, neutral ids, order mixed), Sonnet minus Opus: texture -2.70, -0.40, -1.58 (mean -1.56); shape -0.97, -0.82, -0.20 (mean -0.66). The repeat's pass rule, fixed before it runs: six paired scorers, mean paired texture difference at least -2.0, 95% lower bound at least -4.0, no part below -6.0, mean paired shape difference at least -2.0.
+- Limits: one droid, one build per ladder; ladders differ in more than one pass, so no row isolates one model on one pass.
+
+**Pixel checks.**
+
+- Pixel score (version 4) on planted cases: direction right in 34 of 36 (94%, 95% 82 to 98; unchanged 12 of 12, better 11 of 12, worse 11 of 12). On the 24 changed cases its median move was 2.59 points against the blind scorer's 11.83; correlation of the two 0.58.
+- Rank correlation of pixel components with the fresh scorer across the six male droids, shape art: outline 0.13, edge 0.79, colour 0.66, whole 0.64.
+- Per part, front view, best build: hips outline 90, edge 88.8, where three scorers gave hips 66.4 shape and 70.3 texture; hands outline 53, where scorers gave 73 to 79.
+- Reading test: 24 cases (20 with one local bump or dent on one part's outline, 4 unchanged), 4 ways of drawing the correction, 2 readers (Opus, Sonnet), 192 reads, 2.95 USD. Pass, fixed before the run: 16 or more of 20 changed cases right and no part named on any unchanged case. Overlay: 17 and 15. Tint with the peak size printed: 19 and 16. Local arrows with the size printed: 17 and 16. Per-part fit number only: 0 and 0. No part named on an unchanged case by any reader. Weak spot: an inward change on a thin arm was read as outward.
+
 ### Stats3: old against new, three droids, both bodies (comment 6951147899)
 
 Copied from stats3 as posted; superseded for male droids by the six-droid tables above. stats3's "wall h" columns are summed lane time (old 97.18 is a-standard's old lane h; 24.40 is both new bodies' lane h). n=3, not a controlled comparison, no ablation. The bootstrap intervals (10,000 draws, seed 1044550201) have only 10 distinct resamples at n=3 and are not inference. Scores are AI judge only, not yet checked against my blind labels.
