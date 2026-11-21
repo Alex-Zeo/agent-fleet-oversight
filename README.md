@@ -220,8 +220,9 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 - The rule's stop line was met before any paid arm ran.
 - On Nov 21 the owner approved cutting the strips at the joints, for this test only. The cut keeps every original vertex, gives each finger segment its own pieces, and every finger curls.
   - The first rig on the cut mesh reused the old position-weighted binding, which moves both sides of a cut together, so it did not test the cut. I withdrew its result.
-  - A binding that keeps each cut piece on its own finger segment still opens a 0.55 cm gap at the knuckle and pushes 529 faces through within one finger in a fist. The lines are 0.3 cm and 40.
-  - The measures failed their own check. A knuckle pivot moved by 0.5 or 1.0 cm barely changes any of them (gap +0.04 cm at most). On this mesh they cannot tell a misplaced finger joint from a correct one, so there is no verdict on finger rigs, and no paid arm ran. Tooling cost 5.18 USD.
+  - A binding that keeps each cut piece on its own finger segment still fails in a fist. It opens a 0.55 cm gap at the knuckle, slips 1.07 cm at the joints (p90), and makes 529 new intersecting triangle pairs within fingers, summed over the hand. The lines are 0.3 cm, 0.5 cm and 40.
+  - The measures failed their own check. A knuckle pivot moved by 0.5 or 1.0 cm moves no measure by its line amount: at most gap +0.04 cm, curl -0.9 cm and same-finger overlap +33, against lines of 0.3 cm, 1.5 cm and 40. On this mesh they cannot tell a misplaced finger joint from a correct one, so there is no verdict on finger rigs.
+  - Tooling for both cut studies on Nov 21 cost 5.18 USD (4.23 and 0.95), outside the Nov 20 total. No paid arm ran.
 
 **An emote from key-pose art (right-hand wave, one body).** Three blind scorers matched five key poses against the art:
 
