@@ -253,7 +253,8 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
   - Opus left the knee plates on the thigh.
   - Sonnet put the shoulder and elbow pivots in the wrong place.
 - The first sitting was void. With the plain prompt, two of three scorers and both replacements did not put the known bad 25 points under the shipped rig; three of those four scored the two within 2 points. A required joint-by-joint crop step fixed that: gaps of 35 to 44 points.
-- Whether a Fable judge round earns its cost waits for Fable access, and the Unreal arms wait on an Unreal export check.
+- Whether a Fable judge round earns its cost waits for Fable access.
+- The Unreal side could not be measured: Unreal 5.8.4 imported the shipped rig but crashed on all 4 skinned mesh export tries on the headless box, so no paid Unreal arm ran.
 
 What this changes:
 - Rig and motion defects are found by measures, and models only judge poses against art.
