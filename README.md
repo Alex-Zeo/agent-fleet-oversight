@@ -255,7 +255,7 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 - The first sitting was void. With the plain prompt, two of three scorers and both replacements did not put the known bad 25 points under the shipped rig; three of those four scored the two within 2 points. A required joint-by-joint crop step fixed that: gaps of 35 to 44 points.
 - Whether a Fable judge round earns its cost waits for Fable access.
 - Unreal: the headless box crashes on every skinned mesh FBX export, so the rigs leave Unreal as USD. The shipped rig sent through Unreal and USD came back with no flag on the combined measure, so the route is clean.
-- Each model then rebuilt the rig inside Unreal, from the same brief and input. A second sitting scored both engines together, and all three scorers were valid:
+- On Nov 21, each model rebuilt the rig inside Unreal from the same input. The brief changed only for the engine and the USD delivery, and the box runner added its own checkpoint and ETA lines to the Unreal prompts. A new sitting scored both engines together, and all three scorers were valid:
 
 | Rig | Scores | Mean | USD |
 |---|---|---|---|
@@ -269,14 +269,15 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 - Blender beat Unreal for both models under the rule: Opus by 16.3 points and Sonnet by 15.0, with all three scorers agreeing. Each Unreal arm also took longer (17.5 and 43.6 minutes, against 9.5 and 4.2).
   - Unreal Sonnet left both hands at hip height in every arm pose. It also failed a structural line, with an extra top bone.
   - Unreal Opus left thin strap pieces stretched from armpit to hip when the arms go up.
-- Blender Opus over Blender Sonnet did not count in this sitting, because one scorer put Sonnet 2 points higher. The same pair counted in the first sitting.
+- Blender Opus over Blender Sonnet did not count in this sitting, because one scorer put Sonnet 2 points higher. The same pair counted in the earlier valid sitting, by 10.3 points.
+- The Unreal side cost 7.77 USD on Nov 21: 3.65 for the two Unreal builds, priced from raw tokens (the runner reported 5.44), and 4.12 for the sitting. That is on top of the Nov 20 total above.
 
 What this changes:
 - Rig and motion defects are found by measures, and models only judge poses against art.
 - Scorer prompts for rigs now require joint crops.
 - Rig building stays on Opus, in Blender.
 
-Limits: one body per study except the 12-body copy, one build per arm, and one AI scorer family. The Unreal side covers only the emote study so far.
+Limits: one body per study except the 12-body copy, one build per arm, and one AI scorer family. The Unreal side covers only the emote and rig rebuild studies so far.
 
 ## Labelling and the judge check
 
