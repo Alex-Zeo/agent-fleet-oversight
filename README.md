@@ -214,7 +214,7 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 - Blind readers did as well as the measure only when they had the measure's table. Reading a 12-frame strip or an onion-skin overlay, they caught 4 of 12.
 - So motion is judged by the measure, and models judge only poses.
 
-**Fingers: stopped. A mesh cut was approved, and then the finger measures failed their own check.**
+**Fingers: the mesh cut works, and the finger measures pass their check after a fix. No hand passes yet.**
 - Each finger on this mesh is a set of strips running from the knuckle to the tip, and the joint rings already intersect the finger tubes at rest (1,646 triangle pairs).
 - Three script bindings, from one bone per piece to blended weights at the joints, all curl the fingers but open gaps or push faces through the rings.
 - The rule's stop line was met before any paid arm ran.
@@ -223,6 +223,7 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
   - A binding that keeps each cut piece on its own finger segment still fails in a fist. It opens a 0.55 cm gap at the knuckle, slips 1.07 cm at the joints (p90), and makes 529 new intersecting triangle pairs within fingers, summed over the hand. The lines are 0.3 cm, 0.5 cm and 40.
   - The measures failed their own check. A knuckle pivot moved by 0.5 or 1.0 cm moves no measure by its line amount: at most gap +0.04 cm, curl -0.9 cm and same-finger overlap +33, against lines of 0.3 cm, 1.5 cm and 40. On this mesh they cannot tell a misplaced finger joint from a correct one, so there is no verdict on finger rigs.
   - Tooling for both cut studies on Nov 21 cost 5.18 USD (4.23 and 0.95), outside the Nov 20 total. No paid arm ran.
+  - On Nov 24 a pivot measure was added, at zero tokens. It is the distance from each finger bone's head to the joint centre found from the mesh, with a 0.3 cm line. With it, the measure set catches every planted fault, the 0.5 and 1.0 cm knuckle pivots included, and the unchanged cases stay clean. The finger measures are now valid on this mesh, but no hand passes yet. Paid finger arms need about 8.5 USD, against 4.17 left in the study's cap.
 
 **An emote from key-pose art (right-hand wave, one body).** Three blind scorers matched five key poses against the art:
 
