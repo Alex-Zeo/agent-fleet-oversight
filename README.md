@@ -214,7 +214,7 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
 - Blind readers did as well as the measure only when they had the measure's table. Reading a 12-frame strip or an onion-skin overlay, they caught 4 of 12.
 - So motion is judged by the measure, and models judge only poses.
 
-**Fingers: the mesh cut works, and the finger measures pass their check after a fix. No hand passes yet.**
+**Fingers: the mesh cut works and the finger measures are fixed, but no rig passes, Sonnet and Opus included.**
 - Each finger on this mesh is a set of strips running from the knuckle to the tip, and the joint rings already intersect the finger tubes at rest (1,646 triangle pairs).
 - Three script bindings, from one bone per piece to blended weights at the joints, all curl the fingers but open gaps or push faces through the rings.
 - The rule's stop line was met before any paid arm ran.
@@ -223,7 +223,12 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
   - A binding that keeps each cut piece on its own finger segment still fails in a fist. It opens a 0.55 cm gap at the knuckle, slips 1.07 cm at the joints (p90), and makes 529 new intersecting triangle pairs within fingers, summed over the hand. The lines are 0.3 cm, 0.5 cm and 40.
   - The measures failed their own check. A knuckle pivot moved by 0.5 or 1.0 cm moves no measure by its line amount: at most gap +0.04 cm, curl -0.9 cm and same-finger overlap +33, against lines of 0.3 cm, 1.5 cm and 40. On this mesh they cannot tell a misplaced finger joint from a correct one, so there is no verdict on finger rigs.
   - Tooling for both cut studies on Nov 21 cost 5.18 USD (4.23 and 0.95), outside the Nov 20 total. No paid arm ran.
-  - On Nov 24 a pivot measure was added, at zero tokens. It is the distance from each finger bone's head to the joint centre found from the mesh, with a 0.3 cm line. With it, the measure set catches every planted fault, the 0.5 and 1.0 cm knuckle pivots included, and the unchanged cases stay clean. The finger measures are now valid on this mesh, but no hand passes yet. Paid finger arms need about 8.5 USD, against 4.17 left in the study's cap.
+  - On Nov 24 a pivot measure was added, at zero tokens. It is the distance from each finger bone's head to the joint centre found from the mesh, with a 0.3 cm line. With it, the measure set catches every planted fault, the 0.5 and 1.0 cm knuckle pivots included, and the unchanged cases stay clean. The finger measures are now valid on this mesh.
+  - The owner then raised the cap, and Sonnet and Opus each rigged the cut hand from the same brief. Both put every finger joint within 0.001 cm of the mesh joint centres, and both curl every finger. Neither passes. In a fist:
+    - Sonnet opens a 0.77 cm gap, slips 1.14 cm and makes 497 new intersecting triangle pairs within fingers;
+    - Opus opens 0.55 cm at the pinky knuckle, slips 1.25 cm and makes 622.
+  - With the joints in the right place, what still fails is rigid pieces colliding as the fingers close, at the knuckles and in the joint rings.
+  - Sonnet cost 2.09 USD and Opus 6.71, both over their prompt caps of 1.5 and 3. That put the paid total at 8.80 USD, so the scorer sitting was held at the study's 10 USD stop line. Neither arm could pass whatever it scored.
 
 **An emote from key-pose art (right-hand wave, one body).** Three blind scorers matched five key poses against the art:
 
