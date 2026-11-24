@@ -228,7 +228,20 @@ Seven studies on Nov 20, about 30 USD in all, on the 12 droid bodies already rig
     - Sonnet opens a 0.77 cm gap, slips 1.14 cm and makes 497 new intersecting triangle pairs within fingers;
     - Opus opens 0.55 cm at the pinky knuckle, slips 1.25 cm and makes 622.
   - With the joints in the right place, what still fails is rigid pieces colliding as the fingers close, at the knuckles and in the joint rings.
-  - Sonnet cost 2.09 USD and Opus 6.71, both over their prompt caps of 1.5 and 3. That put the paid total at 8.80 USD, so the scorer sitting was held at the study's 10 USD stop line. Neither arm could pass whatever it scored.
+  - Sonnet cost 2.09 USD and Opus 6.71, both over their prompt caps of 1.5 and 3.
+  - The owner approved a scorer sitting past the study's 10 USD stop line. Three blind scorers, all valid, scored the hands:
+
+| Hand | Scores | Mean |
+|---|---|---|
+| Opus | 90, 86, 88 | 88.0 |
+| Script binding | 82, 44, 78 | 68.0 |
+| Sonnet | 48, 46, 45 | 46.3 |
+| One finger left straight (known bad) | 28, 22, 40 | 30.0 |
+| Cut hand, fingers never move | 10, 15, 15 | 13.3 |
+
+  - Opus beat Sonnet by 41.7 points and the script by 20.0, with all three scorers agreeing. Sonnet left a flat plate hanging below the hand in the fist, which every scorer named and no finger measure caught.
+  - The measures and the scorers disagree on Opus: the measures rate it no better than the script, while the scorers put it 20 points higher. It still fails the measure lines, so no finger rig passes.
+  - The finger study's paid total was 11.29 USD.
 
 **An emote from key-pose art (right-hand wave, one body).** Three blind scorers matched five key poses against the art:
 
